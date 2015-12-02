@@ -923,8 +923,11 @@
    <property name="text">
     <string>Fill Tool</string>
    </property>
+   <property name="toolTip">
+    <string>Flood Fill</string>
+   </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>Fills an area of the same color with the selected color.</string>
    </property>
   </action>
   <action name="actionPencil_Tool">
@@ -940,6 +943,9 @@
    </property>
    <property name="text">
     <string>Pencil Tool</string>
+   </property>
+   <property name="toolTip">
+    <string>Pencil</string>
    </property>
    <property name="statusTip">
     <string>Soon!</string>

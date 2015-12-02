@@ -141,6 +141,9 @@ void ImageEditWidget::ToolAction(const QPoint &pos) {
 void ImageEditWidget::Fill(const QPoint &seed_pos, const QColor &color) {
   QRgb new_color = color.rgba();
   QRgb old_color = image_.pixel(seed_pos);
+  if(new_color == old_color){
+    return;
+  }
   QList<QPoint> to_do_list = {seed_pos};
 
   QVector<QPoint> expansion = {
