@@ -45,6 +45,11 @@ public slots:
   // Tools
   void PencilToolPressed() const;
   void FillToolPressed() const;
+  void LineToolPressed() const;
+  void EllipseToolPressed() const;
+  void RectangleToolPressed() const;
+  void SelectionToolPressed() const;
+  void ZoomToolPressed() const;
 
   // Interface Actions
   void About() const;

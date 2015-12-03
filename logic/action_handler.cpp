@@ -123,8 +123,33 @@ void ActionHandler::PencilToolPressed() const {
 }
 
 void ActionHandler::FillToolPressed() const {
-  SwapTools(TOOL_FILL);
-  options_cache_->set_tool(TOOL_FILL);
+  SwapTools(TOOL_FLOOD_FILL);
+  options_cache_->set_tool(TOOL_FLOOD_FILL);
+}
+
+void ActionHandler::LineToolPressed() const {
+  SwapTools(TOOL_LINE);
+  options_cache_->set_tool(TOOL_LINE);
+}
+
+void ActionHandler::EllipseToolPressed() const {
+  SwapTools(TOOL_ELLIPSE);
+  options_cache_->set_tool(TOOL_ELLIPSE);
+}
+
+void ActionHandler::RectangleToolPressed() const {
+  SwapTools(TOOL_RECTANCLE);
+  options_cache_->set_tool(TOOL_RECTANCLE);
+}
+
+void ActionHandler::SelectionToolPressed() const {
+  SwapTools(TOOL_SELECTION);
+  options_cache_->set_tool(TOOL_SELECTION);
+}
+
+void ActionHandler::ZoomToolPressed() const {
+  SwapTools(TOOL_ZOOM);
+  options_cache_->set_tool(TOOL_ZOOM);
 }
 
 void ActionHandler::About() const {

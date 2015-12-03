@@ -226,7 +226,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
+          <width>186</width>
           <height>251</height>
          </rect>
         </property>
@@ -880,8 +880,11 @@
    </property>
   </action>
   <action name="actionSelection_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -895,8 +898,11 @@
    </property>
   </action>
   <action name="actionZoom_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -952,8 +958,11 @@
    </property>
   </action>
   <action name="actionLine_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -967,8 +976,11 @@
    </property>
   </action>
   <action name="actionRectangle_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -982,8 +994,11 @@
    </property>
   </action>
   <action name="actionEllipse_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">

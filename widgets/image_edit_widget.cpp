@@ -78,6 +78,7 @@ void ImageEditWidget::mouseMoveEvent(QMouseEvent *event) {
   //setStatusTip(QString("Cursor x: %1 y: %2").arg(pos.x()).arg(pos.y()));
 
   ToolAction(pos);
+  previous_pos_ = pos;
   update();
 }
 
@@ -87,6 +88,7 @@ void ImageEditWidget::leaveEvent(QEvent *event) {
 }
 
 void ImageEditWidget::mousePressEvent(QMouseEvent *event) {
+  previous_pos_ = event->pos();
   switch(event->button()) {
   case Qt::LeftButton:
     left_button_down_ = true;
@@ -121,14 +123,20 @@ void ImageEditWidget::ToolAction(const QPoint &pos) {
   switch (options_cache_->tool()) {
   case TOOL_PENCIL:
     if(left_button_down_ && cursor_.isValid()){
-      image_.setPixel(img_pos,options_cache_->main_color().rgba());
+      QPoint img_previous_pos = QPoint(previous_pos_.x()/zoom,previous_pos_.y()/zoom);
+      QPainter painter(&image_);
+      painter.setPen(options_cache_->main_color());
+      painter.setBrush(options_cache_->main_color());
+      painter.drawLine(img_previous_pos,img_pos);
+      painter.end();
+      //image_.setPixel(img_pos,options_cache_->main_color().rgba());
     }else if(right_button_down_ && cursor_.isValid()){
       pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
     }
     break;
-  case TOOL_FILL:
+  case TOOL_FLOOD_FILL:
     if(left_button_down_ && cursor_.isValid()){
-      Fill(img_pos, options_cache_->main_color());
+      FloodFill(img_pos, options_cache_->main_color());
     }else if(right_button_down_ && cursor_.isValid()){
       pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
     }
@@ -138,7 +146,7 @@ void ImageEditWidget::ToolAction(const QPoint &pos) {
   }
 }
 
-void ImageEditWidget::Fill(const QPoint &seed_pos, const QColor &color) {
+void ImageEditWidget::FloodFill(const QPoint &seed_pos, const QColor &color) {
   QRgb new_color = color.rgba();
   QRgb old_color = image_.pixel(seed_pos);
   if(new_color == old_color){

@@ -27,7 +27,12 @@ class QSettings;
 
 enum TOOL_ENUM : int{
   TOOL_PENCIL = 1,
-  TOOL_FILL = 2
+  TOOL_FLOOD_FILL = 2,
+  TOOL_LINE = 3,
+  TOOL_RECTANCLE=4,
+  TOOL_ELLIPSE=5,
+  TOOL_SELECTION=6,
+  TOOL_ZOOM = 7
 };
 
 /*!

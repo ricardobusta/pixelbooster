@@ -77,8 +77,23 @@ QAction *MainWindow::GetTool(const int tool) {
   case TOOL_PENCIL:
     return ui->actionPencil_Tool;
     break;
-  case TOOL_FILL:
+  case TOOL_FLOOD_FILL:
     return ui->actionFill_Tool;
+    break;
+  case TOOL_LINE:
+    return ui->actionLine_Tool;
+    break;
+  case TOOL_ELLIPSE:
+    return ui->actionEllipse_Tool;
+    break;
+  case TOOL_RECTANCLE:
+    return ui->actionRectangle_Tool;
+    break;
+  case TOOL_ZOOM:
+    return ui->actionZoom_Tool;
+    break;
+  case TOOL_SELECTION:
+    return ui->actionSelection_Tool;
     break;
   default:
     return nullptr;
@@ -117,6 +132,11 @@ void MainWindow::ConnectActions() {
   // Tools
   QObject::connect(ui->actionPencil_Tool,SIGNAL(triggered()),action_handler_,SLOT(PencilToolPressed()));
   QObject::connect(ui->actionFill_Tool,SIGNAL(triggered()),action_handler_,SLOT(FillToolPressed()));
+  QObject::connect(ui->actionLine_Tool,SIGNAL(triggered()),action_handler_,SLOT(LineToolPressed()));
+  QObject::connect(ui->actionEllipse_Tool,SIGNAL(triggered()),action_handler_,SLOT(EllipseToolPressed()));
+  QObject::connect(ui->actionRectangle_Tool,SIGNAL(triggered()),action_handler_,SLOT(RectangleToolPressed()));
+  QObject::connect(ui->actionSelection_Tool,SIGNAL(triggered()),action_handler_,SLOT(SelectionToolPressed()));
+  QObject::connect(ui->actionZoom_Tool,SIGNAL(triggered()),action_handler_,SLOT(ZoomToolPressed()));
 
   // Inverse communication
   QObject::connect(action_handler_,SIGNAL(UpdateEditArea()),ui->edit_widget,SLOT(UpdateWidget()));
