@@ -73,7 +73,7 @@ void ActionHandler::NewFile() const {
 }
 
 void ActionHandler::OpenFile() const {
-  QStringList file_names = QFileDialog::getOpenFileNames(window_cache_,"Open Files",".","Images (*.png *.xpm *.jpg)");
+  QStringList file_names = QFileDialog::getOpenFileNames(window_cache_,"Open Files",".","Images (*.png *.bmp *.jpg *.jpeg *.pbm *.pgm *.ppm *.tiff *.xbm *.xpm)");
 
   for( QString file_name : file_names ){
     if(!file_name.isEmpty()){
