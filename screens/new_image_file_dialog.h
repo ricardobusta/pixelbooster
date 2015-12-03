@@ -38,13 +38,19 @@ public:
 
   QSize selected_size() const;
   QImage::Format selected_format() const;
+  QColor selected_color() const;
 
 private:
   Ui::NewImageFileDialog *ui;
 
   QSize selected_size_;
+  QColor selected_color_;
   QImage::Format selected_format_;
+
+  void SetColor(const QColor &color);
 private slots:
+  void ColorButtonClicked();
+
   void UpdatePresetValues(int index);
   void UpdateWidthValue(int w);
   void UpdateHeightValue(int h);

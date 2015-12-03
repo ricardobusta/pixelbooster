@@ -68,6 +68,9 @@ public:
   QColor alt_color() const;
   void set_alt_color(const QColor &color);
 
+  void set_new_image_color(const QColor &color);
+  QColor new_image_color() const;
+
   QRect PosToGrid(const QPoint &pos) const;
 
   void SaveState(QSettings *settings) const;
@@ -92,6 +95,7 @@ private:
   QColor alt_color_;
   TOOL_ENUM tool_;
   QString language_;
+  QColor new_image_color_;
 };
 
 #endif // GLOBAL_OPTIONS_H

@@ -20,9 +20,13 @@
 #include "ui_new_image_file_dialog.h"
 
 #include <QRegularExpression>
+#include <QColorDialog>
 
 #include "utils/debug.h"
 #include "application/pixel_booster.h"
+#include "resources/translations/international_text.h"
+
+const QString kTxtColorDialogTitle = "Select backgrond color";
 
 const QSize kPresetOptions[] = {
   QSize(16,16),
@@ -58,10 +62,13 @@ NewImageFileDialog::NewImageFileDialog(QWidget *parent) :
   QObject::connect(ui->width_spinBox,SIGNAL(valueChanged(int)),this,SLOT(UpdateWidthValue(int)));
   QObject::connect(ui->height_spinBox,SIGNAL(valueChanged(int)),this,SLOT(UpdateHeightValue(int)));
   QObject::connect(ui->format_comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(UpdateFormatValue(int)));
+  QObject::connect(ui->color_pushButton,SIGNAL(clicked()),this,SLOT(ColorButtonClicked()));
 
   QSize new_image_size = pApp->options()->new_image_size();
   ui->width_spinBox->setValue(new_image_size.width());
   ui->height_spinBox->setValue(new_image_size.height());
+
+  SetColor(pApp->options()->new_image_color());
 
   QObject::connect(this,SIGNAL(accepted()),this,SLOT(UpdateGlobalNewImageSize()));
 }
@@ -76,6 +83,23 @@ QSize NewImageFileDialog::selected_size() const {
 
 QImage::Format NewImageFileDialog::selected_format() const {
   return selected_format_;
+}
+
+QColor NewImageFileDialog::selected_color() const {
+  return selected_color_;
+}
+
+void NewImageFileDialog::SetColor(const QColor &color) {
+  selected_color_ = color;
+  ui->color_pushButton->setStyleSheet(QString("background-color: %1; border: 1px solid black;").arg(selected_color_.name()));
+}
+
+void NewImageFileDialog::ColorButtonClicked() {
+  QColor color = QColorDialog::getColor(selected_color_,this,kTxtColorDialogTitle,QColorDialog::ShowAlphaChannel);
+  if(color.isValid()){
+    SetColor(color);
+    pApp->options()->set_new_image_color(color);
+  }
 }
 
 void NewImageFileDialog::UpdatePresetValues(int index) {

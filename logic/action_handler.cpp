@@ -64,7 +64,7 @@ void ActionHandler::NewFile() const {
   QImage::Format format = image_file_dialog->selected_format();
 
   QImage image(size,format);
-  image.fill(Qt::white);
+  image.fill(image_file_dialog->selected_color());
   CreateImageCanvas(image, "");
 
   delete image_file_dialog;

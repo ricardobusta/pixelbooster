@@ -38,6 +38,8 @@ const QString kStateColorAlt = "AltColor";
 const QColor kStateColorAltDefault = QColor(Qt::black).name();
 const QString kStateLanguage = "Language";
 const QString kStateLanguageDefault = "en_us";
+const QString kStateNewImageColor = "NewImageColor";
+const QColor kStateNewImageColorDefault = QColor(Qt::white).name();
 
 GlobalOptions::GlobalOptions():
   vertical_shift_(false),
@@ -133,6 +135,14 @@ void GlobalOptions::set_alt_color(const QColor &color) {
   alt_color_ = color;
 }
 
+void GlobalOptions::set_new_image_color(const QColor &color) {
+  new_image_color_ = color;
+}
+
+QColor GlobalOptions::new_image_color() const {
+  return new_image_color_;
+}
+
 void GlobalOptions::SaveState(QSettings * settings) const {
   settings->setValue(kStateCursorSize,cursor_size_);
   settings->setValue(kStateNewImageSize,new_image_size_);
@@ -142,6 +152,7 @@ void GlobalOptions::SaveState(QSettings * settings) const {
   settings->setValue(kStateColorMain,main_color_.name());
   settings->setValue(kStateColorAlt,alt_color_.name());
   settings->setValue(kStateLanguage,language_);
+  settings->setValue(kStateNewImageColor,new_image_color_);
 }
 
 #define SETTINGS_VALUE(var) (settings->value(var,var##Default))
@@ -157,6 +168,7 @@ void GlobalOptions::LoadState(QSettings * settings) {
   main_color_ = QColor(SETTINGS_VALUE(kStateColorMain).toString());
   alt_color_ = QColor(SETTINGS_VALUE(kStateColorAlt).toString());
   language_ = SETTINGS_VALUE(kStateLanguage).toString();
+  new_image_color_ = SETTINGS_VALUE(kStateNewImageColor).toString();
 }
 
 #undef SETTINGS_VALUE
