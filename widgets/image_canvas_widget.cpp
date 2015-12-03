@@ -141,7 +141,8 @@ void ImageCanvasWidget::mouseReleaseEvent(QMouseEvent *event) {
   anchor_down_ = false;
   if(event->button() == Qt::RightButton){
     // Get image from the canvas
-    emit SendImage(&image_.copy(options_cache_->selection()));
+    QImage send_image = image_.copy(options_cache_->selection());
+    emit SendImage(&send_image);
     options_cache_->UpdateCursorShift();
   }else if(event->button() == Qt::LeftButton){
     // Set image back to the canvas
