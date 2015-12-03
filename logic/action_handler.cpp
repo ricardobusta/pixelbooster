@@ -121,7 +121,7 @@ void ActionHandler::Undo() const {
 }
 
 void ActionHandler::Redo() const {
-  DEBUG_MSG("Redo");
+  window_cache_->edit_widget()->Redo();
 }
 
 void ActionHandler::PencilToolPressed() const {

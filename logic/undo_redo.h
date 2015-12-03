@@ -27,9 +27,9 @@ public:
 //  ~UndoRedo();
 
   void Do(const QImage &img);
-  QImage Undo();
+  QImage Undo(const QImage &current);
   qint64 UndoTimestamp() const;
-  QImage Redo();
+  QImage Redo(const QImage &current);
   qint64 RedoTimestamp() const;
 
 private:
@@ -47,6 +47,8 @@ private:
     int first;
     int last;
 
+    bool IsEmpty();
+    void Clear();
     void Push(const QImage &img, qint64 timestamp);
     qint64 Check() const;
     QImage Pop();

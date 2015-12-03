@@ -51,7 +51,7 @@ void ImageEditWidget::Clear(const QSize &size) {
 }
 
 void ImageEditWidget::Undo() {
-  QImage img = undo_redo_.Undo();
+  QImage img = undo_redo_.Undo(image_);
   if(!img.isNull()){
     image_ = img;
     update();
@@ -59,7 +59,11 @@ void ImageEditWidget::Undo() {
 }
 
 void ImageEditWidget::Redo() {
-
+  QImage img = undo_redo_.Redo(image_);
+  if(!img.isNull()){
+    image_ = img;
+    update();
+  }
 }
 
 void ImageEditWidget::paintEvent(QPaintEvent *event) {
@@ -299,6 +303,8 @@ void ImageEditWidget::GetImage(QImage *image) {
   image_ = *image;
   overlay_image_ = QImage(image_.size(),image_.format());
   overlay_image_.fill(0x0);
+
+  undo_redo_.Do(image_);
 
   UpdateWidget();
 }

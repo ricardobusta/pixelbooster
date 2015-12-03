@@ -22,17 +22,20 @@
 
 #include "utils/debug.h"
 
+const int kUndoRedoSize = 12;
+
 UndoRedo::UndoRedo() {}
 
 void UndoRedo::Do(const QImage &img) {
   undo.Push(img, QDateTime::currentMSecsSinceEpoch());
+  redo.Clear();
 }
 
-QImage UndoRedo::Undo() {
-  DEBUG_MSG("Undo");
+QImage UndoRedo::Undo(const QImage &current) {
+  if(!undo.IsEmpty()){
+    redo.Push(current,QDateTime::currentMSecsSinceEpoch());
+  }
   QImage u = undo.Pop();
-  DEBUG_MSG("Redo");
-  redo.Push(u,QDateTime::currentMSecsSinceEpoch());
   return u;
 }
 
@@ -40,7 +43,10 @@ qint64 UndoRedo::UndoTimestamp() const {
   return undo.Check();
 }
 
-QImage UndoRedo::Redo() {
+QImage UndoRedo::Redo(const QImage &current) {
+  if(!redo.IsEmpty()){
+    undo.Push(current,QDateTime::currentMSecsSinceEpoch());
+  }
   QImage r = redo.Pop();
   return r;
 }
@@ -52,7 +58,15 @@ qint64 UndoRedo::RedoTimestamp() const {
 UndoRedo::UndoRedoStack::UndoRedoStack():
   first(-1),
   last(0){
-  data.resize(3);
+  data.resize(kUndoRedoSize);
+}
+
+bool UndoRedo::UndoRedoStack::IsEmpty(){
+  return (first == -1);
+}
+
+void UndoRedo::UndoRedoStack::Clear() {
+  first = -1;
 }
 
 void UndoRedo::UndoRedoStack::Push(const QImage &img, qint64 timestamp) {
@@ -78,7 +92,7 @@ qint64 UndoRedo::UndoRedoStack::Check() const {
 }
 
 QImage UndoRedo::UndoRedoStack::Pop() {
-    DEBUG_MSG("first" << first << "last" << last);
+  DEBUG_MSG("first" << first << "last" << last);
   if(first == -1){
     // Empty stack;
     return QImage(0,0,QImage::Format_Invalid);
@@ -88,7 +102,7 @@ QImage UndoRedo::UndoRedoStack::Pop() {
   }else{
     int out = first;
     first--;
-    first%=data.length();
+    first = first<0?data.length()-1:first;
     return data[out].image;
   }
 }
