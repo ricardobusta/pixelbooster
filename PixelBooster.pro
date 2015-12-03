@@ -39,7 +39,8 @@
       screens/about_dialog.cpp \
       screens/set_tile_size_dialog.cpp \
       screens/main_window.cpp \
-      widgets/color_palette_widget.cpp
+      widgets/color_palette_widget.cpp \
+      logic/undo_redo.cpp
 
   HEADERS  += \
       widgets/image_edit_widget.h \
@@ -55,7 +56,8 @@
       screens/set_tile_size_dialog.h \
       screens/main_window.h \
       widgets/color_palette_widget.h \
-      resources/version.h
+      resources/version.h \
+      logic/undo_redo.h
 
   FORMS    += \
       screens/new_image_file_dialog.ui \

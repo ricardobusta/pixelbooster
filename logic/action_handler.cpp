@@ -27,6 +27,7 @@
 #include "screens/about_dialog.h"
 #include "screens/set_tile_size_dialog.h"
 #include "resources/version.h"
+#include "widgets/image_edit_widget.h"
 
 #include <QFileDialog>
 #include <QMdiArea>
@@ -113,6 +114,14 @@ void ActionHandler::SaveAs() const {
     DEBUG_MSG("Saving image");
     w->SaveAs();
   }
+}
+
+void ActionHandler::Undo() const {
+  window_cache_->edit_widget()->Undo();
+}
+
+void ActionHandler::Redo() const {
+  DEBUG_MSG("Redo");
 }
 
 void ActionHandler::PencilToolPressed() const {

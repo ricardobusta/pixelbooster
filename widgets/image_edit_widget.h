@@ -22,6 +22,8 @@
 #include <QWidget>
 #include <QImage>
 
+#include "logic/undo_redo.h"
+
 class GlobalOptions;
 
 enum ACTION_TOOL : int{
@@ -41,6 +43,9 @@ public:
   explicit ImageEditWidget(QWidget *parent = 0);
 
   void Clear(const QSize &size);
+
+  void Undo();
+  void Redo();
 protected:
   virtual void paintEvent(QPaintEvent *event);
   virtual void mouseMoveEvent(QMouseEvent *event);
@@ -51,6 +56,8 @@ protected:
 private:
   QImage image_;
   QRect cursor_;
+
+  UndoRedo undo_redo_;
 
   bool press_right_inside_;
   bool press_left_inside_;

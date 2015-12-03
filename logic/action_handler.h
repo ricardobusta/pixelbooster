@@ -42,6 +42,10 @@ public slots:
   void SaveAll() const;
   void SaveAs() const;
 
+  // Other Actions
+  void Undo() const;
+  void Redo() const;
+
   // Tools
   void PencilToolPressed() const;
   void FillToolPressed() const;

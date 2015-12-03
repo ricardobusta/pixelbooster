@@ -50,6 +50,18 @@ void ImageEditWidget::Clear(const QSize &size) {
   update();
 }
 
+void ImageEditWidget::Undo() {
+  QImage img = undo_redo_.Undo();
+  if(!img.isNull()){
+    image_ = img;
+    update();
+  }
+}
+
+void ImageEditWidget::Redo() {
+
+}
+
 void ImageEditWidget::paintEvent(QPaintEvent *event) {
   QPainter painter(this);
 
@@ -142,6 +154,10 @@ void ImageEditWidget::mouseClickEvent(QMouseEvent *event) {
 void ImageEditWidget::ToolAction(const QMouseEvent * event, ACTION_TOOL action) {
   QPoint pos = event->pos();
   QPoint img_pos = WidgetToImageSpace(pos);
+
+  if(action == ACTION_PRESS){
+    undo_redo_.Do(image_);
+  }
 
   switch (options_cache_->tool()) {
   case TOOL_PENCIL:

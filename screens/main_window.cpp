@@ -72,6 +72,10 @@ ImageCanvasContainer *MainWindow::current_canvas_container() {
   return current_canvas_container_;
 }
 
+ImageEditWidget *MainWindow::edit_widget() {
+  return ui->edit_widget;
+}
+
 QAction *MainWindow::GetTool(const int tool) {
   switch(tool){
   case TOOL_PENCIL:
@@ -120,6 +124,10 @@ void MainWindow::ConnectActions() {
   QObject::connect(ui->actionSave,SIGNAL(triggered(bool)),action_handler_,SLOT(SaveFile()));
   QObject::connect(ui->actionSave_As,SIGNAL(triggered(bool)),action_handler_,SLOT(SaveAs()));
   QObject::connect(ui->actionSave_All,SIGNAL(triggered(bool)),action_handler_,SLOT(SaveAll()));
+
+  // Other Actions
+  QObject::connect(ui->actionUndo,SIGNAL(triggered(bool)),action_handler_,SLOT(Undo()));
+  QObject::connect(ui->actionRedo,SIGNAL(triggered(bool)),action_handler_,SLOT(Redo()));
 
   // Interface Actions
   QObject::connect(ui->actionAbout,SIGNAL(triggered(bool)),action_handler_,SLOT(About()));

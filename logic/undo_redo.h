@@ -16,60 +16,44 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef MAIN_WINDOW_H
-#define MAIN_WINDOW_H
+#ifndef UNDO_REDO_H
+#define UNDO_REDO_H
 
-#include <QMainWindow>
+#include <QImage>
 
-namespace Ui {
-class MainWindow;
-}
-
-class QMdiArea;
-class QMdiSubWindow;
-class ActionHandler;
-class ImageCanvasContainer;
-class GlobalOptions;
-class ImageEditWidget;
-
-/*!
- * \brief The MainWindow class
- */
-class MainWindow : public QMainWindow {
-  Q_OBJECT
-
+class UndoRedo {
 public:
-  explicit MainWindow(QWidget *parent = 0);
-  ~MainWindow();
+  UndoRedo();
+//  ~UndoRedo();
 
-  QMdiArea * mdi_area() const;
-  ImageCanvasContainer * current_canvas_container();
-  ImageEditWidget * edit_widget();
+  void Do(const QImage &img);
+  QImage Undo();
+  qint64 UndoTimestamp() const;
+  QImage Redo();
+  qint64 RedoTimestamp() const;
 
-  QAction * GetTool(const int tool);
-
-  ActionHandler * action_handler() const;
-  QWidget * main_color_button() const;
-  QWidget * alt_color_button() const;
 private:
-  Ui::MainWindow *ui;
-  ActionHandler * action_handler_;
-  ImageCanvasContainer * current_canvas_container_;
+  class UndoRedoStack{
+  private:
+    class UndoRedoState{
+    public:
+      QImage image;
+      qint64 timestamp;
+    };
 
-  GlobalOptions * options_cache_;
+  public:
+    UndoRedoStack();
+    QVector<UndoRedoState> data;
+    int first;
+    int last;
 
-  void ConnectActions();
-  void ConnectWidgets();
+    void Push(const QImage &img, qint64 timestamp);
+    qint64 Check() const;
+    QImage Pop();
+  };
 
-  void SaveSettings();
-  void LoadSettings();
-  void UpdateWidgetState();
-
-  void changeEvent(QEvent *event);
-  void closeEvent(QCloseEvent *event);
-
-private slots:
-  void CurrentWindowChanged(QMdiSubWindow *w);
+  UndoRedoStack undo;
+  UndoRedoStack redo;
 };
 
-#endif // MAIN_WINDOW_H
+#endif // UNDO_REDO_H
