@@ -36,6 +36,7 @@ ImageEditWidget::ImageEditWidget(QWidget *parent)
   setMouseTracking(true);
   image_ = QImage(0,0,QImage::Format_ARGB32_Premultiplied);
   overlay_image_ = QImage(image_.size(),image_.format());
+  overlay_image_.fill(0x0);
   options_cache_ = pApp->options();
   this->setFixedSize(0,0);
 }
@@ -43,6 +44,7 @@ ImageEditWidget::ImageEditWidget(QWidget *parent)
 void ImageEditWidget::Clear(const QSize &size) {
   image_ = QImage(size,QImage::Format_ARGB32_Premultiplied);
   overlay_image_ = QImage(image_.size(),image_.format());
+  overlay_image_.fill(0x0);
   image_.fill(Qt::white);
   this->setFixedSize(image_.size());
   update();
@@ -76,7 +78,8 @@ void ImageEditWidget::mouseMoveEvent(QMouseEvent *event) {
 
   if(rect().contains(pos)){
     QPoint p = QPoint((pos.x()/zoom)*zoom,(pos.y()/zoom)*zoom);
-    cursor_ = QRect(p,QSize(zoom-1,zoom-1));
+    int cursor_size = zoom-1;
+    cursor_ = QRect(p,QSize(cursor_size,cursor_size));
   }else{
     cursor_ = QRect(0,0,0,0);
   }
@@ -143,23 +146,23 @@ void ImageEditWidget::ToolAction(const QMouseEvent * event, ACTION_TOOL action) 
   switch (options_cache_->tool()) {
   case TOOL_PENCIL:
     if(action == ACTION_PRESS || action == ACTION_MOVE){
-      if(left_button_down_ && cursor_.isValid()){
+      if(left_button_down_){
         QPoint img_previous_pos = WidgetToImageSpace(previous_pos_);
         QPainter painter(&image_);
         painter.setPen(options_cache_->main_color());
         painter.setBrush(options_cache_->main_color());
         painter.drawLine(img_previous_pos,img_pos);
         //image_.setPixel(img_pos,options_cache_->main_color().rgba());
-      }else if(right_button_down_ && cursor_.isValid()){
+      }else if(right_button_down_){
         pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
       }
     }
     break;
   case TOOL_FLOOD_FILL:
     if(action == ACTION_PRESS){
-      if(left_button_down_ && cursor_.isValid()){
+      if(left_button_down_){
         FloodFill(img_pos, options_cache_->main_color());
-      }else if(right_button_down_ && cursor_.isValid()){
+      }else if(right_button_down_){
         pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
       }
     }
@@ -279,6 +282,7 @@ void ImageEditWidget::GetImage(QImage *image) {
 
   image_ = *image;
   overlay_image_ = QImage(image_.size(),image_.format());
+  overlay_image_.fill(0x0);
 
   UpdateWidget();
 }
