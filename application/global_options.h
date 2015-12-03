@@ -76,6 +76,9 @@ public:
   void set_tool(const TOOL_ENUM tool);
   TOOL_ENUM tool() const;
 
+  void set_language(const QString &language);
+  QString language() const;
+
 private:
   QSize cursor_size_;
   QRect selection_;
@@ -88,6 +91,7 @@ private:
   QColor main_color_;
   QColor alt_color_;
   TOOL_ENUM tool_;
+  QString language_;
 };
 
 #endif // GLOBAL_OPTIONS_H

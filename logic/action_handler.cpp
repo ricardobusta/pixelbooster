@@ -186,11 +186,11 @@ void ActionHandler::OpenAltColorPick() const {
 }
 
 void ActionHandler::TranslatePT_BR() const {
-  pApp->Translate("pt_br");
+  Translate("pt_br");
 }
 
 void ActionHandler::TranslateEN_US() const {
-  pApp->Translate("en_us");
+  Translate("en_us");
 }
 
 void ActionHandler::SetMainColor(const QColor &color) const {
@@ -201,6 +201,11 @@ void ActionHandler::SetMainColor(const QColor &color) const {
 void ActionHandler::SetAltColor(const QColor &color) const {
   options_cache_->set_alt_color(color);
   window_cache_->alt_color_button()->setStyleSheet(kColorButtonStyle.arg(color.name()));
+}
+
+void ActionHandler::Translate(const QString &language) const {
+  options_cache_->set_language(language);
+  pApp->Translate(language);
 }
 
 void ActionHandler::CreateImageCanvas(const QImage &image, const QString &file_name) const {

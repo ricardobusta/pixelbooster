@@ -62,6 +62,7 @@ public slots:
   void SetAltColor(const QColor &color) const;
 
   // Language Actions
+  void Translate(const QString &language) const;
   void TranslatePT_BR() const;
   void TranslateEN_US() const;
 

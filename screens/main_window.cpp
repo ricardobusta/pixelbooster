@@ -190,6 +190,7 @@ void MainWindow::UpdateWidgetState() {
   GetTool(options_cache_->tool())->setChecked(true);
   action_handler_->SetMainColor(options_cache_->main_color());
   action_handler_->SetAltColor(options_cache_->alt_color());
+  action_handler_->Translate(options_cache_->language());
 }
 
 void MainWindow::changeEvent(QEvent *event) {
