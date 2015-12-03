@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Pixel::Booster</string>
+   <string notr="true">Pixel::Booster</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources/icons/icons.qrc">
@@ -226,7 +226,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>186</width>
+          <width>100</width>
           <height>251</height>
          </rect>
         </property>

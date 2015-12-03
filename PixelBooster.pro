@@ -20,6 +20,8 @@
 !lessThan(QT_MAJOR_VERSION,5){
   QT       += core gui widgets
 
+  RC_ICONS = icon.ico
+
   TARGET = PixelBooster
   TEMPLATE = app
   CONFIG += c++11

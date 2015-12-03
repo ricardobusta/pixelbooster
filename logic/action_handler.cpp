@@ -26,7 +26,7 @@
 #include "screens/new_image_file_dialog.h"
 #include "screens/about_dialog.h"
 #include "screens/set_tile_size_dialog.h"
-
+#include "resources/version.h"
 
 #include <QFileDialog>
 #include <QMdiArea>
