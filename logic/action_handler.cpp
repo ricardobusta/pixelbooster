@@ -136,8 +136,8 @@ void ActionHandler::EllipseToolPressed() const {
 }
 
 void ActionHandler::RectangleToolPressed() const {
-  SwapTools(TOOL_RECTANCLE);
-  options_cache_->set_tool(TOOL_RECTANCLE);
+  SwapTools(TOOL_RECTANGLE);
+  options_cache_->set_tool(TOOL_RECTANGLE);
 }
 
 void ActionHandler::SelectionToolPressed() const {

@@ -24,6 +24,13 @@
 
 class GlobalOptions;
 
+enum ACTION_TOOL : int{
+  ACTION_PRESS,
+  ACTION_RELEASE,
+  ACTION_MOVE,
+  ACTION_CLICK
+};
+
 /*!
  * \brief The ImageEditWidget class
  */
@@ -33,8 +40,6 @@ class ImageEditWidget : public QWidget
 public:
   explicit ImageEditWidget(QWidget *parent = 0);
 
-  QImage image_;
-
   void Clear(const QSize &size);
 protected:
   virtual void paintEvent(QPaintEvent *event);
@@ -42,19 +47,31 @@ protected:
   virtual void leaveEvent(QEvent *event);
   virtual void mousePressEvent(QMouseEvent *event);
   virtual void mouseReleaseEvent(QMouseEvent *event);
+  virtual void mouseClickEvent(QMouseEvent *event);
 private:
+  QImage image_;
   QRect cursor_;
+
+  bool press_right_inside_;
+  bool press_left_inside_;
+
   bool left_button_down_;
   bool right_button_down_;
+
 
   GlobalOptions * options_cache_;
 
   QPoint previous_pos_;
+  QPoint action_anchor_;
+  bool action_started_;
 
-  void ToolAction(const QPoint &pos);
+  QImage overlay_image_;
+
+  void ToolAction(const QMouseEvent *event, ACTION_TOOL action);
 
   void FloodFill(const QPoint &pos, const QColor &new_color);
 
+  QPoint WidgetToImageSpace(const QPoint &pos);
 signals:
   void SendImage(QImage*);
 public slots:

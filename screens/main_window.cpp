@@ -86,7 +86,7 @@ QAction *MainWindow::GetTool(const int tool) {
   case TOOL_ELLIPSE:
     return ui->actionEllipse_Tool;
     break;
-  case TOOL_RECTANCLE:
+  case TOOL_RECTANGLE:
     return ui->actionRectangle_Tool;
     break;
   case TOOL_ZOOM:

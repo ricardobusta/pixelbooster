@@ -29,15 +29,20 @@
 ImageEditWidget::ImageEditWidget(QWidget *parent)
   : QWidget(parent),
     left_button_down_(false),
-    right_button_down_(false) {
+    right_button_down_(false),
+    press_right_inside_(false),
+    press_left_inside_(false),
+    action_started_(false){
   setMouseTracking(true);
   image_ = QImage(0,0,QImage::Format_ARGB32_Premultiplied);
+  overlay_image_ = QImage(image_.size(),image_.format());
   options_cache_ = pApp->options();
   this->setFixedSize(0,0);
 }
 
 void ImageEditWidget::Clear(const QSize &size) {
   image_ = QImage(size,QImage::Format_ARGB32_Premultiplied);
+  overlay_image_ = QImage(image_.size(),image_.format());
   image_.fill(Qt::white);
   this->setFixedSize(image_.size());
   update();
@@ -56,6 +61,7 @@ void ImageEditWidget::paintEvent(QPaintEvent *event) {
   image_rect.setSize( QSize(image_.width()*zoom,image_.height()*zoom) );
 
   painter.drawImage(image_rect,image_);
+  painter.drawImage(image_rect,overlay_image_);
 
   painter.drawRect(cursor_);
 
@@ -75,9 +81,7 @@ void ImageEditWidget::mouseMoveEvent(QMouseEvent *event) {
     cursor_ = QRect(0,0,0,0);
   }
 
-  //setStatusTip(QString("Cursor x: %1 y: %2").arg(pos.x()).arg(pos.y()));
-
-  ToolAction(pos);
+  ToolAction(event,ACTION_MOVE);
   previous_pos_ = pos;
   update();
 }
@@ -89,7 +93,12 @@ void ImageEditWidget::leaveEvent(QEvent *event) {
 
 void ImageEditWidget::mousePressEvent(QMouseEvent *event) {
   previous_pos_ = event->pos();
-  switch(event->button()) {
+
+  bool contains_pos = rect().contains(event->pos());
+  press_left_inside_ = ( event->button() == Qt::LeftButton && contains_pos );
+  press_right_inside_ = ( event->button() == Qt::RightButton && contains_pos );
+
+  switch(event->button()){
   case Qt::LeftButton:
     left_button_down_ = true;
     break;
@@ -99,12 +108,13 @@ void ImageEditWidget::mousePressEvent(QMouseEvent *event) {
   default:
     break;
   }
-  ToolAction(event->pos());
+
+  ToolAction(event,ACTION_PRESS);
   update();
 }
 
 void ImageEditWidget::mouseReleaseEvent(QMouseEvent *event) {
-  switch(event->button()) {
+  switch(event->button()){
   case Qt::LeftButton:
     left_button_down_ = false;
     break;
@@ -114,31 +124,110 @@ void ImageEditWidget::mouseReleaseEvent(QMouseEvent *event) {
   default:
     break;
   }
+
+  if((press_left_inside_ || press_right_inside_) && rect().contains(event->pos())){
+    mouseClickEvent(event);
+  }
+
+  ToolAction(event,ACTION_RELEASE);
 }
 
-void ImageEditWidget::ToolAction(const QPoint &pos) {
-  int zoom = options_cache_->zoom();
-  QPoint img_pos = QPoint(pos.x()/zoom,pos.y()/zoom);
+void ImageEditWidget::mouseClickEvent(QMouseEvent *event) {
+  ToolAction(event,ACTION_CLICK);
+}
+
+void ImageEditWidget::ToolAction(const QMouseEvent * event, ACTION_TOOL action) {
+  QPoint pos = event->pos();
+  QPoint img_pos = WidgetToImageSpace(pos);
 
   switch (options_cache_->tool()) {
   case TOOL_PENCIL:
-    if(left_button_down_ && cursor_.isValid()){
-      QPoint img_previous_pos = QPoint(previous_pos_.x()/zoom,previous_pos_.y()/zoom);
-      QPainter painter(&image_);
-      painter.setPen(options_cache_->main_color());
-      painter.setBrush(options_cache_->main_color());
-      painter.drawLine(img_previous_pos,img_pos);
-      painter.end();
-      //image_.setPixel(img_pos,options_cache_->main_color().rgba());
-    }else if(right_button_down_ && cursor_.isValid()){
-      pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
+    if(action == ACTION_PRESS || action == ACTION_MOVE){
+      if(left_button_down_ && cursor_.isValid()){
+        QPoint img_previous_pos = WidgetToImageSpace(previous_pos_);
+        QPainter painter(&image_);
+        painter.setPen(options_cache_->main_color());
+        painter.setBrush(options_cache_->main_color());
+        painter.drawLine(img_previous_pos,img_pos);
+        //image_.setPixel(img_pos,options_cache_->main_color().rgba());
+      }else if(right_button_down_ && cursor_.isValid()){
+        pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
+      }
     }
     break;
   case TOOL_FLOOD_FILL:
-    if(left_button_down_ && cursor_.isValid()){
-      FloodFill(img_pos, options_cache_->main_color());
-    }else if(right_button_down_ && cursor_.isValid()){
-      pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
+    if(action == ACTION_PRESS){
+      if(left_button_down_ && cursor_.isValid()){
+        FloodFill(img_pos, options_cache_->main_color());
+      }else if(right_button_down_ && cursor_.isValid()){
+        pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
+      }
+    }
+    break;
+  case TOOL_LINE:
+    if(action == ACTION_PRESS){
+      if(left_button_down_){
+        action_anchor_ = WidgetToImageSpace(pos);
+        action_started_ = true;
+      }else if(right_button_down_){
+        pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
+      }
+    }else if(action == ACTION_MOVE){
+      if(action_started_ && img_pos != action_anchor_){
+        overlay_image_.fill(0x0);
+        QPainter overlay(&overlay_image_);
+        overlay.setPen(options_cache_->main_color());
+        overlay.drawLine(action_anchor_,img_pos);
+      }
+    }else if(action == ACTION_RELEASE){
+      QPainter apply(&image_);
+      apply.drawImage(image_.rect(),overlay_image_);
+      overlay_image_.fill(0x0);
+      action_started_ = false;
+    }
+    break;
+  case TOOL_ELLIPSE:
+    if(action == ACTION_PRESS){
+      if(left_button_down_){
+        action_anchor_ = WidgetToImageSpace(pos);
+        action_started_ = true;
+      }else if(right_button_down_){
+        pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
+      }
+    }else if(action == ACTION_MOVE){
+      if(action_started_ && img_pos != action_anchor_){
+        overlay_image_.fill(0x0);
+        QPainter overlay(&overlay_image_);
+        overlay.setPen(options_cache_->main_color());
+        overlay.drawEllipse(QRect(action_anchor_,img_pos).adjusted(0,0,-1,-1));
+      }
+    }else if(action == ACTION_RELEASE){
+      QPainter apply(&image_);
+      apply.drawImage(image_.rect(),overlay_image_);
+      overlay_image_.fill(0x0);
+      action_started_ = false;
+    }
+    break;
+  case TOOL_RECTANGLE:
+    if(action == ACTION_PRESS){
+      if(left_button_down_){
+        action_anchor_ = WidgetToImageSpace(pos);
+        action_started_ = true;
+      }else if(right_button_down_){
+        pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
+      }
+    }else if(action == ACTION_MOVE){
+      if(action_started_ && img_pos != action_anchor_){
+        overlay_image_.fill(0x0);
+        QPainter overlay(&overlay_image_);
+        overlay.setPen(options_cache_->main_color());
+        overlay.drawRect(QRect(action_anchor_,img_pos).adjusted(0,0,-1,-1));
+      }
+    }else if(action == ACTION_RELEASE){
+      QPainter apply(&image_);
+      apply.drawImage(image_.rect(),overlay_image_);
+      overlay_image_.fill(0x0);
+      action_started_ = false;
     }
     break;
   default:
@@ -178,12 +267,18 @@ void ImageEditWidget::FloodFill(const QPoint &seed_pos, const QColor &color) {
   }
 }
 
+QPoint ImageEditWidget::WidgetToImageSpace(const QPoint &pos) {
+  int zoom = options_cache_->zoom();
+  return QPoint(pos.x()/zoom,pos.y()/zoom);
+}
+
 void ImageEditWidget::GetImage(QImage *image) {
   if(NULL == image || image->isNull()){
     return;
   }
 
   image_ = *image;
+  overlay_image_ = QImage(image_.size(),image_.format());
 
   UpdateWidget();
 }
