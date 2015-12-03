@@ -110,10 +110,8 @@ void ActionHandler::SaveAs() const {
   ImageCanvasContainer *c = window_cache_->current_canvas_container();
   if(nullptr != c){
     ImageCanvasWidget * w = c->GetCanvasWidget();
-    if(!w->saved_state()){
-      DEBUG_MSG("Saving image");
-      w->SaveAs();
-    }
+    DEBUG_MSG("Saving image");
+    w->SaveAs();
   }
 }
 
