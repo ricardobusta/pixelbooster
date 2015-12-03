@@ -82,7 +82,6 @@ void UndoRedo::UndoRedoStack::Push(const QImage &img, qint64 timestamp) {
       last%=data.length();
     }
   }
-  DEBUG_MSG("first" << first << "last" << last);
   data[first].image = img;
   data[first].timestamp = timestamp;
 }
@@ -92,7 +91,6 @@ qint64 UndoRedo::UndoRedoStack::Check() const {
 }
 
 QImage UndoRedo::UndoRedoStack::Pop() {
-  DEBUG_MSG("first" << first << "last" << last);
   if(first == -1){
     // Empty stack;
     return QImage(0,0,QImage::Format_Invalid);
