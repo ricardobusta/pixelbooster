@@ -16,59 +16,63 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.    #
 #---------------------------------------------------------------------------#
 
-QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+!lessThan(QT_MAJOR_VERSION,5){
+  QT       += core gui widgets
 
-TARGET = PixelBooster
-TEMPLATE = app
-CONFIG += c++11
-QMAKE_CXXFLAGS += -Wall
+  TARGET = PixelBooster
+  TEMPLATE = app
+  CONFIG += c++11
+  QMAKE_CXXFLAGS += -Wall
 
-SOURCES += \
-    main.cpp \
-    widgets/image_edit_widget.cpp \
-    screens/new_image_file_dialog.cpp \
-    application/pixel_booster.cpp \
-    logic/action_handler.cpp \
-    widgets/image_canvas_container.cpp \
-    widgets/image_canvas_widget.cpp \
-    application/global_options.cpp \
-    screens/about_dialog.cpp \
-    screens/set_tile_size_dialog.cpp \
-    screens/main_window.cpp \
-    widgets/color_palette_widget.cpp
+  SOURCES += \
+      main.cpp \
+      widgets/image_edit_widget.cpp \
+      screens/new_image_file_dialog.cpp \
+      application/pixel_booster.cpp \
+      logic/action_handler.cpp \
+      widgets/image_canvas_container.cpp \
+      widgets/image_canvas_widget.cpp \
+      application/global_options.cpp \
+      screens/about_dialog.cpp \
+      screens/set_tile_size_dialog.cpp \
+      screens/main_window.cpp \
+      widgets/color_palette_widget.cpp
 
-HEADERS  += \
-    widgets/image_edit_widget.h \
-    screens/new_image_file_dialog.h \
-    application/pixel_booster.h \
-    logic/action_handler.h \
-    utils/debug.h \
-    resources/translations/international_text.h \
-    widgets/image_canvas_container.h \
-    widgets/image_canvas_widget.h \
-    application/global_options.h \
-    screens/about_dialog.h \
-    screens/set_tile_size_dialog.h \
-    screens/main_window.h \
-    widgets/color_palette_widget.h \
-    resources/version.h
+  HEADERS  += \
+      widgets/image_edit_widget.h \
+      screens/new_image_file_dialog.h \
+      application/pixel_booster.h \
+      logic/action_handler.h \
+      utils/debug.h \
+      resources/translations/international_text.h \
+      widgets/image_canvas_container.h \
+      widgets/image_canvas_widget.h \
+      application/global_options.h \
+      screens/about_dialog.h \
+      screens/set_tile_size_dialog.h \
+      screens/main_window.h \
+      widgets/color_palette_widget.h \
+      resources/version.h
 
-FORMS    += \
-    screens/new_image_file_dialog.ui \
-    widgets/image_canvas_container.ui \
-    screens/about_dialog.ui \
-    screens/set_tile_size_dialog.ui \
-    screens/main_window.ui
+  FORMS    += \
+      screens/new_image_file_dialog.ui \
+      widgets/image_canvas_container.ui \
+      screens/about_dialog.ui \
+      screens/set_tile_size_dialog.ui \
+      screens/main_window.ui
 
-RESOURCES += \
-    resources/icons/icons.qrc \
-    resources/images/images.qrc \
-    resources/translations/translations.qrc
+  RESOURCES += \
+      resources/icons/icons.qrc \
+      resources/images/images.qrc \
+      resources/translations/translations.qrc
 
-# To update .ts files with the most recent translations run lupdate
-# To generate the .qm files that will be needed by the application run lrelease
-TRANSLATIONS += \
-    resources/translations/pixel_booster_pt_br.ts \
-    resources/translations/pixel_booster_en_us.ts \
+  # To update .ts files with the most recent translations run lupdate
+  # To generate the .qm files that will be needed by the application run lrelease
+  TRANSLATIONS += \
+      resources/translations/pixel_booster_pt_br.ts \
+      resources/translations/pixel_booster_en_us.ts \
+}
+lessThan(QT_MAJOR_VERSION,5){
+  message(Must have at least Qt 5)
+}
