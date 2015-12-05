@@ -39,6 +39,8 @@ ImageEditWidget::ImageEditWidget(QWidget *parent)
   overlay_image_.fill(0x0);
   options_cache_ = pApp->options();
   this->setFixedSize(0,0);
+
+  this->setCursor(QCursor(QPixmap(":/pencil.png"),0,0));
 }
 
 void ImageEditWidget::Clear(const QSize &size) {
