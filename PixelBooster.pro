@@ -80,3 +80,9 @@
 lessThan(QT_MAJOR_VERSION,5){
   message(Must have at least Qt 5)
 }
+
+HEADERS += \
+    logic/tool_algorithm.h
+
+SOURCES += \
+    logic/tool_algorithm.cpp

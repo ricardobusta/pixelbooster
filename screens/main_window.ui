@@ -407,6 +407,9 @@
       </layout>
      </item>
      <item>
+      <widget class="ColorPaletteWidget" name="widget_2" native="true"/>
+     </item>
+     <item>
       <widget class="ColorPaletteWidget" name="widget" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">

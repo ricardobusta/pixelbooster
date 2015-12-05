@@ -16,67 +16,29 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef IMAGE_EDIT_WIDGET_H
-#define IMAGE_EDIT_WIDGET_H
+#ifndef TOOLALGORITHM_H
+#define TOOLALGORITHM_H
 
-#include <QWidget>
+#include <QColor>
+#include <QPoint>
 #include <QImage>
 
-#include "logic/undo_redo.h"
-#include "logic/tool_algorithm.h"
-
-class GlobalOptions;
-
-/*!
- * \brief The ImageEditWidget class
- */
-class ImageEditWidget : public QWidget
-{
-  Q_OBJECT
-public:
-  explicit ImageEditWidget(QWidget *parent = 0);
-
-  void Clear(const QSize &size);
-
-  void Undo();
-  void Redo();
-protected:
-  virtual void paintEvent(QPaintEvent *event);
-  virtual void mouseMoveEvent(QMouseEvent *event);
-  virtual void leaveEvent(QEvent *event);
-  virtual void mousePressEvent(QMouseEvent *event);
-  virtual void mouseReleaseEvent(QMouseEvent *event);
-  virtual void mouseClickEvent(QMouseEvent *event);
-private:
-  QImage image_;
-  QRect cursor_;
-
-  UndoRedo undo_redo_;
-
-  bool press_right_inside_;
-  bool press_left_inside_;
-
-  bool left_button_down_;
-  bool right_button_down_;
-
-
-  GlobalOptions * options_cache_;
-
-  QPoint previous_pos_;
-  QPoint action_anchor_;
-  bool action_started_;
-
-  QImage overlay_image_;
-
-  void ToolAction(const QMouseEvent *event, ACTION_TOOL action);
-
-  QPoint WidgetToImageSpace(const QPoint &pos);
-signals:
-  void SendImage(QImage*);
-public slots:
-  void GetImage(QImage*image);
-  void HandleRequest();
-  void UpdateWidget();
+enum ACTION_TOOL : int{
+  ACTION_PRESS,
+  ACTION_RELEASE,
+  ACTION_MOVE,
+  ACTION_CLICK
 };
 
-#endif // IMAGE_EDIT_WIDGET_H
+class ToolAlgorithm
+{
+public:
+  static void Pencil(QImage *image, const ACTION_TOOL action, const QPoint &p1, const QPoint p2, const QColor &color);
+  static void FloodFill(QImage *image, const ACTION_TOOL action, const QPoint &seed, const QColor &color);
+//private:
+  static void BresenhamLine(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color );
+
+  ToolAlgorithm();
+};
+
+#endif // TOOLALGORITHM_H

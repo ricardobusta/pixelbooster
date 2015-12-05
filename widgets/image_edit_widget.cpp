@@ -168,23 +168,17 @@ void ImageEditWidget::ToolAction(const QMouseEvent * event, ACTION_TOOL action) 
     if(action == ACTION_PRESS || action == ACTION_MOVE){
       if(left_button_down_){
         QPoint img_previous_pos = WidgetToImageSpace(previous_pos_);
-        QPainter painter(&image_);
-        painter.setPen(options_cache_->main_color());
-        painter.setBrush(options_cache_->main_color());
-        painter.drawLine(img_previous_pos,img_pos);
-        //image_.setPixel(img_pos,options_cache_->main_color().rgba());
+        ToolAlgorithm::Pencil(&image_,action,img_previous_pos,img_pos,options_cache_->main_color());
       }else if(right_button_down_){
         pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
       }
     }
     break;
   case TOOL_FLOOD_FILL:
-    if(action == ACTION_PRESS){
-      if(left_button_down_){
-        FloodFill(img_pos, options_cache_->main_color());
-      }else if(right_button_down_){
-        pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
-      }
+    if(left_button_down_){
+      ToolAlgorithm::FloodFill(&image_,action,img_pos,options_cache_->main_color());
+    }else if(right_button_down_){
+      pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
     }
     break;
   case TOOL_LINE:
@@ -192,15 +186,18 @@ void ImageEditWidget::ToolAction(const QMouseEvent * event, ACTION_TOOL action) 
       if(left_button_down_){
         action_anchor_ = WidgetToImageSpace(pos);
         action_started_ = true;
+        overlay_image_.fill(0x0);
+        ToolAlgorithm::BresenhamLine(&overlay_image_,action_anchor_,img_pos,options_cache_->main_color().rgba());
       }else if(right_button_down_){
         pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
       }
     }else if(action == ACTION_MOVE){
-      if(action_started_ && img_pos != action_anchor_){
+      if(action_started_){
         overlay_image_.fill(0x0);
-        QPainter overlay(&overlay_image_);
-        overlay.setPen(options_cache_->main_color());
-        overlay.drawLine(action_anchor_,img_pos);
+        ToolAlgorithm::BresenhamLine(&overlay_image_,action_anchor_,img_pos,options_cache_->main_color().rgba());
+        //QPainter overlay(&overlay_image_);
+        //overlay.setPen(options_cache_->main_color());
+        //overlay.drawLine(action_anchor_,img_pos);
       }
     }else if(action == ACTION_RELEASE){
       QPainter apply(&image_);
@@ -255,38 +252,6 @@ void ImageEditWidget::ToolAction(const QMouseEvent * event, ACTION_TOOL action) 
     break;
   default:
     break;
-  }
-}
-
-void ImageEditWidget::FloodFill(const QPoint &seed_pos, const QColor &color) {
-  QRgb new_color = color.rgba();
-  QRgb old_color = image_.pixel(seed_pos);
-  if(new_color == old_color){
-    return;
-  }
-  QList<QPoint> to_do_list = {seed_pos};
-
-  QVector<QPoint> expansion = {
-    QPoint(1,0),
-    QPoint(0,1),
-    QPoint(-1,0),
-    QPoint(0,-1)
-  };
-
-  image_.setPixel(seed_pos,new_color);
-
-  while(!to_do_list.isEmpty()){
-    //DEBUG_MSG(to_do_list.length());
-    QPoint target = to_do_list.takeFirst();
-
-    for(QPoint e : expansion){
-      QPoint new_target = target+e;
-      //DEBUG_MSG(new_target);
-      if(image_.rect().contains(new_target) && image_.pixel(new_target) == old_color){
-        to_do_list.push_back(new_target);
-        image_.setPixel(new_target,new_color);
-      }
-    }
   }
 }
 
