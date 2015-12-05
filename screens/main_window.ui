@@ -353,8 +353,11 @@
        <property name="statusTip">
         <string>Zoom: Move the slider to select the level of zoom on the edit area.</string>
        </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
        <property name="maximum">
-        <number>6</number>
+        <number>32</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

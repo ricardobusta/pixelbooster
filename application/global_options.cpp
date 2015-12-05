@@ -112,7 +112,7 @@ int GlobalOptions::zoom() const {
 
 void GlobalOptions::set_zoom_level(int zoom) {
   zoom_level_ = zoom;
-  zoom_ = pow(2,zoom_level_);
+  zoom_ = zoom;//pow(2,zoom_level_);
 }
 
 int GlobalOptions::zoom_level() const {
