@@ -195,9 +195,6 @@ void ImageEditWidget::ToolAction(const QMouseEvent * event, ACTION_TOOL action) 
       if(action_started_){
         overlay_image_.fill(0x0);
         ToolAlgorithm::BresenhamLine(&overlay_image_,action_anchor_,img_pos,options_cache_->main_color().rgba());
-        //QPainter overlay(&overlay_image_);
-        //overlay.setPen(options_cache_->main_color());
-        //overlay.drawLine(action_anchor_,img_pos);
       }
     }else if(action == ACTION_RELEASE){
       QPainter apply(&image_);
@@ -217,9 +214,7 @@ void ImageEditWidget::ToolAction(const QMouseEvent * event, ACTION_TOOL action) 
     }else if(action == ACTION_MOVE){
       if(action_started_ && img_pos != action_anchor_){
         overlay_image_.fill(0x0);
-        QPainter overlay(&overlay_image_);
-        overlay.setPen(options_cache_->main_color());
-        overlay.drawEllipse(QRect(action_anchor_,img_pos).adjusted(0,0,-1,-1));
+        ToolAlgorithm::BresenhamEllipse(&overlay_image_,QRect(action_anchor_,img_pos).normalized(),options_cache_->main_color().rgba());
       }
     }else if(action == ACTION_RELEASE){
       QPainter apply(&image_);
