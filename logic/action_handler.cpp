@@ -205,11 +205,34 @@ void ActionHandler::TranslateEN_US() const {
 void ActionHandler::SetMainColor(const QColor &color) const {
   options_cache_->set_main_color(color);
   window_cache_->main_color_button()->setStyleSheet(kColorButtonStyle.arg(color.name()));
+  SetColorDeg();
 }
 
 void ActionHandler::SetAltColor(const QColor &color) const {
   options_cache_->set_alt_color(color);
   window_cache_->alt_color_button()->setStyleSheet(kColorButtonStyle.arg(color.name()));
+  SetColorDeg();
+}
+
+QColor ColorLerp(QColor &c1, QColor &c2, float t){
+  QColor out;
+  out.setRedF(c1.redF()*(1-t) + c2.redF()*t);
+  out.setGreenF(c1.greenF()*(1-t) + c2.greenF()*t);
+  out.setBlueF(c1.blueF()*(1-t) + c2.blueF()*t);
+  out.setAlphaF(c1.alphaF()*(1-t) + c2.alphaF()*t);
+  return out;
+}
+
+void ActionHandler::SetColorDeg() const {
+  QColor main = options_cache_->main_color();
+  QColor alt = options_cache_->alt_color();
+  QImage new_deg = QImage(10,1,QImage::Format_ARGB32_Premultiplied);
+  for(int i=0;i<10;i++){
+    float f = float(i)/9.0f;
+    QColor c = ColorLerp(main,alt,f);
+    new_deg.setPixel(i,0,c.rgba());
+  }
+  window_cache_->SetDegColor(new_deg);
 }
 
 void ActionHandler::Translate(const QString &language) const {

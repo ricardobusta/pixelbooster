@@ -227,7 +227,7 @@
           <x>0</x>
           <y>0</y>
           <width>100</width>
-          <height>232</height>
+          <height>215</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
@@ -410,10 +410,17 @@
       </layout>
      </item>
      <item>
-      <widget class="ColorPaletteWidget" name="widget_2" native="true"/>
+      <widget class="ColorPaletteWidget" name="deg_color_widget" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="ColorPaletteWidget" name="widget" native="true">
+      <widget class="ColorPaletteWidget" name="color_widget" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>

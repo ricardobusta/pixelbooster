@@ -30,6 +30,8 @@ public:
   virtual void paintEvent(QPaintEvent *event);
 
   virtual void mousePressEvent(QMouseEvent *event);
+
+  void SetPalette(const QImage &image);
 private:
   QImage palette_;
 signals:

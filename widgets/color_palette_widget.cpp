@@ -54,3 +54,7 @@ void ColorPaletteWidget::mousePressEvent(QMouseEvent *event) {
     break;
   }
 }
+
+void ColorPaletteWidget::SetPalette(const QImage &image) {
+  palette_ = image;
+}

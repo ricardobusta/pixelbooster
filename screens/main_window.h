@@ -51,6 +51,8 @@ public:
   ActionHandler * action_handler() const;
   QWidget * main_color_button() const;
   QWidget * alt_color_button() const;
+
+  void SetDegColor(const QImage &image);
 private:
   Ui::MainWindow *ui;
   ActionHandler * action_handler_;

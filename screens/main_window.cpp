@@ -117,6 +117,11 @@ QWidget *MainWindow::alt_color_button() const {
   return ui->color_alt_pushButton;
 }
 
+void MainWindow::SetDegColor(const QImage &image) {
+  ui->deg_color_widget->SetPalette(image);
+  ui->deg_color_widget->update();
+}
+
 void MainWindow::ConnectActions() {
   // File Actions
   QObject::connect(ui->actionNew,SIGNAL(triggered(bool)),action_handler_,SLOT(NewFile()));
