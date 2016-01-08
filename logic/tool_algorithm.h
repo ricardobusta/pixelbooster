@@ -40,8 +40,11 @@ public:
   static void BresenhamEllipse(QImage *image, const QRect &rect, const QRgb &color);
   static void BresenhamFilledEllipse(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color);
 
-  static void Plot4EllipsePoints(QImage *image, int CX, int CY, int X, int Y, int we, int he, const QRgb &color);
+private:
+  static void Plot4EllipsePoints(QImage *image, const QPoint &c, const QPoint &p, const QPoint &e, const QRgb &color);
+  static void Plot4EllipseConnections(QImage *image, const QPoint &c, const QPoint &h, const QPoint &v, const QPoint &e, const QRgb &color);
 
+  static void SetPixel(QImage *image, const QPoint &p, const QRgb &color);
   static void SetPixel(QImage *image, const int x, const int y, const QRgb & color);
   ToolAlgorithm();
 };

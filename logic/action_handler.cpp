@@ -219,7 +219,7 @@ QColor ColorLerp(QColor &c1, QColor &c2, float t){
   out.setRedF(c1.redF()*(1-t) + c2.redF()*t);
   out.setGreenF(c1.greenF()*(1-t) + c2.greenF()*t);
   out.setBlueF(c1.blueF()*(1-t) + c2.blueF()*t);
-  out.setAlphaF(c1.alphaF()*(1-t) + c2.alphaF()*t);
+  //out.setAlphaF(c1.alphaF()*(1-t) + c2.alphaF()*t);
   return out;
 }
 

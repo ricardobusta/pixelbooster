@@ -109,13 +109,11 @@ void ToolAlgorithm::BresenhamLine(QImage *image, const QPoint &p1, const QPoint 
 
 void ToolAlgorithm::BresenhamEllipse(QImage *image, const QRect &rect, const QRgb &color) {
   // Algorithm from https://web.archive.org/web/20120225095359/http://homepage.smc.edu/kennedy_john/belipse.pdf
-  int c_x = rect.center().x();
-  int c_y = rect.center().y();
+  QPoint c = rect.center();
+  // Checks if the rect size is even on both directions
+  QPoint e = QPoint(1-rect.width()%2,1-rect.height()%2);
   int r_x = rect.width()/2;
   int r_y = rect.height()/2;
-
-  int w_e = 1-rect.width()%2;
-  int h_e = 1-rect.height()%2;
 
   int x = r_x;
   int y = 0;
@@ -127,8 +125,13 @@ void ToolAlgorithm::BresenhamEllipse(QImage *image, const QRect &rect, const QRg
   int stopping_x = two_b_square * r_x;
   int stopping_y = 0;
 
+  QPoint last_h;
+  QPoint last_v;
+
+  // Drawing horizontal portion of the ellipse
   while(stopping_x >= stopping_y){
-    Plot4EllipsePoints(image,c_x,c_y,x,y,w_e,h_e,color);
+    last_h = QPoint(x,y);
+    Plot4EllipsePoints(image,c,last_h,e,color);
     y++;
     stopping_y += two_a_square;
     ellipse_error+= y_change;
@@ -148,8 +151,11 @@ void ToolAlgorithm::BresenhamEllipse(QImage *image, const QRect &rect, const QRg
   ellipse_error = 0;
   stopping_x = 0;
   stopping_y = two_a_square*r_y;
+
+  // Drawing vertical portion of the ellipse
   while(stopping_x <= stopping_y){
-    Plot4EllipsePoints(image,c_x,c_y,x,y,w_e,h_e,color);
+    last_v = QPoint(x,y);
+    Plot4EllipsePoints(image,c,last_v,e,color);
     x++;
     stopping_x+=two_b_square;
     ellipse_error += x_change;
@@ -160,6 +166,11 @@ void ToolAlgorithm::BresenhamEllipse(QImage *image, const QRect &rect, const QRg
       ellipse_error+= y_change;
       y_change += two_a_square;
     }
+  }
+
+  // The two ellipse parts are separated and must be connected
+  if( abs(last_h.x()-last_v.x()) > 1 || abs(last_h.y()-last_v.y()) > 1 ){
+    Plot4EllipseConnections(image,c,last_h,last_v,e,color);
   }
 }
 
@@ -199,11 +210,34 @@ void ToolAlgorithm::BresenhamFilledEllipse(QImage *image, const QPoint &p1, cons
   }
 }
 
-void ToolAlgorithm::Plot4EllipsePoints(QImage *image, int cx, int cy, int x, int y, int we, int he, const QRgb &color) {
-  SetPixel(image, cx+x, cy+y, color);
-  SetPixel(image, cx+x, cy-y+he, color);
-  SetPixel(image, cx-x+we, cy-y+he, color);
-  SetPixel(image, cx-x+we, cy+y, color);
+void ToolAlgorithm::Plot4EllipsePoints(QImage *image, const QPoint &c, const QPoint &p, const QPoint &e, const QRgb &color) {
+  QPoint p1 = c+p;
+  QPoint p2 = c-p+e;
+  SetPixel(image, p1, color);
+  SetPixel(image, p2, color);
+  SetPixel(image, p1.x(), p2.y(), color);
+  SetPixel(image, p2.x(), p1.y(), color);
+}
+
+void ToolAlgorithm::Plot4EllipseConnections(QImage *image, const QPoint &c, const QPoint &h, const QPoint &v, const QPoint &e, const QRgb &color) {
+  QPoint hp1 = c+h;
+  QPoint vp1 = c+v;
+  QPoint hp2 = c-h+e;
+  QPoint vp2 = c-v+e;
+  QPoint hp3 = QPoint(hp1.x(),hp2.y());
+  QPoint vp3 = QPoint(vp1.x(),vp2.y());
+  QPoint hp4 = QPoint(hp2.x(),hp1.y());
+  QPoint vp4 = QPoint(vp2.x(),vp1.y());
+  BresenhamLine(image,hp1,vp1,color);
+  BresenhamLine(image,hp2,vp2,color);
+  BresenhamLine(image,hp3,vp3,color);
+  BresenhamLine(image,hp4,vp4,color);
+}
+
+void ToolAlgorithm::SetPixel(QImage *image, const QPoint &p, const QRgb &color) {
+  if(image->rect().contains(p)){
+    image->setPixel(p,color);
+  }
 }
 
 void ToolAlgorithm::SetPixel(QImage *image, const int x, const int y, const QRgb &color) {
