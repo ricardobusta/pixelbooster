@@ -37,12 +37,10 @@ public:
   static void FloodFill(QImage *image, const ACTION_TOOL action, const QPoint &seed, const QColor &color);
 //private:
   static void BresenhamLine(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color );
-  static void BresenhamEllipse(QImage *image, const QRect &rect, const QRgb &color);
-  static void BresenhamFilledEllipse(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color);
+  static void BresenhamEllipse(QImage *image, const QRect &rect, bool fill, const QRgb &color);
 
 private:
   static void Plot4EllipsePoints(QImage *image, const QPoint &c, const QPoint &p, const QPoint &e, const QRgb &color);
-  static void Plot4EllipseConnections(QImage *image, const QPoint &c, const QPoint &h, const QPoint &v, const QPoint &e, const QRgb &color);
 
   static void SetPixel(QImage *image, const QPoint &p, const QRgb &color);
   static void SetPixel(QImage *image, const int x, const int y, const QRgb & color);

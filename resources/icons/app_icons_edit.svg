@@ -317,11 +317,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568542"
-     inkscape:cx="268.03645"
-     inkscape:cy="113.73079"
+     inkscape:zoom="4"
+     inkscape:cx="163.21493"
+     inkscape:cy="13.90795"
      inkscape:document-units="px"
-     inkscape:current-layer="g4640"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1366"
      inkscape:window-height="705"
@@ -1210,10 +1210,10 @@
        inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\rectangle_tool.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
-       transform="matrix(1.0666667,0,0,1.0666667,-188.82838,892.34713)"
-       style="stroke:none;fill:#916f6f">
+       transform="matrix(1.0666667,0,0,1.0666667,-93.328379,890.09713)"
+       style="fill:#008080;fill-opacity:1;stroke:none">
       <rect
-         style="fill:#916f6f;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+         style="fill:#008080;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
          id="rect3111"
          width="15"
          height="15"
@@ -1221,7 +1221,7 @@
          y="-708.63989" />
     </g>
     <g
-       transform="matrix(1.0666667,0,0,1.0666667,-169.21778,911.78229)"
+       transform="matrix(1.0666667,0,0,1.0666667,-93.01341,910.03155)"
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
        inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\elipse_tool.png"
@@ -2869,5 +2869,33 @@
         </g>
       </g>
     </g>
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 195.71875 983.57227 A 8 8 0 0 0 187.71875 991.57227 A 8 8 0 0 0 195.71875 999.57227 A 8 8 0 0 0 203.71875 991.57227 A 8 8 0 0 0 195.71875 983.57227 z M 195.71875 985.32227 A 6.25 6.25 0 0 1 201.96875 991.57227 A 6.25 6.25 0 0 1 195.71875 997.82227 A 6.25 6.25 0 0 1 189.46875 991.57227 A 6.25 6.25 0 0 1 195.71875 985.32227 z "
+       transform="translate(67.85714,-827.63781)"
+       id="circle4568"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 259.92159,134.96375 0,16 16,0 0,-16 -16,0 z m 1.75,1.75 12.5,0 0,12.5 -12.5,0 0,-12.5 z"
+       id="rect4576"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:connector-curvature="0"
+       id="path4588"
+       d="m 281.29647,134.21455 0,16 16,0 0,-16 -16,0 z m 1.75,1.75 12.5,0 0,12.5 -12.5,0 0,-12.5 z"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+    <path
+       id="path4590"
+       d="m 289.57589,154.18446 a 8,8 0 0 0 -8,8 8,8 0 0 0 8,8 8,8 0 0 0 8,-8 8,8 0 0 0 -8,-8 z m 0,1.75 a 6.25,6.25 0 0 1 6.25,6.25 6.25,6.25 0 0 1 -6.25,6.25 6.25,6.25 0 0 1 -6.25,-6.25 6.25,6.25 0 0 1 6.25,-6.25 z"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

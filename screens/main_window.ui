@@ -99,6 +99,7 @@
      <string>Palette</string>
     </property>
     <addaction name="actionTransparency"/>
+    <addaction name="actionGradient"/>
     <addaction name="separator"/>
     <addaction name="actionLoad_Palette"/>
     <addaction name="actionSave_Palette"/>
@@ -197,6 +198,7 @@
    <addaction name="actionEllipse_Tool"/>
    <addaction name="separator"/>
    <addaction name="actionTransparency"/>
+   <addaction name="actionGradient"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget">
    <property name="features">
@@ -227,7 +229,7 @@
           <x>0</x>
           <y>0</y>
           <width>100</width>
-          <height>215</height>
+          <height>221</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
@@ -414,7 +416,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>20</height>
+         <height>30</height>
         </size>
        </property>
       </widget>
@@ -1069,6 +1071,18 @@
    </property>
    <property name="statusTip">
     <string>Soon!</string>
+   </property>
+  </action>
+  <action name="actionGradient">
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/gradiente.png</normaloff>:/icons/gradiente.png</iconset>
+   </property>
+   <property name="text">
+    <string>Gradient</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

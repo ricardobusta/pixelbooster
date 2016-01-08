@@ -205,13 +205,11 @@ void ActionHandler::TranslateEN_US() const {
 void ActionHandler::SetMainColor(const QColor &color) const {
   options_cache_->set_main_color(color);
   window_cache_->main_color_button()->setStyleSheet(kColorButtonStyle.arg(color.name()));
-  SetColorDeg();
 }
 
 void ActionHandler::SetAltColor(const QColor &color) const {
   options_cache_->set_alt_color(color);
   window_cache_->alt_color_button()->setStyleSheet(kColorButtonStyle.arg(color.name()));
-  SetColorDeg();
 }
 
 QColor ColorLerp(QColor &c1, QColor &c2, float t){
@@ -223,14 +221,20 @@ QColor ColorLerp(QColor &c1, QColor &c2, float t){
   return out;
 }
 
-void ActionHandler::SetColorDeg() const {
+void ActionHandler::SetColorGradient() const {
   QColor main = options_cache_->main_color();
   QColor alt = options_cache_->alt_color();
-  QImage new_deg = QImage(10,1,QImage::Format_ARGB32_Premultiplied);
+  QImage new_deg = QImage(10,3,QImage::Format_ARGB32_Premultiplied);
+  QColor black = Qt::black;
+  QColor white = Qt::white;
   for(int i=0;i<10;i++){
     float f = float(i)/9.0f;
-    QColor c = ColorLerp(main,alt,f);
-    new_deg.setPixel(i,0,c.rgba());
+    QColor c0 = ColorLerp(main,alt,f);
+    QColor c1 = ColorLerp(main,black,f);
+    QColor c2 = ColorLerp(main,white,f);
+    new_deg.setPixel(i,0,c0.rgba());
+    new_deg.setPixel(i,1,c1.rgba());
+    new_deg.setPixel(i,2,c2.rgba());
   }
   window_cache_->SetDegColor(new_deg);
 }

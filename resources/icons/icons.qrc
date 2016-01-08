@@ -31,6 +31,7 @@
         <file>cascade.png</file>
         <file>tile_windows.png</file>
         <file>delete.png</file>
+        <file>gradiente.png</file>
     </qresource>
     <qresource prefix="/app_icon">
         <file>app_icon.svg</file>

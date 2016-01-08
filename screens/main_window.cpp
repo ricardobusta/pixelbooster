@@ -133,6 +133,7 @@ void MainWindow::ConnectActions() {
   // Other Actions
   QObject::connect(ui->actionUndo,SIGNAL(triggered(bool)),action_handler_,SLOT(Undo()));
   QObject::connect(ui->actionRedo,SIGNAL(triggered(bool)),action_handler_,SLOT(Redo()));
+  QObject::connect(ui->actionGradient,SIGNAL(triggered(bool)),action_handler_,SLOT(SetColorGradient()));
 
   // Interface Actions
   QObject::connect(ui->actionAbout,SIGNAL(triggered(bool)),action_handler_,SLOT(About()));
