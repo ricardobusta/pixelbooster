@@ -30,6 +30,7 @@ class QMdiSubWindow;
 class ActionHandler;
 class ImageCanvasContainer;
 class GlobalOptions;
+class ImageEditWidget;
 
 /*!
  * \brief The MainWindow class
@@ -43,6 +44,7 @@ public:
 
   QMdiArea * mdi_area() const;
   ImageCanvasContainer * current_canvas_container();
+  ImageEditWidget * edit_widget();
 
   QAction * GetTool(const int tool);
 

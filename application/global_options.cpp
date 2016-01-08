@@ -36,6 +36,10 @@ const QString kStateColorMain = "MainColor";
 const QColor kStateColorMainDefault = QColor(Qt::white).name();
 const QString kStateColorAlt = "AltColor";
 const QColor kStateColorAltDefault = QColor(Qt::black).name();
+const QString kStateLanguage = "Language";
+const QString kStateLanguageDefault = "en_us";
+const QString kStateNewImageColor = "NewImageColor";
+const QColor kStateNewImageColorDefault = QColor(Qt::white).name();
 
 GlobalOptions::GlobalOptions():
   vertical_shift_(false),
@@ -108,7 +112,7 @@ int GlobalOptions::zoom() const {
 
 void GlobalOptions::set_zoom_level(int zoom) {
   zoom_level_ = zoom;
-  zoom_ = pow(2,zoom_level_);
+  zoom_ = zoom;//pow(2,zoom_level_);
 }
 
 int GlobalOptions::zoom_level() const {
@@ -131,6 +135,14 @@ void GlobalOptions::set_alt_color(const QColor &color) {
   alt_color_ = color;
 }
 
+void GlobalOptions::set_new_image_color(const QColor &color) {
+  new_image_color_ = color;
+}
+
+QColor GlobalOptions::new_image_color() const {
+  return new_image_color_;
+}
+
 void GlobalOptions::SaveState(QSettings * settings) const {
   settings->setValue(kStateCursorSize,cursor_size_);
   settings->setValue(kStateNewImageSize,new_image_size_);
@@ -139,26 +151,41 @@ void GlobalOptions::SaveState(QSettings * settings) const {
   settings->setValue(kStateTool,tool_);
   settings->setValue(kStateColorMain,main_color_.name());
   settings->setValue(kStateColorAlt,alt_color_.name());
+  settings->setValue(kStateLanguage,language_);
+  settings->setValue(kStateNewImageColor,new_image_color_);
 }
 
+#define SETTINGS_VALUE(var) (settings->value(var,var##Default))
+
 void GlobalOptions::LoadState(QSettings * settings) {
-  cursor_size_ = settings->value(kStateCursorSize,kStateCursorSizeDefault).toSize();
+  cursor_size_ = SETTINGS_VALUE(kStateCursorSize).toSize();
   selection_.setSize(cursor_size_);
   selection_.setTopLeft(QPoint(0,0));
-  new_image_size_ = settings->value(kStateNewImageSize,kStateNewImageSizeDefault).toSize();
-  transparency_enabled_ = settings->value(kStateTransparency,kStateTransparencyDefault).toBool();
-  set_zoom_level(settings->value(kStateZoomLevel,kStateZoomLevelDefault).toInt());
-  set_tool((TOOL_ENUM)settings->value(kStateTool,kStateToolDefault).toInt());
-  main_color_ = QColor(settings->value(kStateColorMain).toString());
-  alt_color_ = QColor(settings->value(kStateColorAlt).toString());
+  new_image_size_ = SETTINGS_VALUE(kStateNewImageSize).toSize();
+  transparency_enabled_ = SETTINGS_VALUE(kStateTransparency).toBool();
+  set_zoom_level(SETTINGS_VALUE(kStateZoomLevel).toInt());
+  set_tool((TOOL_ENUM)SETTINGS_VALUE(kStateTool).toInt());
+  main_color_ = QColor(SETTINGS_VALUE(kStateColorMain).toString());
+  alt_color_ = QColor(SETTINGS_VALUE(kStateColorAlt).toString());
+  language_ = SETTINGS_VALUE(kStateLanguage).toString();
+  new_image_color_ = SETTINGS_VALUE(kStateNewImageColor).toString();
 }
+
+#undef SETTINGS_VALUE
 
 void GlobalOptions::set_tool(const TOOL_ENUM tool) {
   tool_ = tool;
 }
 
-TOOL_ENUM GlobalOptions::tool() const
-{
+TOOL_ENUM GlobalOptions::tool() const {
   return tool_;
+}
+
+void GlobalOptions::set_language(const QString &language) {
+  language_ = language;
+}
+
+QString GlobalOptions::language() const {
+  return language_;
 }
 

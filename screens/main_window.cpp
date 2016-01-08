@@ -72,6 +72,10 @@ ImageCanvasContainer *MainWindow::current_canvas_container() {
   return current_canvas_container_;
 }
 
+ImageEditWidget *MainWindow::edit_widget() {
+  return ui->edit_widget;
+}
+
 QAction *MainWindow::GetTool(const int tool) {
   switch(tool){
   case TOOL_PENCIL:
@@ -86,7 +90,7 @@ QAction *MainWindow::GetTool(const int tool) {
   case TOOL_ELLIPSE:
     return ui->actionEllipse_Tool;
     break;
-  case TOOL_RECTANCLE:
+  case TOOL_RECTANGLE:
     return ui->actionRectangle_Tool;
     break;
   case TOOL_ZOOM:
@@ -118,7 +122,12 @@ void MainWindow::ConnectActions() {
   QObject::connect(ui->actionNew,SIGNAL(triggered(bool)),action_handler_,SLOT(NewFile()));
   QObject::connect(ui->actionOpen,SIGNAL(triggered(bool)),action_handler_,SLOT(OpenFile()));
   QObject::connect(ui->actionSave,SIGNAL(triggered(bool)),action_handler_,SLOT(SaveFile()));
+  QObject::connect(ui->actionSave_As,SIGNAL(triggered(bool)),action_handler_,SLOT(SaveAs()));
   QObject::connect(ui->actionSave_All,SIGNAL(triggered(bool)),action_handler_,SLOT(SaveAll()));
+
+  // Other Actions
+  QObject::connect(ui->actionUndo,SIGNAL(triggered(bool)),action_handler_,SLOT(Undo()));
+  QObject::connect(ui->actionRedo,SIGNAL(triggered(bool)),action_handler_,SLOT(Redo()));
 
   // Interface Actions
   QObject::connect(ui->actionAbout,SIGNAL(triggered(bool)),action_handler_,SLOT(About()));
@@ -189,6 +198,7 @@ void MainWindow::UpdateWidgetState() {
   GetTool(options_cache_->tool())->setChecked(true);
   action_handler_->SetMainColor(options_cache_->main_color());
   action_handler_->SetAltColor(options_cache_->alt_color());
+  action_handler_->Translate(options_cache_->language());
 }
 
 void MainWindow::changeEvent(QEvent *event) {

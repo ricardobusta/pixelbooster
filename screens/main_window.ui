@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Pixel::Booster</string>
+   <string notr="true">Pixel::Booster</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources/icons/icons.qrc">
@@ -226,8 +226,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>186</width>
-          <height>251</height>
+          <width>100</width>
+          <height>232</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
@@ -353,8 +353,11 @@
        <property name="statusTip">
         <string>Zoom: Move the slider to select the level of zoom on the edit area.</string>
        </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
        <property name="maximum">
-        <number>6</number>
+        <number>32</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -407,6 +410,9 @@
       </layout>
      </item>
      <item>
+      <widget class="ColorPaletteWidget" name="widget_2" native="true"/>
+     </item>
+     <item>
       <widget class="ColorPaletteWidget" name="widget" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -431,7 +437,7 @@
     <string>New</string>
    </property>
    <property name="statusTip">
-    <string>New: Creates a new image file from scratch.</string>
+    <string>Creates a new image file from scratch.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -449,7 +455,7 @@
     <string>Open</string>
    </property>
    <property name="statusTip">
-    <string>Open: Opens an existing image file.</string>
+    <string>Opens an existing image file.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -475,7 +481,7 @@
     <string>Save</string>
    </property>
    <property name="statusTip">
-    <string>Save: Saves the focused image file.</string>
+    <string>Saves the focused image file.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -493,7 +499,7 @@
     <string>Save As</string>
    </property>
    <property name="statusTip">
-    <string>Save As: Saves the focused image file with another name.</string>
+    <string>Saves the focused image file with another name.</string>
    </property>
   </action>
   <action name="actionSave_All">
@@ -508,7 +514,7 @@
     <string>Save All</string>
    </property>
    <property name="statusTip">
-    <string>Save All: Saves all the open image files.</string>
+    <string>Saves all the open image files.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
@@ -521,6 +527,9 @@
    <property name="text">
     <string>Close</string>
    </property>
+   <property name="statusTip">
+    <string>Close the currently opened image.</string>
+   </property>
   </action>
   <action name="actionExit">
    <property name="enabled">
@@ -529,13 +538,19 @@
    <property name="text">
     <string>Exit</string>
    </property>
+   <property name="statusTip">
+    <string>Exits the application.</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionUndo">
-   <property name="enabled">
+   <property name="checkable">
     <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -553,7 +568,7 @@
   </action>
   <action name="actionRedo">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -763,7 +778,7 @@
     <string>Transparency</string>
    </property>
    <property name="statusTip">
-    <string>Transparency Tool: Enables transparency when pasting the edit area content back to the image.</string>
+    <string>Enables transparency when pasting the edit area content back to the image.</string>
    </property>
   </action>
   <action name="actionLoad_Palette">
@@ -884,7 +899,7 @@
     <bool>true</bool>
    </property>
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -902,7 +917,7 @@
     <bool>true</bool>
    </property>
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -954,7 +969,7 @@
     <string>Pencil</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>The pencil tool draws freely while pressed.</string>
    </property>
   </action>
   <action name="actionLine_Tool">
@@ -972,7 +987,7 @@
     <string>Line Tool</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>The line tool draws a straight line between two points.</string>
    </property>
   </action>
   <action name="actionRectangle_Tool">
@@ -990,7 +1005,7 @@
     <string>Rectangle Tool</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>The rectangle tool draws a rectangle between two points.</string>
    </property>
   </action>
   <action name="actionEllipse_Tool">
@@ -1008,7 +1023,7 @@
     <string>Ellipse Tool</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>The ellipse tool draws an ellipse between two points.</string>
    </property>
   </action>
   <action name="actionCascade">

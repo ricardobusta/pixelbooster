@@ -82,7 +82,7 @@ void ImageCanvasWidget::Save() {
 }
 
 void ImageCanvasWidget::SaveAs() {
-  QString output = QFileDialog::getSaveFileName();
+  QString output = QFileDialog::getSaveFileName(reinterpret_cast<QWidget*>(pApp->main_window()),tr("Save image file as..."),".","PNG (*.png);;BMP (*.bmp);;JPG (*.jpg);;JPEG (*.jpeg);;GIF (*.gif);;GIF (*.gif);;PBM (*.pbm);;PGM (*.pgm);;PPM (*.ppm);;TIFF (*.tiff);;XBM (*.xbm);;XPM (*.xpm)");
   if(!output.isEmpty()){
     bool ok = image_.save(output);
     if(ok){
@@ -141,8 +141,8 @@ void ImageCanvasWidget::mouseReleaseEvent(QMouseEvent *event) {
   anchor_down_ = false;
   if(event->button() == Qt::RightButton){
     // Get image from the canvas
-    QImage send_image = image_.copy(options_cache_->selection());
-    emit SendImage(&send_image);
+    QImage selection = image_.copy(options_cache_->selection());
+    emit SendImage(&selection);
     options_cache_->UpdateCursorShift();
   }else if(event->button() == Qt::LeftButton){
     // Set image back to the canvas

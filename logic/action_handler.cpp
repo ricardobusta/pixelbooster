@@ -26,7 +26,8 @@
 #include "screens/new_image_file_dialog.h"
 #include "screens/about_dialog.h"
 #include "screens/set_tile_size_dialog.h"
-
+#include "resources/version.h"
+#include "widgets/image_edit_widget.h"
 
 #include <QFileDialog>
 #include <QMdiArea>
@@ -64,7 +65,7 @@ void ActionHandler::NewFile() const {
   QImage::Format format = image_file_dialog->selected_format();
 
   QImage image(size,format);
-  image.fill(Qt::white);
+  image.fill(image_file_dialog->selected_color());
   CreateImageCanvas(image, "");
 
   delete image_file_dialog;
@@ -72,7 +73,7 @@ void ActionHandler::NewFile() const {
 }
 
 void ActionHandler::OpenFile() const {
-  QStringList file_names = QFileDialog::getOpenFileNames(window_cache_,"Open Files",".","Images (*.png *.xpm *.jpg)");
+  QStringList file_names = QFileDialog::getOpenFileNames(window_cache_,"Open Files",".","Images (*.png *.bmp *.jpg *.jpeg *.pbm *.pgm *.ppm *.tiff *.xbm *.xpm)");
 
   for( QString file_name : file_names ){
     if(!file_name.isEmpty()){
@@ -110,11 +111,17 @@ void ActionHandler::SaveAs() const {
   ImageCanvasContainer *c = window_cache_->current_canvas_container();
   if(nullptr != c){
     ImageCanvasWidget * w = c->GetCanvasWidget();
-    if(!w->saved_state()){
-      DEBUG_MSG("Saving image");
-      w->SaveAs();
-    }
+    DEBUG_MSG("Saving image");
+    w->SaveAs();
   }
+}
+
+void ActionHandler::Undo() const {
+  window_cache_->edit_widget()->Undo();
+}
+
+void ActionHandler::Redo() const {
+  window_cache_->edit_widget()->Redo();
 }
 
 void ActionHandler::PencilToolPressed() const {
@@ -138,8 +145,8 @@ void ActionHandler::EllipseToolPressed() const {
 }
 
 void ActionHandler::RectangleToolPressed() const {
-  SwapTools(TOOL_RECTANCLE);
-  options_cache_->set_tool(TOOL_RECTANCLE);
+  SwapTools(TOOL_RECTANGLE);
+  options_cache_->set_tool(TOOL_RECTANGLE);
 }
 
 void ActionHandler::SelectionToolPressed() const {
@@ -188,11 +195,11 @@ void ActionHandler::OpenAltColorPick() const {
 }
 
 void ActionHandler::TranslatePT_BR() const {
-  pApp->Translate("pt_br");
+  Translate("pt_br");
 }
 
 void ActionHandler::TranslateEN_US() const {
-  pApp->Translate("en_us");
+  Translate("en_us");
 }
 
 void ActionHandler::SetMainColor(const QColor &color) const {
@@ -203,6 +210,11 @@ void ActionHandler::SetMainColor(const QColor &color) const {
 void ActionHandler::SetAltColor(const QColor &color) const {
   options_cache_->set_alt_color(color);
   window_cache_->alt_color_button()->setStyleSheet(kColorButtonStyle.arg(color.name()));
+}
+
+void ActionHandler::Translate(const QString &language) const {
+  options_cache_->set_language(language);
+  pApp->Translate(language);
 }
 
 void ActionHandler::CreateImageCanvas(const QImage &image, const QString &file_name) const {

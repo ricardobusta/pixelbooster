@@ -29,7 +29,7 @@ enum TOOL_ENUM : int{
   TOOL_PENCIL = 1,
   TOOL_FLOOD_FILL = 2,
   TOOL_LINE = 3,
-  TOOL_RECTANCLE=4,
+  TOOL_RECTANGLE=4,
   TOOL_ELLIPSE=5,
   TOOL_SELECTION=6,
   TOOL_ZOOM = 7
@@ -68,6 +68,9 @@ public:
   QColor alt_color() const;
   void set_alt_color(const QColor &color);
 
+  void set_new_image_color(const QColor &color);
+  QColor new_image_color() const;
+
   QRect PosToGrid(const QPoint &pos) const;
 
   void SaveState(QSettings *settings) const;
@@ -75,6 +78,9 @@ public:
 
   void set_tool(const TOOL_ENUM tool);
   TOOL_ENUM tool() const;
+
+  void set_language(const QString &language);
+  QString language() const;
 
 private:
   QSize cursor_size_;
@@ -88,6 +94,8 @@ private:
   QColor main_color_;
   QColor alt_color_;
   TOOL_ENUM tool_;
+  QString language_;
+  QColor new_image_color_;
 };
 
 #endif // GLOBAL_OPTIONS_H

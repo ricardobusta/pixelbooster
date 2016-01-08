@@ -16,12 +16,46 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef VERSION
-#define VERSION
+#ifndef UNDO_REDO_H
+#define UNDO_REDO_H
 
-#include <QString>
+#include <QImage>
 
-const QString kVersionString = "v0.01 (Alpha)";
+class UndoRedo {
+public:
+  UndoRedo();
+//  ~UndoRedo();
 
-#endif // VERSION
+  void Do(const QImage &img);
+  QImage Undo(const QImage &current);
+  qint64 UndoTimestamp() const;
+  QImage Redo(const QImage &current);
+  qint64 RedoTimestamp() const;
 
+private:
+  class UndoRedoStack{
+  private:
+    class UndoRedoState{
+    public:
+      QImage image;
+      qint64 timestamp;
+    };
+
+  public:
+    UndoRedoStack();
+    QVector<UndoRedoState> data;
+    int first;
+    int last;
+
+    bool IsEmpty();
+    void Clear();
+    void Push(const QImage &img, qint64 timestamp);
+    qint64 Check() const;
+    QImage Pop();
+  };
+
+  UndoRedoStack undo;
+  UndoRedoStack redo;
+};
+
+#endif // UNDO_REDO_H

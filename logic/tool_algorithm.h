@@ -16,12 +16,34 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef VERSION
-#define VERSION
+#ifndef TOOLALGORITHM_H
+#define TOOLALGORITHM_H
 
-#include <QString>
+#include <QColor>
+#include <QPoint>
+#include <QImage>
 
-const QString kVersionString = "v0.01 (Alpha)";
+enum ACTION_TOOL : int{
+  ACTION_PRESS,
+  ACTION_RELEASE,
+  ACTION_MOVE,
+  ACTION_CLICK
+};
 
-#endif // VERSION
+class ToolAlgorithm
+{
+public:
+  static void Pencil(QImage *image, const ACTION_TOOL action, const QPoint &p1, const QPoint p2, const QColor &color);
+  static void FloodFill(QImage *image, const ACTION_TOOL action, const QPoint &seed, const QColor &color);
+//private:
+  static void BresenhamLine(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color );
+  static void BresenhamEllipse(QImage *image, const QRect &rect, const QRgb &color);
+  static void BresenhamFilledEllipse(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color);
 
+  static void Plot4EllipsePoints(QImage *image, int CX, int CY, int X, int Y, int we, int he, const QRgb &color);
+
+  static void SetPixel(QImage *image, const int x, const int y, const QRgb & color);
+  ToolAlgorithm();
+};
+
+#endif // TOOLALGORITHM_H
