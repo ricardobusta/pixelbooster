@@ -100,6 +100,7 @@
     </property>
     <addaction name="actionTransparency"/>
     <addaction name="actionGradient"/>
+    <addaction name="actionSwap_Colors"/>
     <addaction name="separator"/>
     <addaction name="actionLoad_Palette"/>
     <addaction name="actionSave_Palette"/>
@@ -199,6 +200,7 @@
    <addaction name="separator"/>
    <addaction name="actionTransparency"/>
    <addaction name="actionGradient"/>
+   <addaction name="actionSwap_Colors"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget">
    <property name="features">
@@ -229,7 +231,7 @@
           <x>0</x>
           <y>0</y>
           <width>100</width>
-          <height>221</height>
+          <height>211</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
@@ -1083,6 +1085,15 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionSwap_Colors">
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/swap_colors.png</normaloff>:/icons/swap_colors.png</iconset>
+   </property>
+   <property name="text">
+    <string>Swap Colors</string>
    </property>
   </action>
  </widget>

@@ -64,6 +64,7 @@ public slots:
   void OpenAltColorPick() const;
   void SetMainColor(const QColor &color) const;
   void SetAltColor(const QColor &color) const;
+  void SwapColors() const;
   void SetColorGradient() const;
 
   // Language Actions

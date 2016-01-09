@@ -212,6 +212,12 @@ void ActionHandler::SetAltColor(const QColor &color) const {
   window_cache_->alt_color_button()->setStyleSheet(kColorButtonStyle.arg(color.name()));
 }
 
+void ActionHandler::SwapColors() const {
+  QColor color = options_cache_->main_color();
+  SetMainColor(options_cache_->alt_color());
+  SetAltColor(color);
+}
+
 QColor ColorLerp(QColor &c1, QColor &c2, float t){
   QColor out;
   out.setRedF(c1.redF()*(1-t) + c2.redF()*t);

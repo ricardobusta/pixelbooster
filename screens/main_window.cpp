@@ -134,6 +134,7 @@ void MainWindow::ConnectActions() {
   QObject::connect(ui->actionUndo,SIGNAL(triggered(bool)),action_handler_,SLOT(Undo()));
   QObject::connect(ui->actionRedo,SIGNAL(triggered(bool)),action_handler_,SLOT(Redo()));
   QObject::connect(ui->actionGradient,SIGNAL(triggered(bool)),action_handler_,SLOT(SetColorGradient()));
+  QObject::connect(ui->actionSwap_Colors,SIGNAL(triggered(bool)),action_handler_,SLOT(SwapColors()));
 
   // Interface Actions
   QObject::connect(ui->actionAbout,SIGNAL(triggered(bool)),action_handler_,SLOT(About()));
@@ -189,7 +190,6 @@ void MainWindow::LoadSettings() {
   settings.endGroup();
 
   settings.beginGroup(kConfigGroupWindow);
-
   setGeometry(settings.value(kConfigWindowGeometry,kConfigDefaultWindowGeometry).toRect());
   restoreState(settings.value(kConfigWindowState).toByteArray());
 
@@ -197,6 +197,8 @@ void MainWindow::LoadSettings() {
     showMaximized();
   }
   settings.endGroup();
+
+  action_handler()->SetColorGradient();
 }
 
 void MainWindow::UpdateWidgetState() {

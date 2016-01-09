@@ -317,9 +317,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="163.21493"
-     inkscape:cy="13.90795"
+     inkscape:zoom="8"
+     inkscape:cx="254.54547"
+     inkscape:cy="22.238804"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2897,5 +2897,55 @@
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <g
+       id="g4552"
+       transform="translate(-21.278621,-3.8232233)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <circle
+         r="2.5"
+         cy="237.3774"
+         cx="296.82297"
+         id="circle4560"
+         style="opacity:1;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         transform="matrix(0.96592583,-0.25881905,0.25881905,0.96592583,0,0)" />
+      <circle
+         style="opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path4558"
+         cx="285.82297"
+         cy="237.3774"
+         r="2.5"
+         transform="matrix(0.96592583,-0.25881905,0.25881905,0.96592583,0,0)" />
+      <g
+         style="fill:#000000"
+         id="g4524"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\undo.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90"
+         transform="matrix(0.82538191,-0.82538191,0.82538191,0.82538191,614.25691,1055.8741)">
+        <path
+           style="fill:#000000;fill-opacity:1;stroke:none"
+           d="m 382.51297,-718.97771 -4.14384,2.6455 4.30466,1.7793 0,-2.03041 c 2.88429,0.33747 5.12039,2.78053 5.12039,5.75637 l 1.03729,-6e-5 c 0,-3.608 -2.77974,-6.5654 -6.3185,-6.8322 z"
+           id="path4528"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           sodipodi:nodetypes="cccccccc"
+           inkscape:connector-curvature="0"
+           id="path4530"
+           d="m 381.45133,-702.67668 4.14384,-2.6455 -4.30466,-1.7793 0,2.03041 c -2.88429,-0.33747 -5.12039,-2.78053 -5.12039,-5.75637 l -1.03729,6e-5 c 0,3.608 2.77974,6.5654 6.3185,6.8322 z"
+           style="fill:#000000;fill-opacity:1;stroke:none" />
+      </g>
+      <rect
+         y="145.88902"
+         x="334.83417"
+         height="16"
+         width="16"
+         id="rect4546"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g4548"
+       transform="matrix(0.79717638,0,0,0.79717638,70.204591,32.084113)" />
   </g>
 </svg>

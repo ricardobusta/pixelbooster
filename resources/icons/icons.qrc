@@ -32,6 +32,7 @@
         <file>tile_windows.png</file>
         <file>delete.png</file>
         <file>gradiente.png</file>
+        <file>swap_colors.png</file>
     </qresource>
     <qresource prefix="/app_icon">
         <file>app_icon.svg</file>
