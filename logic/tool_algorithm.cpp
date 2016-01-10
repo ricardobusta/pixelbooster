@@ -19,6 +19,7 @@
 #include "tool_algorithm.h"
 
 #include "widgets/image_edit_widget.h"
+#include "utils/debug.h"
 
 #include <QPainter>
 
@@ -114,6 +115,11 @@ void ToolAlgorithm::BresenhamEllipse(QImage *image, const QRect &rect, bool fill
   QPoint e = QPoint(1-rect.width()%2,1-rect.height()%2);
   int r_x = rect.width()/2;
   int r_y = rect.height()/2;
+
+  if(rect.width()<=0 || rect.height()<=0){
+    // Avoid drawing ellipses with area 0
+    return;
+  }
 
   int x = r_x;
   int y = 0;

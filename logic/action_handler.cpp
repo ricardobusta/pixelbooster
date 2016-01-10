@@ -28,6 +28,7 @@
 #include "screens/set_tile_size_dialog.h"
 #include "resources/version.h"
 #include "widgets/image_edit_widget.h"
+#include "utils/pb_math.h"
 
 #include <QFileDialog>
 #include <QMdiArea>
@@ -216,15 +217,6 @@ void ActionHandler::SwapColors() const {
   QColor color = options_cache_->main_color();
   SetMainColor(options_cache_->alt_color());
   SetAltColor(color);
-}
-
-QColor ColorLerp(QColor &c1, QColor &c2, float t){
-  QColor out;
-  out.setRedF(c1.redF()*(1-t) + c2.redF()*t);
-  out.setGreenF(c1.greenF()*(1-t) + c2.greenF()*t);
-  out.setBlueF(c1.blueF()*(1-t) + c2.blueF()*t);
-  //out.setAlphaF(c1.alphaF()*(1-t) + c2.alphaF()*t);
-  return out;
 }
 
 void ActionHandler::SetColorGradient() const {

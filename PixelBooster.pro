@@ -43,7 +43,8 @@ SOURCES += \
     screens/main_window.cpp \
     widgets/color_palette_widget.cpp \
     logic/undo_redo.cpp \
-    logic/tool_algorithm.cpp
+    logic/tool_algorithm.cpp \
+    utils/pb_math.cpp
 
 HEADERS  += \
     widgets/image_edit_widget.h \
@@ -61,7 +62,8 @@ HEADERS  += \
     widgets/color_palette_widget.h \
     resources/version.h \
     logic/undo_redo.h \
-    logic/tool_algorithm.h
+    logic/tool_algorithm.h \
+    utils/pb_math.h
 
 FORMS    += \
     screens/new_image_file_dialog.ui \
