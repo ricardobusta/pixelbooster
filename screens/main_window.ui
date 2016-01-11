@@ -663,6 +663,9 @@
    <property name="statusTip">
     <string>Soon!</string>
    </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
   </action>
   <action name="actionSelect_All">
    <property name="enabled">
@@ -673,6 +676,9 @@
    </property>
    <property name="statusTip">
     <string>Soon!</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionAdd_Text">
@@ -688,6 +694,9 @@
    </property>
    <property name="statusTip">
     <string>Soon!</string>
+   </property>
+   <property name="shortcut">
+    <string>T</string>
    </property>
   </action>
   <action name="actionCreate_Shadow">
@@ -922,6 +931,9 @@
    <property name="statusTip">
     <string>Soon!</string>
    </property>
+   <property name="shortcut">
+    <string>S</string>
+   </property>
   </action>
   <action name="actionZoom_Tool">
    <property name="checkable">
@@ -939,6 +951,9 @@
    </property>
    <property name="statusTip">
     <string>Soon!</string>
+   </property>
+   <property name="shortcut">
+    <string>Z</string>
    </property>
   </action>
   <action name="actionFill_Tool">
@@ -961,6 +976,9 @@
    <property name="statusTip">
     <string>Fills an area of the same color with the selected color.</string>
    </property>
+   <property name="shortcut">
+    <string>F</string>
+   </property>
   </action>
   <action name="actionPencil_Tool">
    <property name="checkable">
@@ -982,6 +1000,9 @@
    <property name="statusTip">
     <string>The pencil tool draws freely while pressed.</string>
    </property>
+   <property name="shortcut">
+    <string>P</string>
+   </property>
   </action>
   <action name="actionLine_Tool">
    <property name="checkable">
@@ -999,6 +1020,9 @@
    </property>
    <property name="statusTip">
     <string>The line tool draws a straight line between two points.</string>
+   </property>
+   <property name="shortcut">
+    <string>L</string>
    </property>
   </action>
   <action name="actionRectangle_Tool">
@@ -1018,6 +1042,9 @@
    <property name="statusTip">
     <string>The rectangle tool draws a rectangle between two points.</string>
    </property>
+   <property name="shortcut">
+    <string>R</string>
+   </property>
   </action>
   <action name="actionEllipse_Tool">
    <property name="checkable">
@@ -1035,6 +1062,9 @@
    </property>
    <property name="statusTip">
     <string>The ellipse tool draws an ellipse between two points.</string>
+   </property>
+   <property name="shortcut">
+    <string>E</string>
    </property>
   </action>
   <action name="actionCascade">
@@ -1094,6 +1124,9 @@
    </property>
    <property name="text">
     <string>Swap Colors</string>
+   </property>
+   <property name="shortcut">
+    <string>X</string>
    </property>
   </action>
  </widget>

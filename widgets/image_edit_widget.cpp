@@ -239,6 +239,7 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
         overlay_image_.fill(0x0);
         QPainter overlay(&overlay_image_);
         overlay.setPen(options_cache_->main_color());
+        overlay.setBrush(options_cache_->alt_color());
         overlay.drawRect(QRect(action_anchor_, img_pos).adjusted(0, 0, -1, -1));
       }
     } else if (action == ACTION_RELEASE) {
