@@ -36,7 +36,7 @@ public:
 
   void set_active(bool active);
 
-  static QVector<ImageCanvasWidget*> * open_canvas();
+  static QVector<ImageCanvasWidget *> *open_canvas();
 
   bool saved_state() const;
 
@@ -55,7 +55,7 @@ protected:
   virtual void leaveEvent(QEvent *event);
 
 private:
-  GlobalOptions * options_cache_;
+  GlobalOptions *options_cache_;
 
   bool active_;
   bool anchor_down_;
@@ -67,18 +67,18 @@ private:
 
   bool saved_state_;
 
-  static QVector<ImageCanvasWidget*> open_canvas_;
+  static QVector<ImageCanvasWidget *> open_canvas_;
 
   void SaveState();
 
 signals:
-  void SendImage(QImage*);
+  void SendImage(QImage *);
   void RequestImage();
   void UnsavedChanges(bool);
   void PathChaged(QString);
 
 private slots:
-  void ReceiveImage(QImage*image);
+  void ReceiveImage(QImage *image);
 };
 
 #endif // IMAGE_CANVAS_WIDGET_H

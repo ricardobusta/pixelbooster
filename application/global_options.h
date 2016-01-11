@@ -19,19 +19,19 @@
 #ifndef GLOBAL_OPTIONS_H
 #define GLOBAL_OPTIONS_H
 
-#include <QSize>
-#include <QRect>
 #include <QColor>
+#include <QRect>
+#include <QSize>
 
 class QSettings;
 
-enum TOOL_ENUM : int{
+enum TOOL_ENUM : int {
   TOOL_PENCIL = 1,
   TOOL_FLOOD_FILL = 2,
   TOOL_LINE = 3,
-  TOOL_RECTANGLE=4,
-  TOOL_ELLIPSE=5,
-  TOOL_SELECTION=6,
+  TOOL_RECTANGLE = 4,
+  TOOL_ELLIPSE = 5,
+  TOOL_SELECTION = 6,
   TOOL_ZOOM = 7
 };
 

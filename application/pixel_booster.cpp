@@ -18,8 +18,8 @@
 
 #include "application/pixel_booster.h"
 
-#include <QTranslator>
 #include <QTimer>
+#include <QTranslator>
 
 #include "screens/main_window.h"
 #include "utils/debug.h"
@@ -28,10 +28,10 @@ const QString kApplicationName = "Pixel::Booster";
 const QString kOrganizationName = "Busta Software";
 const QString kOrganizationDomain = "pixel.busta.com.br";
 
-PixelBooster::PixelBooster(int argc, char * argv[])
-  : QApplication(argc,argv),
-    options_(new GlobalOptions()),
-    main_window_(new MainWindow()){
+PixelBooster::PixelBooster(int argc, char *argv[])
+    : QApplication(argc, argv),
+      options_(new GlobalOptions()),
+      main_window_(new MainWindow()) {
   QCoreApplication::setApplicationName(kApplicationName);
   QCoreApplication::setOrganizationName(kOrganizationName);
   QCoreApplication::setOrganizationDomain(kOrganizationDomain);
@@ -47,7 +47,7 @@ GlobalOptions *PixelBooster::options() const {
 }
 
 void PixelBooster::Translate(QString language) {
-  QTranslator * translator = new QTranslator();
-  bool res = translator->load(":/translations/pixel_booster_"+language);
+  QTranslator *translator = new QTranslator();
+  bool res = translator->load(":/translations/pixel_booster_" + language);
   res = this->installTranslator(translator);
 }

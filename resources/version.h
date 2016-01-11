@@ -24,4 +24,3 @@
 const QString kVersionString = "v0.01 (Alpha)";
 
 #endif // VERSION
-

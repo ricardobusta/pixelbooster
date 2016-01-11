@@ -23,9 +23,9 @@
 #include "utils/debug.h"
 
 const QString kStateCursorSize = "CursorSize";
-const QSize kStateCursorSizeDefault = QSize(32,32);
+const QSize kStateCursorSizeDefault = QSize(32, 32);
 const QString kStateNewImageSize = "NewImageSize";
-const QSize kStateNewImageSizeDefault = QSize(256,256);
+const QSize kStateNewImageSizeDefault = QSize(256, 256);
 const QString kStateTransparency = "TransparencyEnabled";
 const bool kStateTransparencyDefault = false;
 const QString kStateZoomLevel = "ZoomLevel";
@@ -41,10 +41,9 @@ const QString kStateLanguageDefault = "en_us";
 const QString kStateNewImageColor = "NewImageColor";
 const QColor kStateNewImageColorDefault = QColor(Qt::white).name();
 
-GlobalOptions::GlobalOptions():
-  vertical_shift_(false),
-  horizontal_shift_(false),
-  zoom_(1){
+GlobalOptions::GlobalOptions() : vertical_shift_(false),
+                                 horizontal_shift_(false),
+                                 zoom_(1) {
 }
 
 QSize GlobalOptions::cursor_size() const {
@@ -64,30 +63,27 @@ void GlobalOptions::set_selection(const QRect &selection) {
 }
 
 void GlobalOptions::UpdateCursorShift() {
-  horizontal_shift_ = ((selection_.width()/cursor_size().width())%2==0);
-  vertical_shift_ = ((selection_.height()/cursor_size().height())%2==0);
+  horizontal_shift_ = ((selection_.width() / cursor_size().width()) % 2 == 0);
+  vertical_shift_ = ((selection_.height() / cursor_size().height()) % 2 == 0);
 }
 
-void GlobalOptions::CleanCursorShift()
-{
+void GlobalOptions::CleanCursorShift() {
   horizontal_shift_ = false;
   vertical_shift_ = false;
 }
-
 
 void GlobalOptions::MoveSelection(const QPoint &center) {
   selection_.moveCenter(center);
 }
 
 QRect GlobalOptions::PosToGrid(const QPoint &pos) const {
-  int x = (horizontal_shift_?cursor_size_.width()/2:0);
-  int y = (vertical_shift_?cursor_size_.height()/2:0);
+  int x = (horizontal_shift_ ? cursor_size_.width() / 2 : 0);
+  int y = (vertical_shift_ ? cursor_size_.height() / 2 : 0);
   QPoint top_left = QPoint(
-        ((pos.x()+x)/cursor_size_.width())*cursor_size_.width() -x,
-        ((pos.y()+y)/cursor_size_.height())*cursor_size_.height() -y
-        );
+      ((pos.x() + x) / cursor_size_.width()) * cursor_size_.width() - x,
+      ((pos.y() + y) / cursor_size_.height()) * cursor_size_.height() - y);
 
-  return QRect(top_left,cursor_size_);
+  return QRect(top_left, cursor_size_);
 }
 
 QSize GlobalOptions::new_image_size() const {
@@ -143,24 +139,24 @@ QColor GlobalOptions::new_image_color() const {
   return new_image_color_;
 }
 
-void GlobalOptions::SaveState(QSettings * settings) const {
-  settings->setValue(kStateCursorSize,cursor_size_);
-  settings->setValue(kStateNewImageSize,new_image_size_);
-  settings->setValue(kStateTransparency,transparency_enabled_);
-  settings->setValue(kStateZoomLevel,zoom_level_);
-  settings->setValue(kStateTool,tool_);
-  settings->setValue(kStateColorMain,main_color_.name());
-  settings->setValue(kStateColorAlt,alt_color_.name());
-  settings->setValue(kStateLanguage,language_);
-  settings->setValue(kStateNewImageColor,new_image_color_);
+void GlobalOptions::SaveState(QSettings *settings) const {
+  settings->setValue(kStateCursorSize, cursor_size_);
+  settings->setValue(kStateNewImageSize, new_image_size_);
+  settings->setValue(kStateTransparency, transparency_enabled_);
+  settings->setValue(kStateZoomLevel, zoom_level_);
+  settings->setValue(kStateTool, tool_);
+  settings->setValue(kStateColorMain, main_color_.name());
+  settings->setValue(kStateColorAlt, alt_color_.name());
+  settings->setValue(kStateLanguage, language_);
+  settings->setValue(kStateNewImageColor, new_image_color_);
 }
 
-#define SETTINGS_VALUE(var) (settings->value(var,var##Default))
+#define SETTINGS_VALUE(var) (settings->value(var, var##Default))
 
-void GlobalOptions::LoadState(QSettings * settings) {
+void GlobalOptions::LoadState(QSettings *settings) {
   cursor_size_ = SETTINGS_VALUE(kStateCursorSize).toSize();
   selection_.setSize(cursor_size_);
-  selection_.setTopLeft(QPoint(0,0));
+  selection_.setTopLeft(QPoint(0, 0));
   new_image_size_ = SETTINGS_VALUE(kStateNewImageSize).toSize();
   transparency_enabled_ = SETTINGS_VALUE(kStateTransparency).toBool();
   set_zoom_level(SETTINGS_VALUE(kStateZoomLevel).toInt());
@@ -188,4 +184,3 @@ void GlobalOptions::set_language(const QString &language) {
 QString GlobalOptions::language() const {
   return language_;
 }
-

@@ -24,7 +24,7 @@
 class UndoRedo {
 public:
   UndoRedo();
-//  ~UndoRedo();
+  //  ~UndoRedo();
 
   void Do(const QImage &img);
   QImage Undo(const QImage &current);
@@ -33,9 +33,9 @@ public:
   qint64 RedoTimestamp() const;
 
 private:
-  class UndoRedoStack{
+  class UndoRedoStack {
   private:
-    class UndoRedoState{
+    class UndoRedoState {
     public:
       QImage image;
       qint64 timestamp;

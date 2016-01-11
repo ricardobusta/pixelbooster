@@ -23,27 +23,27 @@
 
 #include "application/global_options.h"
 
-#define pApp dynamic_cast<PixelBooster*>(qApp)
+#define pApp dynamic_cast<PixelBooster *>(qApp)
 
 class MainWindow;
 
 /*!
  * \brief The PixelBooster class
  */
-class PixelBooster : public QApplication
-{
+class PixelBooster : public QApplication {
 public:
   PixelBooster(int argc, char *argv[]);
 
   MainWindow *main_window() const;
-  GlobalOptions * options() const;
+  GlobalOptions *options() const;
 
   void SetStatusMessage(const QString &message);
 
   void Translate(QString language);
+
 private:
-  GlobalOptions * options_;
-  MainWindow * main_window_;
+  GlobalOptions *options_;
+  MainWindow *main_window_;
 };
 
 #endif // PIXEL_BOOSTER_H

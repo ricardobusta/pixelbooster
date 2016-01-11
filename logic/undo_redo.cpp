@@ -32,8 +32,8 @@ void UndoRedo::Do(const QImage &img) {
 }
 
 QImage UndoRedo::Undo(const QImage &current) {
-  if(!undo.IsEmpty()){
-    redo.Push(current,QDateTime::currentMSecsSinceEpoch());
+  if (!undo.IsEmpty()) {
+    redo.Push(current, QDateTime::currentMSecsSinceEpoch());
   }
   QImage u = undo.Pop();
   return u;
@@ -44,8 +44,8 @@ qint64 UndoRedo::UndoTimestamp() const {
 }
 
 QImage UndoRedo::Redo(const QImage &current) {
-  if(!redo.IsEmpty()){
-    undo.Push(current,QDateTime::currentMSecsSinceEpoch());
+  if (!redo.IsEmpty()) {
+    undo.Push(current, QDateTime::currentMSecsSinceEpoch());
   }
   QImage r = redo.Pop();
   return r;
@@ -55,13 +55,12 @@ qint64 UndoRedo::RedoTimestamp() const {
   return redo.Check();
 }
 
-UndoRedo::UndoRedoStack::UndoRedoStack():
-  first(-1),
-  last(0){
+UndoRedo::UndoRedoStack::UndoRedoStack() : first(-1),
+                                           last(0) {
   data.resize(kUndoRedoSize);
 }
 
-bool UndoRedo::UndoRedoStack::IsEmpty(){
+bool UndoRedo::UndoRedoStack::IsEmpty() {
   return (first == -1);
 }
 
@@ -70,16 +69,16 @@ void UndoRedo::UndoRedoStack::Clear() {
 }
 
 void UndoRedo::UndoRedoStack::Push(const QImage &img, qint64 timestamp) {
-  if(first==-1){
+  if (first == -1) {
     // Only one element at the stack.
     first = last;
-  }else{
+  } else {
     // Multiple elements at the stack. The last element must be deleted if full.
     first++;
-    first%=data.length();
-    if(first == last){
-      last ++;
-      last%=data.length();
+    first %= data.length();
+    if (first == last) {
+      last++;
+      last %= data.length();
     }
   }
   data[first].image = img;
@@ -91,16 +90,16 @@ qint64 UndoRedo::UndoRedoStack::Check() const {
 }
 
 QImage UndoRedo::UndoRedoStack::Pop() {
-  if(first == -1){
+  if (first == -1) {
     // Empty stack;
-    return QImage(0,0,QImage::Format_Invalid);
-  }else if(first == last){
+    return QImage(0, 0, QImage::Format_Invalid);
+  } else if (first == last) {
     first = -1;
     return data[last].image;
-  }else{
+  } else {
     int out = first;
     first--;
-    first = first<0?data.length()-1:first;
+    first = first < 0 ? data.length() - 1 : first;
     return data[out].image;
   }
 }

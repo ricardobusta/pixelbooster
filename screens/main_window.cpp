@@ -21,11 +21,11 @@
 
 #include <QMdiSubWindow>
 
-#include "utils/debug.h"
-#include "logic/action_handler.h"
-#include "widgets/image_canvas_container.h"
 #include "application/pixel_booster.h"
+#include "logic/action_handler.h"
 #include "resources/version.h"
+#include "utils/debug.h"
+#include "widgets/image_canvas_container.h"
 
 #include <QSettings>
 
@@ -36,21 +36,20 @@ const QString kConfigWindowState = "WindowState";
 const QString kConfigWindowGeometry = "WindowGeometry";
 const QString kConfigWindowMaximized = "Maximized";
 const bool kConfigWindowMaximizedDefault = false;
-const QRect kConfigDefaultWindowGeometry = QRect(0,10,800,600);
-
+const QRect kConfigDefaultWindowGeometry = QRect(0, 10, 800, 600);
 
 MainWindow::MainWindow(QWidget *parent)
-  : QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    action_handler_(new ActionHandler(this)),
-    current_canvas_container_(nullptr),
-    options_cache_(pApp->options()){
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow),
+      action_handler_(new ActionHandler(this)),
+      current_canvas_container_(nullptr),
+      options_cache_(pApp->options()) {
   ui->setupUi(this);
 
   LoadSettings();
   UpdateWidgetState();
 
-  this->setWindowTitle(windowTitle() + " " + kVersionString );
+  this->setWindowTitle(windowTitle() + " " + kVersionString);
 
   ui->edit_widget->Clear(options_cache_->selection().size());
 
@@ -77,7 +76,7 @@ ImageEditWidget *MainWindow::edit_widget() {
 }
 
 QAction *MainWindow::GetTool(const int tool) {
-  switch(tool){
+  switch (tool) {
   case TOOL_PENCIL:
     return ui->actionPencil_Tool;
     break;
@@ -124,76 +123,76 @@ void MainWindow::SetDegColor(const QImage &image) {
 
 void MainWindow::ConnectActions() {
   // File Actions
-  QObject::connect(ui->actionNew,SIGNAL(triggered(bool)),action_handler_,SLOT(NewFile()));
-  QObject::connect(ui->actionOpen,SIGNAL(triggered(bool)),action_handler_,SLOT(OpenFile()));
-  QObject::connect(ui->actionSave,SIGNAL(triggered(bool)),action_handler_,SLOT(SaveFile()));
-  QObject::connect(ui->actionSave_As,SIGNAL(triggered(bool)),action_handler_,SLOT(SaveAs()));
-  QObject::connect(ui->actionSave_All,SIGNAL(triggered(bool)),action_handler_,SLOT(SaveAll()));
+  QObject::connect(ui->actionNew, SIGNAL(triggered(bool)), action_handler_, SLOT(NewFile()));
+  QObject::connect(ui->actionOpen, SIGNAL(triggered(bool)), action_handler_, SLOT(OpenFile()));
+  QObject::connect(ui->actionSave, SIGNAL(triggered(bool)), action_handler_, SLOT(SaveFile()));
+  QObject::connect(ui->actionSave_As, SIGNAL(triggered(bool)), action_handler_, SLOT(SaveAs()));
+  QObject::connect(ui->actionSave_All, SIGNAL(triggered(bool)), action_handler_, SLOT(SaveAll()));
 
   // Other Actions
-  QObject::connect(ui->actionUndo,SIGNAL(triggered(bool)),action_handler_,SLOT(Undo()));
-  QObject::connect(ui->actionRedo,SIGNAL(triggered(bool)),action_handler_,SLOT(Redo()));
-  QObject::connect(ui->actionGradient,SIGNAL(triggered(bool)),action_handler_,SLOT(SetColorGradient()));
-  QObject::connect(ui->actionSwap_Colors,SIGNAL(triggered(bool)),action_handler_,SLOT(SwapColors()));
+  QObject::connect(ui->actionUndo, SIGNAL(triggered(bool)), action_handler_, SLOT(Undo()));
+  QObject::connect(ui->actionRedo, SIGNAL(triggered(bool)), action_handler_, SLOT(Redo()));
+  QObject::connect(ui->actionGradient, SIGNAL(triggered(bool)), action_handler_, SLOT(SetColorGradient()));
+  QObject::connect(ui->actionSwap_Colors, SIGNAL(triggered(bool)), action_handler_, SLOT(SwapColors()));
 
   // Interface Actions
-  QObject::connect(ui->actionAbout,SIGNAL(triggered(bool)),action_handler_,SLOT(About()));
-  QObject::connect(ui->actionTile_Size, SIGNAL(triggered(bool)),action_handler_,SLOT(TileSize()));
-  QObject::connect(ui->actionCascade,SIGNAL(triggered(bool)),ui->image_mdi_area_,SLOT(cascadeSubWindows()));
-  QObject::connect(ui->actionTile_Subwindows,SIGNAL(triggered(bool)),ui->image_mdi_area_,SLOT(tileSubWindows()));
-  QObject::connect(ui->actionExit,SIGNAL(triggered(bool)),this,SLOT(close()));
-  QObject::connect(ui->actionTransparency,SIGNAL(triggered(bool)),action_handler_,SLOT(ToggleTransparency(bool)));
-  QObject::connect(ui->zoom_horizontalSlider,SIGNAL(valueChanged(int)),action_handler_,SLOT(Zoom(int)));
+  QObject::connect(ui->actionAbout, SIGNAL(triggered(bool)), action_handler_, SLOT(About()));
+  QObject::connect(ui->actionTile_Size, SIGNAL(triggered(bool)), action_handler_, SLOT(TileSize()));
+  QObject::connect(ui->actionCascade, SIGNAL(triggered(bool)), ui->image_mdi_area_, SLOT(cascadeSubWindows()));
+  QObject::connect(ui->actionTile_Subwindows, SIGNAL(triggered(bool)), ui->image_mdi_area_, SLOT(tileSubWindows()));
+  QObject::connect(ui->actionExit, SIGNAL(triggered(bool)), this, SLOT(close()));
+  QObject::connect(ui->actionTransparency, SIGNAL(triggered(bool)), action_handler_, SLOT(ToggleTransparency(bool)));
+  QObject::connect(ui->zoom_horizontalSlider, SIGNAL(valueChanged(int)), action_handler_, SLOT(Zoom(int)));
 
   // Tools
-  QObject::connect(ui->actionPencil_Tool,SIGNAL(triggered()),action_handler_,SLOT(PencilToolPressed()));
-  QObject::connect(ui->actionFill_Tool,SIGNAL(triggered()),action_handler_,SLOT(FillToolPressed()));
-  QObject::connect(ui->actionLine_Tool,SIGNAL(triggered()),action_handler_,SLOT(LineToolPressed()));
-  QObject::connect(ui->actionEllipse_Tool,SIGNAL(triggered()),action_handler_,SLOT(EllipseToolPressed()));
-  QObject::connect(ui->actionRectangle_Tool,SIGNAL(triggered()),action_handler_,SLOT(RectangleToolPressed()));
-  QObject::connect(ui->actionSelection_Tool,SIGNAL(triggered()),action_handler_,SLOT(SelectionToolPressed()));
-  QObject::connect(ui->actionZoom_Tool,SIGNAL(triggered()),action_handler_,SLOT(ZoomToolPressed()));
+  QObject::connect(ui->actionPencil_Tool, SIGNAL(triggered()), action_handler_, SLOT(PencilToolPressed()));
+  QObject::connect(ui->actionFill_Tool, SIGNAL(triggered()), action_handler_, SLOT(FillToolPressed()));
+  QObject::connect(ui->actionLine_Tool, SIGNAL(triggered()), action_handler_, SLOT(LineToolPressed()));
+  QObject::connect(ui->actionEllipse_Tool, SIGNAL(triggered()), action_handler_, SLOT(EllipseToolPressed()));
+  QObject::connect(ui->actionRectangle_Tool, SIGNAL(triggered()), action_handler_, SLOT(RectangleToolPressed()));
+  QObject::connect(ui->actionSelection_Tool, SIGNAL(triggered()), action_handler_, SLOT(SelectionToolPressed()));
+  QObject::connect(ui->actionZoom_Tool, SIGNAL(triggered()), action_handler_, SLOT(ZoomToolPressed()));
 
   // Inverse communication
-  QObject::connect(action_handler_,SIGNAL(UpdateEditArea()),ui->edit_widget,SLOT(UpdateWidget()));
+  QObject::connect(action_handler_, SIGNAL(UpdateEditArea()), ui->edit_widget, SLOT(UpdateWidget()));
 
   // Translation Actions
-  QObject::connect(ui->actionPT_BR,SIGNAL(triggered(bool)),action_handler_,SLOT(TranslatePT_BR()));
-  QObject::connect(ui->actionEN_US,SIGNAL(triggered(bool)),action_handler_,SLOT(TranslateEN_US()));
+  QObject::connect(ui->actionPT_BR, SIGNAL(triggered(bool)), action_handler_, SLOT(TranslatePT_BR()));
+  QObject::connect(ui->actionEN_US, SIGNAL(triggered(bool)), action_handler_, SLOT(TranslateEN_US()));
 }
 
 void MainWindow::ConnectWidgets() {
-  QObject::connect(ui->image_mdi_area_,SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(CurrentWindowChanged(QMdiSubWindow*)));
-  QObject::connect(ui->color_main_pushButton,SIGNAL(clicked()),action_handler_,SLOT(OpenMainColorPick()));
-  QObject::connect(ui->color_alt_pushButton,SIGNAL(clicked()),action_handler_,SLOT(OpenAltColorPick()));
+  QObject::connect(ui->image_mdi_area_, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(CurrentWindowChanged(QMdiSubWindow *)));
+  QObject::connect(ui->color_main_pushButton, SIGNAL(clicked()), action_handler_, SLOT(OpenMainColorPick()));
+  QObject::connect(ui->color_alt_pushButton, SIGNAL(clicked()), action_handler_, SLOT(OpenAltColorPick()));
 }
 
 void MainWindow::SaveSettings() {
-  QSettings settings(kConfigFileName,QSettings::IniFormat);
+  QSettings settings(kConfigFileName, QSettings::IniFormat);
 
   settings.beginGroup(kConfigGroupState);
   options_cache_->SaveState(&settings);
   settings.endGroup();
 
   settings.beginGroup(kConfigGroupWindow);
-  settings.setValue(kConfigWindowGeometry,this->geometry());
-  settings.setValue(kConfigWindowMaximized,this->isMaximized());
-  settings.setValue(kConfigWindowState,this->saveState());
+  settings.setValue(kConfigWindowGeometry, this->geometry());
+  settings.setValue(kConfigWindowMaximized, this->isMaximized());
+  settings.setValue(kConfigWindowState, this->saveState());
   settings.endGroup();
 }
 
 void MainWindow::LoadSettings() {
-  QSettings settings(kConfigFileName,QSettings::IniFormat);
+  QSettings settings(kConfigFileName, QSettings::IniFormat);
 
   settings.beginGroup(kConfigGroupState);
   options_cache_->LoadState(&settings);
   settings.endGroup();
 
   settings.beginGroup(kConfigGroupWindow);
-  setGeometry(settings.value(kConfigWindowGeometry,kConfigDefaultWindowGeometry).toRect());
+  setGeometry(settings.value(kConfigWindowGeometry, kConfigDefaultWindowGeometry).toRect());
   restoreState(settings.value(kConfigWindowState).toByteArray());
 
-  if(settings.value(kConfigWindowMaximized,kConfigWindowMaximizedDefault).toBool()){
+  if (settings.value(kConfigWindowMaximized, kConfigWindowMaximizedDefault).toBool()) {
     showMaximized();
   }
   settings.endGroup();
@@ -210,7 +209,7 @@ void MainWindow::UpdateWidgetState() {
 }
 
 void MainWindow::changeEvent(QEvent *event) {
-  if(event->type() == QEvent::LanguageChange){
+  if (event->type() == QEvent::LanguageChange) {
     ui->retranslateUi(this);
   }
 }
@@ -220,14 +219,14 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::CurrentWindowChanged(QMdiSubWindow *w) {
-  if(nullptr != current_canvas_container_) {
+  if (nullptr != current_canvas_container_) {
     current_canvas_container_->RemoveAsActive(ui->edit_widget);
     current_canvas_container_ = nullptr;
   }
 
-  if(nullptr != w) {
-    current_canvas_container_ = dynamic_cast<ImageCanvasContainer*>(w->widget());
-    if(nullptr != current_canvas_container_){
+  if (nullptr != w) {
+    current_canvas_container_ = dynamic_cast<ImageCanvasContainer *>(w->widget());
+    if (nullptr != current_canvas_container_) {
       current_canvas_container_->SetAsActive(ui->edit_widget);
     }
   }

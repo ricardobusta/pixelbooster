@@ -18,21 +18,21 @@
 
 #include "image_canvas_widget.h"
 
-#include "utils/debug.h"
 #include "application/pixel_booster.h"
+#include "utils/debug.h"
 
-#include <QPainter>
-#include <QMouseEvent>
 #include <QFileDialog>
+#include <QMouseEvent>
+#include <QPainter>
 
-QVector<ImageCanvasWidget*> ImageCanvasWidget::open_canvas_;
+QVector<ImageCanvasWidget *> ImageCanvasWidget::open_canvas_;
 
 ImageCanvasWidget::ImageCanvasWidget(QWidget *parent)
-  : QWidget(parent),
-    anchor_down_(false),
-    active_(false),
-    options_cache_(pApp->options()),
-    saved_state_(true){
+    : QWidget(parent),
+      anchor_down_(false),
+      active_(false),
+      options_cache_(pApp->options()),
+      saved_state_(true) {
   setMouseTracking(true);
 
   open_canvas_.push_back(this);
@@ -43,11 +43,11 @@ ImageCanvasWidget::~ImageCanvasWidget() {
 }
 
 void ImageCanvasWidget::SetImage(const QImage &image) {
-  if(image.isNull()){
+  if (image.isNull()) {
     return;
   }
 
-  if( image.format() != QImage::Format_Indexed8 ){
+  if (image.format() != QImage::Format_Indexed8) {
     image_ = image;
   }
   this->setFixedSize(image_.size());
@@ -71,21 +71,22 @@ void ImageCanvasWidget::SaveState() {
 }
 
 void ImageCanvasWidget::Save() {
-  if(image_path_.isEmpty()){
+  if (image_path_.isEmpty()) {
     SaveAs();
-  }else{
+  } else {
     bool ok = image_.save(image_path_);
-    if(ok){
+    if (ok) {
       SaveState();
     }
   }
 }
 
 void ImageCanvasWidget::SaveAs() {
-  QString output = QFileDialog::getSaveFileName(reinterpret_cast<QWidget*>(pApp->main_window()),tr("Save image file as..."),".","PNG (*.png);;BMP (*.bmp);;JPG (*.jpg);;JPEG (*.jpeg);;GIF (*.gif);;GIF (*.gif);;PBM (*.pbm);;PGM (*.pgm);;PPM (*.ppm);;TIFF (*.tiff);;XBM (*.xbm);;XPM (*.xpm)");
-  if(!output.isEmpty()){
+  QString output = QFileDialog::getSaveFileName(reinterpret_cast<QWidget *>(pApp->main_window()),
+                                                tr("Save image file as..."), ".", "PNG (*.png);;BMP (*.bmp);;JPG (*.jpg);;JPEG (*.jpeg);;GIF (*.gif);;GIF (*.gif);;PBM (*.pbm);;PGM (*.pgm);;PPM (*.ppm);;TIFF (*.tiff);;XBM (*.xbm);;XPM (*.xpm)");
+  if (!output.isEmpty()) {
     bool ok = image_.save(output);
-    if(ok){
+    if (ok) {
       image_path_ = output;
       emit PathChaged(image_path_);
       SaveState();
@@ -105,18 +106,19 @@ void ImageCanvasWidget::set_image_path(const QString &path) {
 void ImageCanvasWidget::paintEvent(QPaintEvent *event) {
   QPainter painter(this);
 
-  if(image_.isNull()) return;
-  painter.drawImage(image_.rect(),image_);
+  if (image_.isNull())
+    return;
+  painter.drawImage(image_.rect(), image_);
 
-  if(active_){
-    QRect selection = options_cache_->selection().adjusted(0,0,-1,-1);
+  if (active_) {
+    QRect selection = options_cache_->selection().adjusted(0, 0, -1, -1);
 
-    if(underMouse()){
+    if (underMouse()) {
       painter.setPen(Qt::yellow);
       painter.setBrush(Qt::NoBrush);
       painter.drawRect(selection);
 
-      QVector<qreal> dashes = {2,2};
+      QVector<qreal> dashes = {2, 2};
 
       QPen pen;
       pen.setColor(Qt::red);
@@ -128,23 +130,23 @@ void ImageCanvasWidget::paintEvent(QPaintEvent *event) {
 }
 
 void ImageCanvasWidget::mousePressEvent(QMouseEvent *event) {
-  if(event->button() == Qt::RightButton){
+  if (event->button() == Qt::RightButton) {
     options_cache_->CleanCursorShift();
     anchor_down_ = true;
     anchor_ = options_cache_->PosToGrid(event->pos());
-    options_cache_->set_selection( anchor_ );
+    options_cache_->set_selection(anchor_);
     update();
   }
 }
 
 void ImageCanvasWidget::mouseReleaseEvent(QMouseEvent *event) {
   anchor_down_ = false;
-  if(event->button() == Qt::RightButton){
+  if (event->button() == Qt::RightButton) {
     // Get image from the canvas
     QImage selection = image_.copy(options_cache_->selection());
     emit SendImage(&selection);
     options_cache_->UpdateCursorShift();
-  }else if(event->button() == Qt::LeftButton){
+  } else if (event->button() == Qt::LeftButton) {
     // Set image back to the canvas
     UnsaveState();
     emit RequestImage();
@@ -153,16 +155,16 @@ void ImageCanvasWidget::mouseReleaseEvent(QMouseEvent *event) {
 
 void ImageCanvasWidget::mouseMoveEvent(QMouseEvent *event) {
   QPoint pos = event->pos();
-  if(!rect().contains(event->pos())){
-    pos.setX( qMin(rect().right()-1,qMax(rect().left(),pos.x())) );
-    pos.setY( qMin(rect().bottom()-1,qMax(rect().top(),pos.y())) );
+  if (!rect().contains(event->pos())) {
+    pos.setX(qMin(rect().right() - 1, qMax(rect().left(), pos.x())));
+    pos.setY(qMin(rect().bottom() - 1, qMax(rect().top(), pos.y())));
   }
 
   QRect current_cursor = options_cache_->PosToGrid(pos);
-  if(anchor_down_){
-    options_cache_->set_selection( current_cursor.united(anchor_) );
-  }else{
-    options_cache_->MoveSelection( current_cursor.center() );
+  if (anchor_down_) {
+    options_cache_->set_selection(current_cursor.united(anchor_));
+  } else {
+    options_cache_->MoveSelection(current_cursor.center());
   }
   update();
 }
@@ -171,18 +173,17 @@ void ImageCanvasWidget::leaveEvent(QEvent *event) {
   update();
 }
 
-void ImageCanvasWidget::ReceiveImage(QImage * image) {
-  if(NULL == image || image->isNull()){
+void ImageCanvasWidget::ReceiveImage(QImage *image) {
+  if (NULL == image || image->isNull()) {
     return;
   }
   QPainter painter(&image_);
 
-  if(!options_cache_->transparency_enabled()){
+  if (!options_cache_->transparency_enabled()) {
     painter.setCompositionMode(QPainter::CompositionMode_Source);
     painter.eraseRect(options_cache_->selection());
   }
-  painter.drawImage(options_cache_->selection(),*image);
+  painter.drawImage(options_cache_->selection(), *image);
 
   update();
 }
-

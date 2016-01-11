@@ -19,50 +19,47 @@
 #include "new_image_file_dialog.h"
 #include "ui_new_image_file_dialog.h"
 
-#include <QRegularExpression>
 #include <QColorDialog>
+#include <QRegularExpression>
 
-#include "utils/debug.h"
 #include "application/pixel_booster.h"
 #include "resources/translations/international_text.h"
+#include "utils/debug.h"
 
 const QString kTxtColorDialogTitle = "Select backgrond color";
 
 const QSize kPresetOptions[] = {
-  QSize(16,16),
-  QSize(32,32),
-  QSize(256,256),
-  QSize(320,240),
-  QSize(640,480),
-  QSize(800,600)
-};
+    QSize(16, 16),
+    QSize(32, 32),
+    QSize(256, 256),
+    QSize(320, 240),
+    QSize(640, 480),
+    QSize(800, 600)};
 
-const QPair<QImage::Format,QString> kFormatOptions[] = {
-  // TODO(ricardo) fix the program using 8 bit images issue.
-  //{QImage::Format_Indexed8,"8 bit indexed"},
-  {QImage::Format_ARGB32_Premultiplied, "32 bit"}
-};
+const QPair<QImage::Format, QString> kFormatOptions[] = {
+    // TODO(ricardo) fix the program using 8 bit images issue.
+    //{QImage::Format_Indexed8,"8 bit indexed"},
+    {QImage::Format_ARGB32_Premultiplied, "32 bit"}};
 
-NewImageFileDialog::NewImageFileDialog(QWidget *parent) :
-  QDialog(parent),
-  ui(new Ui::NewImageFileDialog),
-  selected_size_(kPresetOptions[0]),
-  selected_format_(kFormatOptions[0].first){
+NewImageFileDialog::NewImageFileDialog(QWidget *parent) : QDialog(parent),
+                                                          ui(new Ui::NewImageFileDialog),
+                                                          selected_size_(kPresetOptions[0]),
+                                                          selected_format_(kFormatOptions[0].first) {
   ui->setupUi(this);
 
-  for( QSize s : kPresetOptions ) {
+  for (QSize s : kPresetOptions) {
     ui->preset_comboBox->addItem(QString("%1 x %2").arg(s.width()).arg(s.height()));
   }
 
-  for( auto f : kFormatOptions ) {
+  for (auto f : kFormatOptions) {
     ui->format_comboBox->addItem(f.second);
   }
 
-  QObject::connect(ui->preset_comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(UpdatePresetValues(int)));
-  QObject::connect(ui->width_spinBox,SIGNAL(valueChanged(int)),this,SLOT(UpdateWidthValue(int)));
-  QObject::connect(ui->height_spinBox,SIGNAL(valueChanged(int)),this,SLOT(UpdateHeightValue(int)));
-  QObject::connect(ui->format_comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(UpdateFormatValue(int)));
-  QObject::connect(ui->color_pushButton,SIGNAL(clicked()),this,SLOT(ColorButtonClicked()));
+  QObject::connect(ui->preset_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(UpdatePresetValues(int)));
+  QObject::connect(ui->width_spinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdateWidthValue(int)));
+  QObject::connect(ui->height_spinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdateHeightValue(int)));
+  QObject::connect(ui->format_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(UpdateFormatValue(int)));
+  QObject::connect(ui->color_pushButton, SIGNAL(clicked()), this, SLOT(ColorButtonClicked()));
 
   QSize new_image_size = pApp->options()->new_image_size();
   ui->width_spinBox->setValue(new_image_size.width());
@@ -70,7 +67,7 @@ NewImageFileDialog::NewImageFileDialog(QWidget *parent) :
 
   SetColor(pApp->options()->new_image_color());
 
-  QObject::connect(this,SIGNAL(accepted()),this,SLOT(UpdateGlobalNewImageSize()));
+  QObject::connect(this, SIGNAL(accepted()), this, SLOT(UpdateGlobalNewImageSize()));
 }
 
 NewImageFileDialog::~NewImageFileDialog() {
@@ -95,15 +92,15 @@ void NewImageFileDialog::SetColor(const QColor &color) {
 }
 
 void NewImageFileDialog::ColorButtonClicked() {
-  QColor color = QColorDialog::getColor(selected_color_,this,kTxtColorDialogTitle,QColorDialog::ShowAlphaChannel);
-  if(color.isValid()){
+  QColor color = QColorDialog::getColor(selected_color_, this, kTxtColorDialogTitle, QColorDialog::ShowAlphaChannel);
+  if (color.isValid()) {
     SetColor(color);
     pApp->options()->set_new_image_color(color);
   }
 }
 
 void NewImageFileDialog::UpdatePresetValues(int index) {
-  if(index == 0){
+  if (index == 0) {
     ui->width_spinBox->setEnabled(true);
     ui->height_spinBox->setEnabled(true);
     return;
@@ -119,7 +116,7 @@ void NewImageFileDialog::UpdatePresetValues(int index) {
 
   QStringList caps = m.capturedTexts();
 
-  if(caps.size()==3){
+  if (caps.size() == 3) {
     ui->width_spinBox->setValue(caps[1].toInt());
     ui->height_spinBox->setValue(caps[2].toInt());
   }

@@ -18,45 +18,44 @@
 
 #include "tool_algorithm.h"
 
-#include "widgets/image_edit_widget.h"
 #include "utils/debug.h"
+#include "widgets/image_edit_widget.h"
 
 #include <QPainter>
 
 void ToolAlgorithm::Pencil(QImage *image, const ACTION_TOOL action, const QPoint &p1, const QPoint p2, const QColor &color) {
   QPainter painter(image);
   painter.setPen(color);
-  painter.drawLine(p1,p2);
+  painter.drawLine(p1, p2);
 }
 
-void ToolAlgorithm::FloodFill(QImage * image, const ACTION_TOOL action, const QPoint &seed, const QColor &color) {
-  if(action == ACTION_PRESS){
+void ToolAlgorithm::FloodFill(QImage *image, const ACTION_TOOL action, const QPoint &seed, const QColor &color) {
+  if (action == ACTION_PRESS) {
     QRgb new_color = color.rgba();
     QRgb old_color = image->pixel(seed);
-    if(new_color == old_color){
+    if (new_color == old_color) {
       return;
     }
     QList<QPoint> to_do_list = {seed};
 
     QVector<QPoint> expansion = {
-      QPoint(1,0),
-      QPoint(0,1),
-      QPoint(-1,0),
-      QPoint(0,-1)
-    };
+        QPoint(1, 0),
+        QPoint(0, 1),
+        QPoint(-1, 0),
+        QPoint(0, -1)};
 
-    image->setPixel(seed,new_color);
+    image->setPixel(seed, new_color);
 
-    while(!to_do_list.isEmpty()){
+    while (!to_do_list.isEmpty()) {
       //DEBUG_MSG(to_do_list.length());
       QPoint target = to_do_list.takeFirst();
 
-      for(QPoint e : expansion){
-        QPoint new_target = target+e;
+      for (QPoint e : expansion) {
+        QPoint new_target = target + e;
         //DEBUG_MSG(new_target);
-        if(image->rect().contains(new_target) && image->pixel(new_target) == old_color){
+        if (image->rect().contains(new_target) && image->pixel(new_target) == old_color) {
           to_do_list.push_back(new_target);
-          image->setPixel(new_target,new_color);
+          image->setPixel(new_target, new_color);
         }
       }
     }
@@ -79,7 +78,7 @@ void ToolAlgorithm::BresenhamLine(QImage *image, const QPoint &p1, const QPoint 
   signed char const iy((delta_y > 0) - (delta_y < 0));
   delta_y = std::abs(delta_y) << 1;
 
-  SetPixel(image,x1,y1,color);
+  SetPixel(image, x1, y1, color);
 
   if (delta_x >= delta_y) {
     int error(delta_y - (delta_x >> 1));
@@ -91,7 +90,7 @@ void ToolAlgorithm::BresenhamLine(QImage *image, const QPoint &p1, const QPoint 
       error += delta_y;
       x1 += ix;
 
-      SetPixel(image,x1,y1,color);
+      SetPixel(image, x1, y1, color);
     }
   } else {
     int error(delta_x - (delta_y >> 1));
@@ -103,7 +102,7 @@ void ToolAlgorithm::BresenhamLine(QImage *image, const QPoint &p1, const QPoint 
       error += delta_x;
       y1 += iy;
 
-      SetPixel(image,x1,y1,color);
+      SetPixel(image, x1, y1, color);
     }
   }
 }
@@ -112,22 +111,22 @@ void ToolAlgorithm::BresenhamEllipse(QImage *image, const QRect &rect, bool fill
   // Algorithm from https://web.archive.org/web/20120225095359/http://homepage.smc.edu/kennedy_john/belipse.pdf
   QPoint c = rect.center();
   // Checks if the rect size is even on both directions
-  QPoint e = QPoint(1-rect.width()%2,1-rect.height()%2);
-  int r_x = rect.width()/2;
-  int r_y = rect.height()/2;
+  QPoint e = QPoint(1 - rect.width() % 2, 1 - rect.height() % 2);
+  int r_x = rect.width() / 2;
+  int r_y = rect.height() / 2;
 
-  if(rect.width()<=0 || rect.height()<=0){
+  if (rect.width() <= 0 || rect.height() <= 0) {
     // Avoid drawing ellipses with area 0
     return;
   }
 
   int x = r_x;
   int y = 0;
-  int x_change = r_y*r_y*(1 - 2*r_x);
-  int y_change = r_x*r_x;
+  int x_change = r_y * r_y * (1 - 2 * r_x);
+  int y_change = r_x * r_x;
   int ellipse_error = 0;
-  int two_a_square = 2*r_x*r_x;
-  int two_b_square = 2*r_y*r_y;
+  int two_a_square = 2 * r_x * r_x;
+  int two_b_square = 2 * r_y * r_y;
   int stopping_x = two_b_square * r_x;
   int stopping_y = 0;
 
@@ -135,77 +134,77 @@ void ToolAlgorithm::BresenhamEllipse(QImage *image, const QRect &rect, bool fill
   QPoint last_v;
 
   // Drawing horizontal portion of the ellipse
-  while(stopping_x >= stopping_y){
-    last_h = QPoint(x,y);
-    if(fill){
-      for(int i=0;i<last_h.x();i++){
-        Plot4EllipsePoints(image,c,QPoint(i,last_h.y()),e,color);
+  while (stopping_x >= stopping_y) {
+    last_h = QPoint(x, y);
+    if (fill) {
+      for (int i = 0; i < last_h.x(); i++) {
+        Plot4EllipsePoints(image, c, QPoint(i, last_h.y()), e, color);
       }
-    }else{
-      Plot4EllipsePoints(image,c,last_h,e,color);
+    } else {
+      Plot4EllipsePoints(image, c, last_h, e, color);
     }
     y++;
     stopping_y += two_a_square;
-    ellipse_error+= y_change;
+    ellipse_error += y_change;
     y_change += two_a_square;
-    if( (2* ellipse_error + x_change) > 0){
+    if ((2 * ellipse_error + x_change) > 0) {
       x--;
-      stopping_x-= two_b_square;
-      ellipse_error+= x_change;
-      x_change+=two_b_square;
+      stopping_x -= two_b_square;
+      ellipse_error += x_change;
+      x_change += two_b_square;
     }
   }
 
   x = 0;
   y = r_y;
-  x_change = r_y*r_y;
-  y_change = r_x*r_x*(1 - 2*r_y);
+  x_change = r_y * r_y;
+  y_change = r_x * r_x * (1 - 2 * r_y);
   ellipse_error = 0;
   stopping_x = 0;
-  stopping_y = two_a_square*r_y;
+  stopping_y = two_a_square * r_y;
 
   // Drawing vertical portion of the ellipse
-  while(stopping_x <= stopping_y){
-    last_v = QPoint(x,y);
-    if(fill){
-      for(int i=0;i<last_v.y();i++){
-        Plot4EllipsePoints(image,c,QPoint(last_v.x(),i),e,color);
+  while (stopping_x <= stopping_y) {
+    last_v = QPoint(x, y);
+    if (fill) {
+      for (int i = 0; i < last_v.y(); i++) {
+        Plot4EllipsePoints(image, c, QPoint(last_v.x(), i), e, color);
       }
-    }else{
-      Plot4EllipsePoints(image,c,last_v,e,color);
+    } else {
+      Plot4EllipsePoints(image, c, last_v, e, color);
     }
     x++;
-    stopping_x+=two_b_square;
+    stopping_x += two_b_square;
     ellipse_error += x_change;
-    x_change+= two_b_square;
-    if((2*ellipse_error + y_change) > 0){
+    x_change += two_b_square;
+    if ((2 * ellipse_error + y_change) > 0) {
       y--;
       stopping_y -= two_a_square;
-      ellipse_error+= y_change;
+      ellipse_error += y_change;
       y_change += two_a_square;
     }
   }
 
   // The two ellipse parts are separated and must be connected
-  if( abs(last_h.x()-last_v.x()) > 1 || abs(last_h.y()-last_v.y()) > 1 ){
-    QPoint hp1 = c+last_h;
-    QPoint vp1 = c+last_v;
-    QPoint hp2 = c-last_h+e;
-    QPoint vp2 = c-last_v+e;
-    QPoint hp3 = QPoint(hp1.x(),hp2.y());
-    QPoint vp3 = QPoint(vp1.x(),vp2.y());
-    QPoint hp4 = QPoint(hp2.x(),hp1.y());
-    QPoint vp4 = QPoint(vp2.x(),vp1.y());
-    BresenhamLine(image,hp1,vp1,color);
-    BresenhamLine(image,hp2,vp2,color);
-    BresenhamLine(image,hp3,vp3,color);
-    BresenhamLine(image,hp4,vp4,color);
+  if (abs(last_h.x() - last_v.x()) > 1 || abs(last_h.y() - last_v.y()) > 1) {
+    QPoint hp1 = c + last_h;
+    QPoint vp1 = c + last_v;
+    QPoint hp2 = c - last_h + e;
+    QPoint vp2 = c - last_v + e;
+    QPoint hp3 = QPoint(hp1.x(), hp2.y());
+    QPoint vp3 = QPoint(vp1.x(), vp2.y());
+    QPoint hp4 = QPoint(hp2.x(), hp1.y());
+    QPoint vp4 = QPoint(vp2.x(), vp1.y());
+    BresenhamLine(image, hp1, vp1, color);
+    BresenhamLine(image, hp2, vp2, color);
+    BresenhamLine(image, hp3, vp3, color);
+    BresenhamLine(image, hp4, vp4, color);
   }
 }
 
 void ToolAlgorithm::Plot4EllipsePoints(QImage *image, const QPoint &c, const QPoint &p, const QPoint &e, const QRgb &color) {
-  QPoint p1 = c+p;
-  QPoint p2 = c-p+e;
+  QPoint p1 = c + p;
+  QPoint p2 = c - p + e;
   SetPixel(image, p1, color);
   SetPixel(image, p2, color);
   SetPixel(image, p1.x(), p2.y(), color);
@@ -213,13 +212,13 @@ void ToolAlgorithm::Plot4EllipsePoints(QImage *image, const QPoint &c, const QPo
 }
 
 void ToolAlgorithm::SetPixel(QImage *image, const QPoint &p, const QRgb &color) {
-  if(image->rect().contains(p)){
-    image->setPixel(p,color);
+  if (image->rect().contains(p)) {
+    image->setPixel(p, color);
   }
 }
 
 void ToolAlgorithm::SetPixel(QImage *image, const int x, const int y, const QRgb &color) {
-  if(image->rect().contains(x,y)){
-    image->setPixel(x,y,color);
+  if (image->rect().contains(x, y)) {
+    image->setPixel(x, y, color);
   }
 }

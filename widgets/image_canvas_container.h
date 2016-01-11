@@ -37,9 +37,10 @@ public:
   explicit ImageCanvasContainer(const QImage &image, const QString &file_name, QWidget *parent = 0);
   ~ImageCanvasContainer();
 
-  void SetAsActive(ImageEditWidget * edit_widget);
+  void SetAsActive(ImageEditWidget *edit_widget);
   void RemoveAsActive(ImageEditWidget *edit_widget);
-  ImageCanvasWidget * GetCanvasWidget() const;
+  ImageCanvasWidget *GetCanvasWidget() const;
+
 private:
   Ui::ImageCanvasContainer *ui;
 

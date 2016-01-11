@@ -19,23 +19,23 @@
 #include "action_handler.h"
 
 #include "application/pixel_booster.h"
-#include "utils/debug.h"
-#include "widgets/image_canvas_container.h"
-#include "widgets/image_canvas_widget.h"
+#include "resources/version.h"
+#include "screens/about_dialog.h"
 #include "screens/main_window.h"
 #include "screens/new_image_file_dialog.h"
-#include "screens/about_dialog.h"
 #include "screens/set_tile_size_dialog.h"
-#include "resources/version.h"
-#include "widgets/image_edit_widget.h"
+#include "utils/debug.h"
 #include "utils/pb_math.h"
+#include "widgets/image_canvas_container.h"
+#include "widgets/image_canvas_widget.h"
+#include "widgets/image_edit_widget.h"
 
-#include <QFileDialog>
-#include <QMdiArea>
-#include <QLabel>
-#include <QMdiSubWindow>
-#include <QColorDialog>
 #include <QAction>
+#include <QColorDialog>
+#include <QFileDialog>
+#include <QLabel>
+#include <QMdiArea>
+#include <QMdiSubWindow>
 
 const QString kTxtSelectMainColor = "Select Main Color";
 const QString kTxtSelectAltColor = "Select Secondary Color";
@@ -43,20 +43,20 @@ const QString kTxtSelectAltColor = "Select Secondary Color";
 const QString kColorButtonStyle = "background-color: %1; border: 1px solid black;";
 
 ActionHandler::ActionHandler(QObject *parent)
-  : QObject(parent),
-    options_cache_(pApp->options()),
-    window_cache_(dynamic_cast<MainWindow*>(parent)){
+    : QObject(parent),
+      options_cache_(pApp->options()),
+      window_cache_(dynamic_cast<MainWindow *>(parent)) {
 }
 
 ActionHandler::~ActionHandler() {
 }
 
 void ActionHandler::NewFile() const {
-  NewImageFileDialog * image_file_dialog = new NewImageFileDialog(window_cache_);
+  NewImageFileDialog *image_file_dialog = new NewImageFileDialog(window_cache_);
   int result = image_file_dialog->exec();
 
   // Check if the user canceled the new image creation.
-  if(result != QFileDialog::Accepted){
+  if (result != QFileDialog::Accepted) {
     delete image_file_dialog;
     return;
   }
@@ -65,7 +65,7 @@ void ActionHandler::NewFile() const {
   QSize size = image_file_dialog->selected_size();
   QImage::Format format = image_file_dialog->selected_format();
 
-  QImage image(size,format);
+  QImage image(size, format);
   image.fill(image_file_dialog->selected_color());
   CreateImageCanvas(image, "");
 
@@ -74,13 +74,13 @@ void ActionHandler::NewFile() const {
 }
 
 void ActionHandler::OpenFile() const {
-  QStringList file_names = QFileDialog::getOpenFileNames(window_cache_,"Open Files",".","Images (*.png *.bmp *.jpg *.jpeg *.pbm *.pgm *.ppm *.tiff *.xbm *.xpm)");
+  QStringList file_names = QFileDialog::getOpenFileNames(window_cache_, "Open Files", ".", "Images (*.png *.bmp *.jpg *.jpeg *.pbm *.pgm *.ppm *.tiff *.xbm *.xpm)");
 
-  for( QString file_name : file_names ){
-    if(!file_name.isEmpty()){
+  for (QString file_name : file_names) {
+    if (!file_name.isEmpty()) {
       QImage image(file_name);
-      if(!image.isNull()){
-        CreateImageCanvas(image,file_name);
+      if (!image.isNull()) {
+        CreateImageCanvas(image, file_name);
       }
     }
   }
@@ -88,9 +88,9 @@ void ActionHandler::OpenFile() const {
 
 void ActionHandler::SaveFile() const {
   ImageCanvasContainer *c = window_cache_->current_canvas_container();
-  if(nullptr != c){
-    ImageCanvasWidget * w = c->GetCanvasWidget();
-    if(!w->saved_state()){
+  if (nullptr != c) {
+    ImageCanvasWidget *w = c->GetCanvasWidget();
+    if (!w->saved_state()) {
       DEBUG_MSG("Saving image");
       w->Save();
     }
@@ -100,8 +100,8 @@ void ActionHandler::SaveFile() const {
 void ActionHandler::SaveAll() const {
   DEBUG_MSG("Should attempt to save all unsaved files");
 
-  for(ImageCanvasWidget* w : *ImageCanvasWidget::open_canvas()){
-    if(!w->saved_state()){
+  for (ImageCanvasWidget *w : *ImageCanvasWidget::open_canvas()) {
+    if (!w->saved_state()) {
       DEBUG_MSG("Saving image");
       w->Save();
     }
@@ -110,8 +110,8 @@ void ActionHandler::SaveAll() const {
 
 void ActionHandler::SaveAs() const {
   ImageCanvasContainer *c = window_cache_->current_canvas_container();
-  if(nullptr != c){
-    ImageCanvasWidget * w = c->GetCanvasWidget();
+  if (nullptr != c) {
+    ImageCanvasWidget *w = c->GetCanvasWidget();
     DEBUG_MSG("Saving image");
     w->SaveAs();
   }
@@ -161,13 +161,13 @@ void ActionHandler::ZoomToolPressed() const {
 }
 
 void ActionHandler::About() const {
-  AboutDialog * about_dialog = new AboutDialog(window_cache_);
+  AboutDialog *about_dialog = new AboutDialog(window_cache_);
   about_dialog->exec();
   delete about_dialog;
 }
 
 void ActionHandler::TileSize() const {
-  SetTileSizeDialog * tile_dialog = new SetTileSizeDialog(window_cache_);
+  SetTileSizeDialog *tile_dialog = new SetTileSizeDialog(window_cache_);
   tile_dialog->exec();
   delete tile_dialog;
 }
@@ -177,20 +177,20 @@ void ActionHandler::ToggleTransparency(bool transparency) const {
 }
 
 void ActionHandler::Zoom(int zoom) const {
-  options_cache_->set_zoom_level( zoom );
+  options_cache_->set_zoom_level(zoom);
   emit UpdateEditArea();
 }
 
 void ActionHandler::OpenMainColorPick() const {
-  QColor color = QColorDialog::getColor(options_cache_->main_color(),window_cache_,kTxtSelectMainColor,QColorDialog::ShowAlphaChannel);
-  if(color.isValid()){
+  QColor color = QColorDialog::getColor(options_cache_->main_color(), window_cache_, kTxtSelectMainColor, QColorDialog::ShowAlphaChannel);
+  if (color.isValid()) {
     SetMainColor(color);
   }
 }
 
 void ActionHandler::OpenAltColorPick() const {
-  QColor color = QColorDialog::getColor(options_cache_->alt_color(),window_cache_,kTxtSelectAltColor,QColorDialog::ShowAlphaChannel);
-  if(color.isValid()){
+  QColor color = QColorDialog::getColor(options_cache_->alt_color(), window_cache_, kTxtSelectAltColor, QColorDialog::ShowAlphaChannel);
+  if (color.isValid()) {
     SetAltColor(color);
   }
 }
@@ -222,17 +222,17 @@ void ActionHandler::SwapColors() const {
 void ActionHandler::SetColorGradient() const {
   QColor main = options_cache_->main_color();
   QColor alt = options_cache_->alt_color();
-  QImage new_deg = QImage(10,3,QImage::Format_ARGB32_Premultiplied);
+  QImage new_deg = QImage(10, 3, QImage::Format_ARGB32_Premultiplied);
   QColor black = Qt::black;
   QColor white = Qt::white;
-  for(int i=0;i<10;i++){
-    float f = float(i)/9.0f;
-    QColor c0 = ColorLerp(main,alt,f);
-    QColor c1 = ColorLerp(main,black,f);
-    QColor c2 = ColorLerp(main,white,f);
-    new_deg.setPixel(i,0,c0.rgba());
-    new_deg.setPixel(i,1,c1.rgba());
-    new_deg.setPixel(i,2,c2.rgba());
+  for (int i = 0; i < 10; i++) {
+    float f = float(i) / 9.0f;
+    QColor c0 = ColorLerp(main, alt, f);
+    QColor c1 = ColorLerp(main, black, f);
+    QColor c2 = ColorLerp(main, white, f);
+    new_deg.setPixel(i, 0, c0.rgba());
+    new_deg.setPixel(i, 1, c1.rgba());
+    new_deg.setPixel(i, 2, c2.rgba());
   }
   window_cache_->SetDegColor(new_deg);
 }
@@ -243,10 +243,10 @@ void ActionHandler::Translate(const QString &language) const {
 }
 
 void ActionHandler::CreateImageCanvas(const QImage &image, const QString &file_name) const {
-  ImageCanvasContainer * canvas_container = new ImageCanvasContainer(image,file_name);
-  QMdiArea * mdi = window_cache_->mdi_area();
-  QMdiSubWindow * w = mdi->addSubWindow(canvas_container);
-  QSize size = image.size() + QSize(50,50);
+  ImageCanvasContainer *canvas_container = new ImageCanvasContainer(image, file_name);
+  QMdiArea *mdi = window_cache_->mdi_area();
+  QMdiSubWindow *w = mdi->addSubWindow(canvas_container);
+  QSize size = image.size() + QSize(50, 50);
   w->resize(size);
   w->show();
 }

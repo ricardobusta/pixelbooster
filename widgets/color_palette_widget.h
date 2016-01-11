@@ -21,8 +21,7 @@
 
 #include <QWidget>
 
-class ColorPaletteWidget : public QWidget
-{
+class ColorPaletteWidget : public QWidget {
   Q_OBJECT
 public:
   explicit ColorPaletteWidget(QWidget *parent = 0);

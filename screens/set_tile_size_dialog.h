@@ -25,8 +25,7 @@ namespace Ui {
 class SetTileSizeDialog;
 }
 
-class SetTileSizeDialog : public QDialog
-{
+class SetTileSizeDialog : public QDialog {
   Q_OBJECT
 
 public:

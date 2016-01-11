@@ -42,23 +42,24 @@ public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
-  QMdiArea * mdi_area() const;
-  ImageCanvasContainer * current_canvas_container();
-  ImageEditWidget * edit_widget();
+  QMdiArea *mdi_area() const;
+  ImageCanvasContainer *current_canvas_container();
+  ImageEditWidget *edit_widget();
 
-  QAction * GetTool(const int tool);
+  QAction *GetTool(const int tool);
 
-  ActionHandler * action_handler() const;
-  QWidget * main_color_button() const;
-  QWidget * alt_color_button() const;
+  ActionHandler *action_handler() const;
+  QWidget *main_color_button() const;
+  QWidget *alt_color_button() const;
 
   void SetDegColor(const QImage &image);
+
 private:
   Ui::MainWindow *ui;
-  ActionHandler * action_handler_;
-  ImageCanvasContainer * current_canvas_container_;
+  ActionHandler *action_handler_;
+  ImageCanvasContainer *current_canvas_container_;
 
-  GlobalOptions * options_cache_;
+  GlobalOptions *options_cache_;
 
   void ConnectActions();
   void ConnectWidgets();

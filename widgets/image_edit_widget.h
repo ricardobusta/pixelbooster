@@ -19,19 +19,18 @@
 #ifndef IMAGE_EDIT_WIDGET_H
 #define IMAGE_EDIT_WIDGET_H
 
-#include <QWidget>
 #include <QImage>
+#include <QWidget>
 
-#include "logic/undo_redo.h"
 #include "logic/tool_algorithm.h"
+#include "logic/undo_redo.h"
 
 class GlobalOptions;
 
 /*!
  * \brief The ImageEditWidget class
  */
-class ImageEditWidget : public QWidget
-{
+class ImageEditWidget : public QWidget {
   Q_OBJECT
 public:
   explicit ImageEditWidget(QWidget *parent = 0);
@@ -40,6 +39,7 @@ public:
 
   void Undo();
   void Redo();
+
 protected:
   virtual void paintEvent(QPaintEvent *event);
   virtual void mouseMoveEvent(QMouseEvent *event);
@@ -47,6 +47,7 @@ protected:
   virtual void mousePressEvent(QMouseEvent *event);
   virtual void mouseReleaseEvent(QMouseEvent *event);
   virtual void mouseClickEvent(QMouseEvent *event);
+
 private:
   QImage image_;
   QRect cursor_;
@@ -59,8 +60,7 @@ private:
   bool left_button_down_;
   bool right_button_down_;
 
-
-  GlobalOptions * options_cache_;
+  GlobalOptions *options_cache_;
 
   QPoint previous_pos_;
   QPoint action_anchor_;
@@ -72,9 +72,9 @@ private:
 
   QPoint WidgetToImageSpace(const QPoint &pos);
 signals:
-  void SendImage(QImage*);
+  void SendImage(QImage *);
 public slots:
-  void GetImage(QImage*image);
+  void GetImage(QImage *image);
   void HandleRequest();
   void UpdateWidget();
 };

@@ -28,10 +28,10 @@ class QAction;
 /*!
  * \brief The ActionHandler class
  */
-class ActionHandler: public QObject {
+class ActionHandler : public QObject {
   Q_OBJECT
 public:
-  explicit ActionHandler(QObject * parent);
+  explicit ActionHandler(QObject *parent);
   virtual ~ActionHandler();
 
 public slots:
@@ -76,8 +76,8 @@ signals:
   void UpdateEditArea() const;
 
 private:
-  GlobalOptions * options_cache_;
-  MainWindow * window_cache_;
+  GlobalOptions *options_cache_;
+  MainWindow *window_cache_;
 
   void SwapTools(const int tool) const;
 

@@ -21,10 +21,8 @@
 
 #include "resources/version.h"
 
-AboutDialog::AboutDialog(QWidget *parent) :
-  QDialog(parent),
-  ui(new Ui::AboutDialog)
-{
+AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent),
+                                            ui(new Ui::AboutDialog) {
   ui->setupUi(this);
 
   ui->version_label->setText(kVersionString);
@@ -34,7 +32,6 @@ AboutDialog::AboutDialog(QWidget *parent) :
   ui->website_label->setText("<a href=\"http://pixel.busta.com.br\">pixel.busta.com.br</a>");
 }
 
-AboutDialog::~AboutDialog()
-{
+AboutDialog::~AboutDialog() {
   delete ui;
 }

@@ -28,8 +28,7 @@ class NewImageFileDialog;
 /*!
  * \brief The NewImageFileDialog class
  */
-class NewImageFileDialog : public QDialog
-{
+class NewImageFileDialog : public QDialog {
   Q_OBJECT
 
 public:
