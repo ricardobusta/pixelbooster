@@ -1,300 +1,148 @@
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="UTF-8">
-		<title>Pixel::Booster by RicardoBusta</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-		<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-		<link rel="shortcut icon" href="images/icon.ico">
-	</head>
-	<body>
-		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <head>
+    <meta charset="UTF-8">
+    <title>Pixel::Booster by RicardoBusta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="shortcut icon" href="images/icon.ico">
+	<script type="text/javascript" src="features.js" ></script>
+  </head>
+  <body>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- Ads Pixel Booster -->
 <ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-8056039005803559"
-     data-ad-slot="1960191827"></ins>
+   style="display:inline-block;width:728px;height:90px"
+   data-ad-client="ca-pub-8056039005803559"
+   data-ad-slot="1960191827"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-		<div id="fb-root"></div>
-		<script>
-			// Facebook Stuff
-			( function(d, s, id) {
-					var js,
-					    fjs = d.getElementsByTagName(s)[0];
-					if (d.getElementById(id))
-						return;
-					js = d.createElement(s);
-					js.id = id;
-					js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5";
-					fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));
+    <div id="fb-root"></div>
+    <script>
+      // Facebook Stuff
+      ( function(d, s, id) {
+          var js,
+            fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id))
+            return;
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
-			var pages = ["main_page", "tutorial_page"];
+      var pages = ["main_page", "tutorial_page"];
 
-			function setPage(page) {
-				for (var i = 0; i < pages.length; i++) {
-					var p = document.getElementById(pages[i]);
-					if (page == pages[i]) {
-						if (p) {
-							p.style.visibility = 'visible';
-							p.style.display = 'block';
-						}
-					} else {
-						if (p) {
-							p.style.visibility = 'hidden';
-							p.style.display = 'none';
-						}
-					}
-				}
-			};
+      function setPage(page) {
+        for (var i = 0; i < pages.length; i++) {
+          var p = document.getElementById(pages[i]);
+          if (page == pages[i]) {
+            if (p) {
+              p.style.visibility = 'visible';
+              p.style.display = 'block';
+            }
+          } else {
+            if (p) {
+              p.style.visibility = 'hidden';
+              p.style.display = 'none';
+            }
+          }
+        }
+      };
 
-			window.onload = function(e) {
-				document.getElementById("main_link").onclick = function() {
-					setPage("main_page");
-					return false;
-				};
-				document.getElementById("tutorial_link").onclick = function() {
-					setPage("tutorial_page");
-					return false;
-				};
-				setPage("main_page");
-			};
-		</script>
+      window.onload = function(e) {
+		var features = document.getElementById("features");
+		LoadFeatures(features);
+        document.getElementById("main_link").onclick = function() {
+          setPage("main_page");
+          return false;
+        };
+        document.getElementById("tutorial_link").onclick = function() {
+          setPage("tutorial_page");
+          return false;
+        };
+        setPage("main_page");
+      };
+    </script>
 
-		<section class="page-header">
-			<img src="images/home/app_icon.png"/>
-			<h1 class="project-name">Pixel::Booster</h1>
-			<h2 class="project-tagline">A simple open source pixel art image editor</h2>
-			<a href="https://github.com/RicardoBusta/PixelBooster/releases" class="btn">Download Binaries</a>
-			<a href="https://github.com/RicardoBusta/PixelBooster" class="btn">View Source on GitHub</a>
-			<a href="https://github.com/RicardoBusta/PixelBooster/zipball/master" class="btn">Download Source (.zip)</a>
-			<a href="https://github.com/RicardoBusta/PixelBooster/tarball/master" class="btn">Download Source (.tar.gz)</a>
-		</section>
+    <section class="page-header">
+      <img src="images/home/app_icon.png"/>
+      <h1 class="project-name">Pixel::Booster</h1>
+      <h2 class="project-tagline">A simple open source pixel art image editor</h2>
+      <a href="https://github.com/RicardoBusta/PixelBooster/releases" class="btn">Download Binaries</a>
+      <a href="https://github.com/RicardoBusta/PixelBooster" class="btn">View Source on GitHub</a>
+      <a href="https://github.com/RicardoBusta/PixelBooster/zipball/master" class="btn">Download Source (.zip)</a>
+      <a href="https://github.com/RicardoBusta/PixelBooster/tarball/master" class="btn">Download Source (.tar.gz)</a>
+    </section>
 
-		<section class="main-content">
-			<a id="main_link" class="btn2">Home</a>
-			<a id="tutorial_link" class="btn2">Tutorial</a>
-			
-			<br>
-			<div class="fb-like" data-href="https://www.facebook.com/ThePixelBooster/" data-width="500" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+    <section class="main-content">
+      <a id="main_link" class="btn2">Home</a>
+      <a id="tutorial_link" class="btn2">Tutorial</a>
+      
+      <br>
+      <div class="fb-like" data-href="https://www.facebook.com/ThePixelBooster/" data-width="500" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 
-			<div id="main_page">
-				<h3><a id="pixel-booster-what-is" class="anchor" href="#pixel-booster-what-is" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Project</h3>
+      <div id="main_page">
+        <h3><a id="pixel-booster-what-is" class="anchor" href="#pixel-booster-what-is" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Project</h3>
 
-				Pixel::Booster is going to be an easy to use and powerful software for pixel artists.
-				The software is being developed using C++11 and Qt5.5.1. It will feature tools used by known and approved programs used by multiple projects
-				over the past decades, but also modern features to help creating assets for games and animations faster and more comfortably.
-				Pixel::Booster will be entirely free and open source forever. This means the community can improve the software by suggesting new
-				features and fixing bugs!
-				
-				Latest Release: Version 0.01 Alpha
-				<p style="text-align:center;"><img src="images/screenshots/screenshot0.0.png" width="300px" />
-				</p>
+        Pixel::Booster is going to be an easy to use and powerful software for pixel artists.
+        The software is being developed using C++11 and Qt5.5.1. It will feature tools used by known and approved programs used by multiple projects
+        over the past decades, but also modern features to help creating assets for games and animations faster and more comfortably.
+        Pixel::Booster will be entirely free and open source forever. This means the community can improve the software by suggesting new
+        features and fixing bugs!
+        
+        Latest Release: Version 0.01 Alpha
+        <p style="text-align:center;"><img src="images/screenshots/screenshot0.0.png" width="300px" />
+        </p>
 
-				Currently there are only binaries for Windows (x86 and x64). For other platforms, you may download the source code and compile the project.
-				Please, help us to improve the software by reporting any errors at our github page!
+        Currently there are only binaries for Windows (x86 and x64). For other platforms, you may download the source code and compile the project.
+        Please, help us to improve the software by reporting any errors at our github page!
 
-				<h3><a id="pixel-booster-version-history" class="anchor" href="#pixel-booster-version-history" aria-hidden="true"><span class="octicon octicon-link"></span></a>Version History</h3>
+        <h3><a id="pixel-booster-version-history" class="anchor" href="#pixel-booster-version-history" aria-hidden="true"><span class="octicon octicon-link"></span></a>Version History</h3>
+		
+		<span id="features"></span>
 
-				<h4>v0.0-alpha</h4>
-				<ul>
-					<li>
-						Create new images ✓
-					</li>
-					<li>
-						Load existing images ✓
-					</li>
-					<li>
-						Transfer image from canvas to edit area ✓
-					</li>
-					<li>
-						Transfer image from edit area to canvas ✓
-					</li>
-					<li>
-						Pencil Tool ✓
-					</li>
-					<li>
-						Color Pick ✓
-					</li>
-					<li>
-						Save image (png, jpg, bmp) ✓
-					</li>
-					<li>
-						32 color bit image format only ✓
-					</li>
-					<li>
-						Language Options (Portuguese and English only for now) ✓
-					</li>
-					<li>
-						Set tile size ✓
-					</li>
-					<li>
-						Toggle Transparency from pick and paste mode. ✓
-					</li>
-					<li>
-						Save app state through multiple executions. ✓
-					</li>
-					<li>
-						Basic Static Color Palette ✓
-					</li>
-				</ul>
+        <h3><a id="developers" class="anchor" href="#developers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developers</h3>
 
-				<h4>v0.01-alpha</h4>
-				<ul>
-					<li>
-						Line Tool ✓
-					</li>
-					<li>
-						Ellipse Tool ✓
-					</li>
-					<li>
-						Rectangle Tool ✓
-					</li>
-					<li>
-						Flood Fill (Bucket) Tool ✓
-					</li>
-				</ul>
-				
-				<h4>v0.02-alpha (Latest Version)</h4>
-				<ul>
-					<li>
-						Existing Tools Bugfixes ✓
-					</li>
-					<li>
-						Select new image color on dialog ✓
-					</li>
-					<li>
-						Limited Undo/Redo ✓
-					</li>
-					<li>
-						Support for other image extensions ✓<br>
-						(*.png *.bmp *.jpg *.jpeg *.pbm *.pgm *.ppm *.tiff *.xbm *.xpm) 
-					</li>
-				</ul>
-				<h4>Next Release (under development)</h4>
-				<ul>
-					<li>
-						Advanced Undo/Redo
-					</li>
-					<li>
-						Automatic Color Gradient
-					</li> 
-					<li>
-						Swap Colors
-					</li> 
-					<li>
-						Bug Fixes:
-					</li> 
-				</ul>
+		<span id="devs"></span>
+		
+        <h4>Authors</h4>
+        <ul>
+          <li>
+            Ricardo Bustamante (<a href="https://github.com/RicardoBusta" class="user-mention">@RicardoBusta</a>)
+          </li>
+        </ul>
+        <h4>Contributors</h4>
+        <ul>
+          <li>
+            Vanessa Karla
+          </li>
+          <li>
+            Leonardo Bustamante (<a href="https://github.com/LeoBusta" class="user-mention">@LeoBusta</a>)
+          </li>
+          <li>
+            Daniel Augusto (<a href="https://github.com/danisson" class="user-mention">@danisson</a>)
+          </li>
+        </ul>
+      </div>
+      <div id="tutorial_page">
+        <h3>Tutorial</h3>
+        Soon!
+      </div>
 
-				<h3><a id="pixel-booster-planned-features" class="anchor" href="#pixel-booster-planned-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Planned Features</h3>
+      <div class="fb-like" data-href="https://www.facebook.com/ThePixelBooster/" data-width="500" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 
-				Here are some of the features currently planned for future releases of the software. Features marked by (✓) are currently implemented in the source code. For the features on each version, check the respective release notes.
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/RicardoBusta/PixelBooster">Pixel::Booster</a> is maintained by <a href="https://github.com/RicardoBusta">RicardoBusta</a>.</span>
 
-				
-				<h4>Upcoming Features (Before v1.0 Beta)</h4>
-				<ul>
-					<li>
-						Improved Color Palette Options (Save/Load)
-					</li>
-					<li>
-						Text Tool
-					</li>
-					<li>
-						Zoom
-					</li>
-					<li>
-						Selection Tool
-					</li>
-					<li>
-						Copy
-					</li>
-					<li>
-						Paste
-					</li>
-					<li>
-						Show grid
-					</li>
-					<li>
-						Show Divisions
-					</li>
-					<li>
-						Change Image Size
-					</li>
-					<li>
-						Resize
-					</li>
-					<li>
-						Shift Selection
-					</li>
-					<li>
-						Different image formats (8 bit indexed and 32 bit)
-					</li>
-					<li>
-						Palette for different Modes (Indexed, 32 bit)
-					</li>
-					<li>
-						Animate Sprites
-					</li>
-					
-				</ul>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
 
-				<h4>Possible Features</h4>
-				<ul>
-					<li>
-						Animation Export (.gif)
-					</li>
-					<li>
-						Voxel Image Editor
-					</li>
-					<li>
-						Project File (Program specific settings)
-					</li>
-					<li>
-						Multi Layer edit mode
-					</li>
-				</ul>
+    </section>
 
-				<h3><a id="developers" class="anchor" href="#developers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developers</h3>
-
-				<h4>Authors</h4>
-				<ul>
-					<li>
-						Ricardo Bustamante (<a href="https://github.com/RicardoBusta" class="user-mention">@RicardoBusta</a>)
-					</li>
-				</ul>
-				<h4>Contributors</h4>
-				<ul>
-					<li>
-						Vanessa Karla
-					</li>
-					<li>
-						Leonardo Bustamante (<a href="https://github.com/LeoBusta" class="user-mention">@LeoBusta</a>)
-					</li>
-					<li>
-						Daniel Augusto (<a href="https://github.com/danisson" class="user-mention">@danisson</a>)
-					</li>
-				</ul>
-			</div>
-			<div id="tutorial_page">
-				<h3>Tutorial</h3>
-				Soon!
-			</div>
-
-			<div class="fb-like" data-href="https://www.facebook.com/ThePixelBooster/" data-width="500" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-
-			<footer class="site-footer">
-				<span class="site-footer-owner"><a href="https://github.com/RicardoBusta/PixelBooster">Pixel::Booster</a> is maintained by <a href="https://github.com/RicardoBusta">RicardoBusta</a>.</span>
-
-				<span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-			</footer>
-
-		</section>
-
-	</body>
+  </body>
 </html>
