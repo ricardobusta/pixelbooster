@@ -41,7 +41,9 @@ var releaseFeatures = [
 			"Improved Undo/Redo",
 			"Automatic Color Gradient",
 			"Swap Colors",
-			"Bug Fixes"
+			"Bug Fixes",
+			"Improved source code <br> to help contributors",
+			"Changed Icons"
         ]
     },
 	{
