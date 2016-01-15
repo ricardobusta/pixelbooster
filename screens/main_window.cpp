@@ -27,7 +27,9 @@
 #include "utils/debug.h"
 #include "widgets/image_canvas_container.h"
 
+#include <QTimer>
 #include <QSettings>
+#include <QMenu>
 
 const QString kConfigFileName = "config.ini";
 const QString kConfigGroupState = "State";
@@ -39,15 +41,14 @@ const bool kConfigWindowMaximizedDefault = false;
 const QRect kConfigDefaultWindowGeometry = QRect(0, 10, 800, 600);
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),
-      ui(new Ui::MainWindow),
-      action_handler_(new ActionHandler(this)),
-      current_canvas_container_(nullptr),
-      options_cache_(pApp->options()) {
+  : QMainWindow(parent),
+    ui(new Ui::MainWindow),
+    action_handler_(new ActionHandler(this)),
+    current_canvas_container_(nullptr),
+    options_cache_(pApp->options()) {
   ui->setupUi(this);
 
   LoadSettings();
-  UpdateWidgetState();
 
   this->setWindowTitle(windowTitle() + " " + kVersionString);
 
@@ -55,8 +56,13 @@ MainWindow::MainWindow(QWidget *parent)
 
   ConnectActions();
   ConnectWidgets();
+  SetToolButtons();
 
-  ui->zoom_horizontalSlider->setValue(options_cache_->zoom_level());
+  QTimer::singleShot(0,this,SLOT(PostLoadInit()));
+}
+
+void MainWindow::PostLoadInit() {
+  UpdateWidgetState();
 }
 
 MainWindow::~MainWindow() {
@@ -75,35 +81,6 @@ ImageEditWidget *MainWindow::edit_widget() {
   return ui->edit_widget;
 }
 
-QAction *MainWindow::GetTool(const int tool) {
-  switch (tool) {
-  case TOOL_PENCIL:
-    return ui->actionPencil_Tool;
-    break;
-  case TOOL_FLOOD_FILL:
-    return ui->actionFill_Tool;
-    break;
-  case TOOL_LINE:
-    return ui->actionLine_Tool;
-    break;
-  case TOOL_ELLIPSE:
-    return ui->actionEllipse_Tool;
-    break;
-  case TOOL_RECTANGLE:
-    return ui->actionRectangle_Tool;
-    break;
-  case TOOL_ZOOM:
-    return ui->actionZoom_Tool;
-    break;
-  case TOOL_SELECTION:
-    return ui->actionSelection_Tool;
-    break;
-  default:
-    return nullptr;
-    break;
-  }
-}
-
 ActionHandler *MainWindow::action_handler() const {
   return action_handler_;
 }
@@ -114,6 +91,10 @@ QWidget *MainWindow::main_color_button() const {
 
 QWidget *MainWindow::alt_color_button() const {
   return ui->color_alt_pushButton;
+}
+
+QLabel *MainWindow::zoom_label() const {
+  return ui->zoom_label;
 }
 
 void MainWindow::SetDegColor(const QImage &image) {
@@ -144,14 +125,26 @@ void MainWindow::ConnectActions() {
   QObject::connect(ui->actionTransparency, SIGNAL(triggered(bool)), action_handler_, SLOT(ToggleTransparency(bool)));
   QObject::connect(ui->zoom_horizontalSlider, SIGNAL(valueChanged(int)), action_handler_, SLOT(Zoom(int)));
 
+  QActionGroup * tool_action_group = new QActionGroup(this);
+  tool_action_group->setExclusive(true);
+  tool_action_group->addAction(ui->actionPencil_Tool);
+  tool_action_group->addAction(ui->actionFill_Tool);
+  tool_action_group->addAction(ui->actionLine_Tool);
+  tool_action_group->addAction(ui->actionEllipse_Tool);
+  tool_action_group->addAction(ui->actionRectangle_Tool);
+  tool_action_group->addAction(ui->actionSelection_Tool);
+  tool_action_group->addAction(ui->actionZoom_Tool);
+  QMenu * tool_menu = new QMenu(this);
+  tool_menu->addActions(tool_action_group->actions());
+  QObject::connect(tool_menu,SIGNAL(triggered(QAction*)),action_handler_,SLOT(ToolPressed(QAction*)));
   // Tools
-  QObject::connect(ui->actionPencil_Tool, SIGNAL(triggered()), action_handler_, SLOT(PencilToolPressed()));
-  QObject::connect(ui->actionFill_Tool, SIGNAL(triggered()), action_handler_, SLOT(FillToolPressed()));
-  QObject::connect(ui->actionLine_Tool, SIGNAL(triggered()), action_handler_, SLOT(LineToolPressed()));
-  QObject::connect(ui->actionEllipse_Tool, SIGNAL(triggered()), action_handler_, SLOT(EllipseToolPressed()));
-  QObject::connect(ui->actionRectangle_Tool, SIGNAL(triggered()), action_handler_, SLOT(RectangleToolPressed()));
-  QObject::connect(ui->actionSelection_Tool, SIGNAL(triggered()), action_handler_, SLOT(SelectionToolPressed()));
-  QObject::connect(ui->actionZoom_Tool, SIGNAL(triggered()), action_handler_, SLOT(ZoomToolPressed()));
+  action_handler()->RegisterTool(ui->actionPencil_Tool,TOOL_PENCIL);
+  action_handler()->RegisterTool(ui->actionFill_Tool,TOOL_FLOOD_FILL);
+  action_handler()->RegisterTool(ui->actionLine_Tool,TOOL_LINE);
+  action_handler()->RegisterTool(ui->actionEllipse_Tool,TOOL_ELLIPSE);
+  action_handler()->RegisterTool(ui->actionRectangle_Tool,TOOL_RECTANGLE);
+  action_handler()->RegisterTool(ui->actionSelection_Tool,TOOL_SELECTION);
+  action_handler()->RegisterTool(ui->actionZoom_Tool,TOOL_ZOOM);
 
   // Inverse communication
   QObject::connect(action_handler_, SIGNAL(UpdateEditArea()), ui->edit_widget, SLOT(UpdateWidget()));
@@ -165,6 +158,16 @@ void MainWindow::ConnectWidgets() {
   QObject::connect(ui->image_mdi_area_, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(CurrentWindowChanged(QMdiSubWindow *)));
   QObject::connect(ui->color_main_pushButton, SIGNAL(clicked()), action_handler_, SLOT(OpenMainColorPick()));
   QObject::connect(ui->color_alt_pushButton, SIGNAL(clicked()), action_handler_, SLOT(OpenAltColorPick()));
+}
+
+void MainWindow::SetToolButtons() {
+  ui->swap_colors_toolButton->setDefaultAction(ui->actionSwap_Colors);
+  //ui->gradient_toolButton->setDefaultAction(ui->actionGradient);
+  QMainWindow * mw = new QMainWindow(0);
+  ui->color_tools->layout()->addWidget(mw);
+  QToolBar *tb = new QToolBar(mw);
+  mw->addToolBar(tb);
+  tb->addAction(ui->actionSwap_Colors);
 }
 
 void MainWindow::SaveSettings() {
@@ -202,10 +205,11 @@ void MainWindow::LoadSettings() {
 
 void MainWindow::UpdateWidgetState() {
   ui->actionTransparency->setChecked(options_cache_->transparency_enabled());
-  GetTool(options_cache_->tool())->setChecked(true);
+  action_handler()->GetTool(options_cache_->tool())->setChecked(true);
   action_handler_->SetMainColor(options_cache_->main_color());
   action_handler_->SetAltColor(options_cache_->alt_color());
   action_handler_->Translate(options_cache_->language());
+  ui->zoom_horizontalSlider->setValue(options_cache_->zoom_level());
 }
 
 void MainWindow::changeEvent(QEvent *event) {

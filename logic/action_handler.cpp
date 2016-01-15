@@ -51,6 +51,14 @@ ActionHandler::ActionHandler(QObject *parent)
 ActionHandler::~ActionHandler() {
 }
 
+void ActionHandler::RegisterTool(QAction *tool, int val) {
+  tool_action_map_.insert(tool,val);
+}
+
+QAction *ActionHandler::GetTool(int val) {
+  return tool_action_map_.key(val,nullptr);
+}
+
 void ActionHandler::NewFile() const {
   NewImageFileDialog *image_file_dialog = new NewImageFileDialog(window_cache_);
   int result = image_file_dialog->exec();
@@ -125,39 +133,11 @@ void ActionHandler::Redo() const {
   window_cache_->edit_widget()->Redo();
 }
 
-void ActionHandler::PencilToolPressed() const {
-  SwapTools(TOOL_PENCIL);
-  options_cache_->set_tool(TOOL_PENCIL);
-}
-
-void ActionHandler::FillToolPressed() const {
-  SwapTools(TOOL_FLOOD_FILL);
-  options_cache_->set_tool(TOOL_FLOOD_FILL);
-}
-
-void ActionHandler::LineToolPressed() const {
-  SwapTools(TOOL_LINE);
-  options_cache_->set_tool(TOOL_LINE);
-}
-
-void ActionHandler::EllipseToolPressed() const {
-  SwapTools(TOOL_ELLIPSE);
-  options_cache_->set_tool(TOOL_ELLIPSE);
-}
-
-void ActionHandler::RectangleToolPressed() const {
-  SwapTools(TOOL_RECTANGLE);
-  options_cache_->set_tool(TOOL_RECTANGLE);
-}
-
-void ActionHandler::SelectionToolPressed() const {
-  SwapTools(TOOL_SELECTION);
-  options_cache_->set_tool(TOOL_SELECTION);
-}
-
-void ActionHandler::ZoomToolPressed() const {
-  SwapTools(TOOL_ZOOM);
-  options_cache_->set_tool(TOOL_ZOOM);
+void ActionHandler::ToolPressed(QAction *a) const {
+  auto it = tool_action_map_.find(a);
+  if(it!=tool_action_map_.end()){
+    options_cache_->set_tool(static_cast<TOOL_ENUM>(it.value()));
+  }
 }
 
 void ActionHandler::About() const {
@@ -178,6 +158,7 @@ void ActionHandler::ToggleTransparency(bool transparency) const {
 
 void ActionHandler::Zoom(int zoom) const {
   options_cache_->set_zoom_level(zoom);
+  window_cache_->zoom_label()->setText(QString("x%1").arg(zoom));
   emit UpdateEditArea();
 }
 
@@ -249,9 +230,4 @@ void ActionHandler::CreateImageCanvas(const QImage &image, const QString &file_n
   QSize size = image.size() + QSize(50, 50);
   w->resize(size);
   w->show();
-}
-
-void ActionHandler::SwapTools(const int tool) const {
-  window_cache_->GetTool(options_cache_->tool())->setChecked(false);
-  window_cache_->GetTool(tool)->setChecked(true);
 }

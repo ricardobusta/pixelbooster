@@ -27,6 +27,7 @@ class MainWindow;
 
 class QMdiArea;
 class QMdiSubWindow;
+class QLabel;
 class ActionHandler;
 class ImageCanvasContainer;
 class GlobalOptions;
@@ -46,11 +47,10 @@ public:
   ImageCanvasContainer *current_canvas_container();
   ImageEditWidget *edit_widget();
 
-  QAction *GetTool(const int tool);
-
   ActionHandler *action_handler() const;
   QWidget *main_color_button() const;
   QWidget *alt_color_button() const;
+  QLabel *zoom_label() const;
 
   void SetDegColor(const QImage &image);
 
@@ -64,6 +64,8 @@ private:
   void ConnectActions();
   void ConnectWidgets();
 
+  void SetToolButtons();
+
   void SaveSettings();
   void LoadSettings();
   void UpdateWidgetState();
@@ -73,6 +75,7 @@ private:
 
 private slots:
   void CurrentWindowChanged(QMdiSubWindow *w);
+  void PostLoadInit();
 };
 
 #endif // MAIN_WINDOW_H

@@ -20,6 +20,7 @@
 #define ACTION_HANDLER_H
 
 #include <QObject>
+#include <QMap>
 
 class GlobalOptions;
 class MainWindow;
@@ -34,6 +35,9 @@ public:
   explicit ActionHandler(QObject *parent);
   virtual ~ActionHandler();
 
+  void RegisterTool(QAction *tool, int val);
+  QAction * GetTool(int val);
+
 public slots:
   // File Actions
   void NewFile() const;
@@ -47,13 +51,7 @@ public slots:
   void Redo() const;
 
   // Tools
-  void PencilToolPressed() const;
-  void FillToolPressed() const;
-  void LineToolPressed() const;
-  void EllipseToolPressed() const;
-  void RectangleToolPressed() const;
-  void SelectionToolPressed() const;
-  void ZoomToolPressed() const;
+  void ToolPressed(QAction*a) const;
 
   // Interface Actions
   void About() const;
@@ -78,8 +76,7 @@ signals:
 private:
   GlobalOptions *options_cache_;
   MainWindow *window_cache_;
-
-  void SwapTools(const int tool) const;
+  QMap<QAction*,int> tool_action_map_;
 
   void CreateImageCanvas(const QImage &image, const QString &file_name) const;
 };
