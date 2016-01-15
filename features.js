@@ -43,7 +43,10 @@ var releaseFeatures = [
 			"Swap Colors",
 			"Bug Fixes",
 			"Improved source code <br> to help contributors",
-			"Changed Icons"
+			"Changed Icons",
+			"Added contributors names to the about menu <br> Help the project and get your name in there! :)",
+			"Export Color Palette",
+			"Import Color Palette"
         ]
     },
 	{
