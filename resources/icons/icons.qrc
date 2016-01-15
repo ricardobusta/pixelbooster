@@ -33,6 +33,8 @@
         <file>delete.png</file>
         <file>gradiente.png</file>
         <file>swap_colors.png</file>
+        <file>load_palette.png</file>
+        <file>save_palette.png</file>
     </qresource>
     <qresource prefix="/app_icon">
         <file>app_icon.svg</file>

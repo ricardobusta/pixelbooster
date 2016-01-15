@@ -26,6 +26,7 @@
 #include "resources/version.h"
 #include "utils/debug.h"
 #include "widgets/image_canvas_container.h"
+#include "widgets/color_palette_widget.h"
 
 #include <QTimer>
 #include <QSettings>
@@ -102,6 +103,10 @@ void MainWindow::SetDegColor(const QImage &image) {
   ui->deg_color_widget->update();
 }
 
+ColorPaletteWidget *MainWindow::color_palette() const {
+  return ui->color_palette_widget;
+}
+
 void MainWindow::ConnectActions() {
   // File Actions
   QObject::connect(ui->actionNew, SIGNAL(triggered(bool)), action_handler_, SLOT(NewFile()));
@@ -124,7 +129,10 @@ void MainWindow::ConnectActions() {
   QObject::connect(ui->actionExit, SIGNAL(triggered(bool)), this, SLOT(close()));
   QObject::connect(ui->actionTransparency, SIGNAL(triggered(bool)), action_handler_, SLOT(ToggleTransparency(bool)));
   QObject::connect(ui->zoom_horizontalSlider, SIGNAL(valueChanged(int)), action_handler_, SLOT(Zoom(int)));
+  QObject::connect(ui->actionLoad_Palette,SIGNAL(triggered(bool)),action_handler_,SLOT(LoadPalette()));
+  QObject::connect(ui->actionSave_Palette,SIGNAL(triggered(bool)),action_handler_,SLOT(SavePalette()));
 
+  // Group Tools
   QActionGroup * tool_action_group = new QActionGroup(this);
   tool_action_group->setExclusive(true);
   tool_action_group->addAction(ui->actionPencil_Tool);
@@ -137,7 +145,7 @@ void MainWindow::ConnectActions() {
   QMenu * tool_menu = new QMenu(this);
   tool_menu->addActions(tool_action_group->actions());
   QObject::connect(tool_menu,SIGNAL(triggered(QAction*)),action_handler_,SLOT(ToolPressed(QAction*)));
-  // Tools
+  // Register Tools
   action_handler()->RegisterTool(ui->actionPencil_Tool,TOOL_PENCIL);
   action_handler()->RegisterTool(ui->actionFill_Tool,TOOL_FLOOD_FILL);
   action_handler()->RegisterTool(ui->actionLine_Tool,TOOL_LINE);
@@ -162,12 +170,8 @@ void MainWindow::ConnectWidgets() {
 
 void MainWindow::SetToolButtons() {
   ui->swap_colors_toolButton->setDefaultAction(ui->actionSwap_Colors);
-  //ui->gradient_toolButton->setDefaultAction(ui->actionGradient);
-  QMainWindow * mw = new QMainWindow(0);
-  ui->color_tools->layout()->addWidget(mw);
-  QToolBar *tb = new QToolBar(mw);
-  mw->addToolBar(tb);
-  tb->addAction(ui->actionSwap_Colors);
+  ui->save_palette_toolButton->setDefaultAction(ui->actionSave_Palette);
+  ui->load_palette_toolButton->setDefaultAction(ui->actionLoad_Palette);
 }
 
 void MainWindow::SaveSettings() {

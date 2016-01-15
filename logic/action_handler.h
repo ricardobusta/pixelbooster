@@ -64,6 +64,8 @@ public slots:
   void SetAltColor(const QColor &color) const;
   void SwapColors() const;
   void SetColorGradient() const;
+  void LoadPalette() const;
+  void SavePalette() const;
 
   // Language Actions
   void Translate(const QString &language) const;

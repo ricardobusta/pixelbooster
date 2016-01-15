@@ -32,6 +32,7 @@ class ActionHandler;
 class ImageCanvasContainer;
 class GlobalOptions;
 class ImageEditWidget;
+class ColorPaletteWidget;
 
 /*!
  * \brief The MainWindow class
@@ -53,6 +54,7 @@ public:
   QLabel *zoom_label() const;
 
   void SetDegColor(const QImage &image);
+ ColorPaletteWidget * color_palette() const;
 
 private:
   Ui::MainWindow *ui;

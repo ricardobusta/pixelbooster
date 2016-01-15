@@ -31,6 +31,7 @@ public:
   virtual void mousePressEvent(QMouseEvent *event);
 
   void SetPalette(const QImage &image);
+  QImage * palette();
 private:
   QImage palette_;
 signals:

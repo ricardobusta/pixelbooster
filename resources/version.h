@@ -21,6 +21,6 @@
 
 #include <QString>
 
-const QString kVersionString = "v0.01 (Alpha)";
+const QString kVersionString = "v0.03 (Alpha)";
 
 #endif // VERSION

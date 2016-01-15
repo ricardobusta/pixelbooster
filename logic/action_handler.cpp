@@ -29,6 +29,7 @@
 #include "widgets/image_canvas_container.h"
 #include "widgets/image_canvas_widget.h"
 #include "widgets/image_edit_widget.h"
+#include "widgets/color_palette_widget.h"
 
 #include <QAction>
 #include <QColorDialog>
@@ -36,6 +37,7 @@
 #include <QLabel>
 #include <QMdiArea>
 #include <QMdiSubWindow>
+#include <QMessageBox>
 
 const QString kTxtSelectMainColor = "Select Main Color";
 const QString kTxtSelectAltColor = "Select Secondary Color";
@@ -216,6 +218,23 @@ void ActionHandler::SetColorGradient() const {
     new_deg.setPixel(i, 2, c2.rgba());
   }
   window_cache_->SetDegColor(new_deg);
+}
+
+void ActionHandler::LoadPalette() const {
+
+}
+
+void ActionHandler::SavePalette() const {
+    QString output = QFileDialog::getSaveFileName(reinterpret_cast<QWidget *>(pApp->main_window()),
+                                                  tr("Save palette image file as..."), ".", "PNG (*.png);;BMP (*.bmp);;JPG (*.jpg);;JPEG (*.jpeg);;GIF (*.gif);;GIF (*.gif);;PBM (*.pbm);;PGM (*.pgm);;PPM (*.ppm);;TIFF (*.tiff);;XBM (*.xbm);;XPM (*.xpm)");
+    if (!output.isEmpty()) {
+      bool ok = window_cache_->color_palette()->palette()->save(output);
+      if (ok) {
+        QMessageBox message;
+        message.setText("Saved with success!");
+        message.exec();
+      }
+    }
 }
 
 void ActionHandler::Translate(const QString &language) const {
