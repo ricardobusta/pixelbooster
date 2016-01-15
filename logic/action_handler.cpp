@@ -45,9 +45,9 @@ const QString kTxtSelectAltColor = "Select Secondary Color";
 const QString kColorButtonStyle = "background-color: %1; border: 1px solid black;";
 
 ActionHandler::ActionHandler(QObject *parent)
-    : QObject(parent),
-      options_cache_(pApp->options()),
-      window_cache_(dynamic_cast<MainWindow *>(parent)) {
+  : QObject(parent),
+    options_cache_(pApp->options()),
+    window_cache_(dynamic_cast<MainWindow *>(parent)) {
 }
 
 ActionHandler::~ActionHandler() {
@@ -221,20 +221,27 @@ void ActionHandler::SetColorGradient() const {
 }
 
 void ActionHandler::LoadPalette() const {
+  QString file_name = QFileDialog::getOpenFileName(window_cache_, "Import palette image file...",".","Images (*.png *.bmp *.jpg *.jpeg *.pbm *.pgm *.ppm *.tiff *.xbm *.xpm)");
 
+  if (!file_name.isEmpty()) {
+    QImage image(file_name);
+    if (!image.isNull()) {
+      window_cache_->color_palette()->SetPalette(image);
+    }
+  }
 }
 
 void ActionHandler::SavePalette() const {
-    QString output = QFileDialog::getSaveFileName(reinterpret_cast<QWidget *>(pApp->main_window()),
-                                                  tr("Save palette image file as..."), ".", "PNG (*.png);;BMP (*.bmp);;JPG (*.jpg);;JPEG (*.jpeg);;GIF (*.gif);;GIF (*.gif);;PBM (*.pbm);;PGM (*.pgm);;PPM (*.ppm);;TIFF (*.tiff);;XBM (*.xbm);;XPM (*.xpm)");
-    if (!output.isEmpty()) {
-      bool ok = window_cache_->color_palette()->palette()->save(output);
-      if (ok) {
-        QMessageBox message;
-        message.setText("Saved with success!");
-        message.exec();
-      }
+  QString output = QFileDialog::getSaveFileName(reinterpret_cast<QWidget *>(pApp->main_window()),
+                                                tr("Save palette image file as..."), ".", "PNG (*.png);;BMP (*.bmp);;JPG (*.jpg);;JPEG (*.jpeg);;GIF (*.gif);;GIF (*.gif);;PBM (*.pbm);;PGM (*.pgm);;PPM (*.ppm);;TIFF (*.tiff);;XBM (*.xbm);;XPM (*.xpm)");
+  if (!output.isEmpty()) {
+    bool ok = window_cache_->color_palette()->palette()->save(output);
+    if (ok) {
+      QMessageBox message;
+      message.setText("Saved with success!");
+      message.exec();
     }
+  }
 }
 
 void ActionHandler::Translate(const QString &language) const {
