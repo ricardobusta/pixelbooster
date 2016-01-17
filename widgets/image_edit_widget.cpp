@@ -68,7 +68,7 @@ void ImageEditWidget::Redo() {
   }
 }
 
-void ImageEditWidget::paintEvent(QPaintEvent *event) {
+void ImageEditWidget::paintEvent(QPaintEvent *) {
   QPainter painter(this);
 
   if (image_.isNull()) {
@@ -107,7 +107,7 @@ void ImageEditWidget::mouseMoveEvent(QMouseEvent *event) {
   update();
 }
 
-void ImageEditWidget::leaveEvent(QEvent *event) {
+void ImageEditWidget::leaveEvent(QEvent *) {
   cursor_ = QRect(0, 0, 0, 0);
   update();
 }
@@ -170,7 +170,7 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
     if (action == ACTION_PRESS || action == ACTION_MOVE) {
       if (left_button_down_) {
         QPoint img_previous_pos = WidgetToImageSpace(previous_pos_);
-        ToolAlgorithm::Pencil(&image_, action, img_previous_pos, img_pos, options_cache_->main_color());
+        ToolAlgorithm::Pencil(&image_, img_previous_pos, img_pos, options_cache_->main_color());
       } else if (right_button_down_) {
         pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
       }

@@ -26,7 +26,7 @@ class ColorPaletteWidget : public QWidget {
 public:
   explicit ColorPaletteWidget(QWidget *parent = 0);
 
-  virtual void paintEvent(QPaintEvent *event);
+  virtual void paintEvent(QPaintEvent *);
 
   virtual void mousePressEvent(QMouseEvent *event);
 

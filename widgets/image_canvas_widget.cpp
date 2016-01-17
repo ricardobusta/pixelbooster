@@ -103,7 +103,7 @@ void ImageCanvasWidget::set_image_path(const QString &path) {
   image_path_ = path;
 }
 
-void ImageCanvasWidget::paintEvent(QPaintEvent *event) {
+void ImageCanvasWidget::paintEvent(QPaintEvent *) {
   QPainter painter(this);
 
   if (image_.isNull())
@@ -169,7 +169,7 @@ void ImageCanvasWidget::mouseMoveEvent(QMouseEvent *event) {
   update();
 }
 
-void ImageCanvasWidget::leaveEvent(QEvent *event) {
+void ImageCanvasWidget::leaveEvent(QEvent *) {
   update();
 }
 

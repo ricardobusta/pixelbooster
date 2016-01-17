@@ -32,7 +32,7 @@ enum ACTION_TOOL : int {
 
 class ToolAlgorithm {
 public:
-  static void Pencil(QImage *image, const ACTION_TOOL action, const QPoint &p1, const QPoint p2, const QColor &color);
+  static void Pencil(QImage *image, const QPoint &p1, const QPoint p2, const QColor &color);
   static void FloodFill(QImage *image, const ACTION_TOOL action, const QPoint &seed, const QColor &color);
   //private:
   static void BresenhamLine(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color);

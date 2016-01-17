@@ -23,7 +23,7 @@
 
 #include <QPainter>
 
-void ToolAlgorithm::Pencil(QImage *image, const ACTION_TOOL action, const QPoint &p1, const QPoint p2, const QColor &color) {
+void ToolAlgorithm::Pencil(QImage *image, const QPoint &p1, const QPoint p2, const QColor &color) {
   QPainter painter(image);
   painter.setPen(color);
   painter.drawLine(p1, p2);

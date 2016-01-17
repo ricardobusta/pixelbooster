@@ -48,11 +48,11 @@ public:
   void set_image_path(const QString &path);
 
 protected:
-  virtual void paintEvent(QPaintEvent *event);
+  virtual void paintEvent(QPaintEvent *);
   virtual void mousePressEvent(QMouseEvent *event);
   virtual void mouseReleaseEvent(QMouseEvent *event);
   virtual void mouseMoveEvent(QMouseEvent *event);
-  virtual void leaveEvent(QEvent *event);
+  virtual void leaveEvent(QEvent *);
 
 private:
   GlobalOptions *options_cache_;

@@ -29,7 +29,7 @@ ColorPaletteWidget::ColorPaletteWidget(QWidget *parent) : QWidget(parent) {
   palette_ = QImage(":/images/color_palette.png");
 }
 
-void ColorPaletteWidget::paintEvent(QPaintEvent *event) {
+void ColorPaletteWidget::paintEvent(QPaintEvent *) {
   QPainter painter(this);
 
   if (palette_.isNull()) {

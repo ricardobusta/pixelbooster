@@ -35,6 +35,13 @@
         <file>swap_colors.png</file>
         <file>load_palette.png</file>
         <file>save_palette.png</file>
+        <file>resize_selection.png</file>
+        <file>pattern_0.png</file>
+        <file>pattern_1.png</file>
+        <file>flip_h.png</file>
+        <file>flip_v.png</file>
+        <file>rotate_ccw.png</file>
+        <file>rotate_cw.png</file>
     </qresource>
     <qresource prefix="/app_icon">
         <file>app_icon.svg</file>

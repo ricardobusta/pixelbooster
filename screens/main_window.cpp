@@ -172,6 +172,17 @@ void MainWindow::SetToolButtons() {
   ui->swap_colors_toolButton->setDefaultAction(ui->actionSwap_Colors);
   ui->save_palette_toolButton->setDefaultAction(ui->actionSave_Palette);
   ui->load_palette_toolButton->setDefaultAction(ui->actionLoad_Palette);
+  ui->gradient_toolButton->setDefaultAction(ui->actionGradient);
+  ui->transparency_toolButton->setDefaultAction(ui->actionTransparency);
+
+  ui->select_toolButton->setDefaultAction(ui->actionSelection_Tool);
+  ui->zoom_toolButton->setDefaultAction(ui->actionZoom_Tool);
+  ui->text_toolButton->setDefaultAction(ui->actionAdd_Text);
+  ui->line_toolButton->setDefaultAction(ui->actionLine_Tool);
+  ui->ellipse_toolButton->setDefaultAction(ui->actionEllipse_Tool);
+  ui->rectangle_toolButton->setDefaultAction(ui->actionRectangle_Tool);
+  ui->fill_toolButton->setDefaultAction(ui->actionFill_Tool);
+  ui->pencil_toolButton->setDefaultAction(ui->actionPencil_Tool);
 }
 
 void MainWindow::SaveSettings() {
@@ -222,7 +233,7 @@ void MainWindow::changeEvent(QEvent *event) {
   }
 }
 
-void MainWindow::closeEvent(QCloseEvent *event) {
+void MainWindow::closeEvent(QCloseEvent *) {
   SaveSettings();
 }
 

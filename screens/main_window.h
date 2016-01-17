@@ -73,7 +73,7 @@ private:
   void UpdateWidgetState();
 
   void changeEvent(QEvent *event);
-  void closeEvent(QCloseEvent *event);
+  void closeEvent(QCloseEvent *);
 
 private slots:
   void CurrentWindowChanged(QMdiSubWindow *w);

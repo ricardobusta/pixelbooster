@@ -232,7 +232,7 @@ void ActionHandler::LoadPalette() const {
 }
 
 void ActionHandler::SavePalette() const {
-  QString output = QFileDialog::getSaveFileName(reinterpret_cast<QWidget *>(pApp->main_window()),
+  QString output = QFileDialog::getSaveFileName(pApp->main_window(),
                                                 tr("Save palette image file as..."), ".", "PNG (*.png);;BMP (*.bmp);;JPG (*.jpg);;JPEG (*.jpeg);;GIF (*.gif);;GIF (*.gif);;PBM (*.pbm);;PGM (*.pgm);;PPM (*.ppm);;TIFF (*.tiff);;XBM (*.xbm);;XPM (*.xpm)");
   if (!output.isEmpty()) {
     bool ok = window_cache_->color_palette()->palette()->save(output);

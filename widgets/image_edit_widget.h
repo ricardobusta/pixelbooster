@@ -41,9 +41,9 @@ public:
   void Redo();
 
 protected:
-  virtual void paintEvent(QPaintEvent *event);
+  virtual void paintEvent(QPaintEvent *);
   virtual void mouseMoveEvent(QMouseEvent *event);
-  virtual void leaveEvent(QEvent *event);
+  virtual void leaveEvent(QEvent *);
   virtual void mousePressEvent(QMouseEvent *event);
   virtual void mouseReleaseEvent(QMouseEvent *event);
   virtual void mouseClickEvent(QMouseEvent *event);
