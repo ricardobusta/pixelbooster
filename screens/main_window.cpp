@@ -31,6 +31,8 @@
 #include <QTimer>
 #include <QSettings>
 #include <QMenu>
+#include <QMessageBox>
+#include <QCloseEvent>
 
 const QString kConfigFileName = "config.ini";
 const QString kConfigGroupState = "State";
@@ -42,24 +44,24 @@ const bool kConfigWindowMaximizedDefault = false;
 const QRect kConfigDefaultWindowGeometry = QRect(0, 10, 800, 600);
 
 MainWindow::MainWindow(QWidget *parent)
-  : QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    action_handler_(new ActionHandler(this)),
-    current_canvas_container_(nullptr),
-    options_cache_(pApp->options()) {
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow),
+      action_handler_(new ActionHandler(this)),
+      current_canvas_container_(nullptr),
+      options_cache_(pApp->options()) {
   ui->setupUi(this);
 
   LoadSettings();
 
   this->setWindowTitle(windowTitle() + " " + kVersionString);
 
-  ui->edit_widget->Clear(options_cache_->selection().size());
+  ui->edit_widget->Clear(options_cache_->tile_selection().size());
 
   ConnectActions();
   ConnectWidgets();
   SetToolButtons();
 
-  QTimer::singleShot(0,this,SLOT(PostLoadInit()));
+  QTimer::singleShot(0, this, SLOT(PostLoadInit()));
 }
 
 void MainWindow::PostLoadInit() {
@@ -129,11 +131,11 @@ void MainWindow::ConnectActions() {
   QObject::connect(ui->actionExit, SIGNAL(triggered(bool)), this, SLOT(close()));
   QObject::connect(ui->actionTransparency, SIGNAL(triggered(bool)), action_handler_, SLOT(ToggleTransparency(bool)));
   QObject::connect(ui->zoom_horizontalSlider, SIGNAL(valueChanged(int)), action_handler_, SLOT(Zoom(int)));
-  QObject::connect(ui->actionLoad_Palette,SIGNAL(triggered(bool)),action_handler_,SLOT(LoadPalette()));
-  QObject::connect(ui->actionSave_Palette,SIGNAL(triggered(bool)),action_handler_,SLOT(SavePalette()));
+  QObject::connect(ui->actionLoad_Palette, SIGNAL(triggered(bool)), action_handler_, SLOT(LoadPalette()));
+  QObject::connect(ui->actionSave_Palette, SIGNAL(triggered(bool)), action_handler_, SLOT(SavePalette()));
 
   // Group Tools
-  QActionGroup * tool_action_group = new QActionGroup(this);
+  QActionGroup *tool_action_group = new QActionGroup(this);
   tool_action_group->setExclusive(true);
   tool_action_group->addAction(ui->actionPencil_Tool);
   tool_action_group->addAction(ui->actionFill_Tool);
@@ -142,17 +144,17 @@ void MainWindow::ConnectActions() {
   tool_action_group->addAction(ui->actionRectangle_Tool);
   tool_action_group->addAction(ui->actionSelection_Tool);
   tool_action_group->addAction(ui->actionZoom_Tool);
-  QMenu * tool_menu = new QMenu(this);
+  QMenu *tool_menu = new QMenu(this);
   tool_menu->addActions(tool_action_group->actions());
-  QObject::connect(tool_menu,SIGNAL(triggered(QAction*)),action_handler_,SLOT(ToolPressed(QAction*)));
+  QObject::connect(tool_menu, SIGNAL(triggered(QAction *)), action_handler_, SLOT(ToolPressed(QAction *)));
   // Register Tools
-  action_handler()->RegisterTool(ui->actionPencil_Tool,TOOL_PENCIL);
-  action_handler()->RegisterTool(ui->actionFill_Tool,TOOL_FLOOD_FILL);
-  action_handler()->RegisterTool(ui->actionLine_Tool,TOOL_LINE);
-  action_handler()->RegisterTool(ui->actionEllipse_Tool,TOOL_ELLIPSE);
-  action_handler()->RegisterTool(ui->actionRectangle_Tool,TOOL_RECTANGLE);
-  action_handler()->RegisterTool(ui->actionSelection_Tool,TOOL_SELECTION);
-  action_handler()->RegisterTool(ui->actionZoom_Tool,TOOL_ZOOM);
+  action_handler()->RegisterTool(ui->actionPencil_Tool, TOOL_PENCIL);
+  action_handler()->RegisterTool(ui->actionFill_Tool, TOOL_FLOOD_FILL);
+  action_handler()->RegisterTool(ui->actionLine_Tool, TOOL_LINE);
+  action_handler()->RegisterTool(ui->actionEllipse_Tool, TOOL_ELLIPSE);
+  action_handler()->RegisterTool(ui->actionRectangle_Tool, TOOL_RECTANGLE);
+  action_handler()->RegisterTool(ui->actionSelection_Tool, TOOL_SELECTION);
+  action_handler()->RegisterTool(ui->actionZoom_Tool, TOOL_ZOOM);
 
   // Inverse communication
   QObject::connect(action_handler_, SIGNAL(UpdateEditArea()), ui->edit_widget, SLOT(UpdateWidget()));
@@ -183,6 +185,14 @@ void MainWindow::SetToolButtons() {
   ui->rectangle_toolButton->setDefaultAction(ui->actionRectangle_Tool);
   ui->fill_toolButton->setDefaultAction(ui->actionFill_Tool);
   ui->pencil_toolButton->setDefaultAction(ui->actionPencil_Tool);
+
+  QMenu * test_menu = new QMenu();
+  test_menu->addAction(ui->actionSave);
+  test_menu->addAction(ui->actionSave_As);
+  test_menu->addAction(ui->actionSave_All);
+  ui->actionSave_Menu->setMenu(test_menu);
+  test_menu->
+  QObject::connect(ui->actionSave_Menu,SIGNAL(triggered(bool)),ui->actionSave,SLOT(trigger()));
 }
 
 void MainWindow::SaveSettings() {
@@ -237,7 +247,13 @@ void MainWindow::changeEvent(QEvent *event) {
   }
 }
 
-void MainWindow::closeEvent(QCloseEvent *) {
+void MainWindow::closeEvent(QCloseEvent *event) {
+  bool ans = action_handler()->CloseWindowHandler();
+  if(ans){
+    event->accept();
+  }else{
+    event->ignore();
+  }
   SaveSettings();
 }
 

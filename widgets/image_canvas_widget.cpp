@@ -111,7 +111,7 @@ void ImageCanvasWidget::paintEvent(QPaintEvent *) {
   painter.drawImage(image_.rect(), image_);
 
   if (active_) {
-    QRect selection = options_cache_->selection().adjusted(0, 0, -1, -1);
+    QRect selection = options_cache_->tile_selection().adjusted(0, 0, -1, -1);
 
     if (underMouse()) {
       painter.setPen(Qt::yellow);
@@ -134,7 +134,7 @@ void ImageCanvasWidget::mousePressEvent(QMouseEvent *event) {
     options_cache_->CleanCursorShift();
     anchor_down_ = true;
     anchor_ = options_cache_->PosToGrid(event->pos());
-    options_cache_->set_selection(anchor_);
+    options_cache_->set_tile_selection(anchor_);
     update();
   }
 }
@@ -143,7 +143,7 @@ void ImageCanvasWidget::mouseReleaseEvent(QMouseEvent *event) {
   anchor_down_ = false;
   if (event->button() == Qt::RightButton) {
     // Get image from the canvas
-    QImage selection = image_.copy(options_cache_->selection());
+    QImage selection = image_.copy(options_cache_->tile_selection());
     emit SendImage(&selection);
     options_cache_->UpdateCursorShift();
   } else if (event->button() == Qt::LeftButton) {
@@ -162,7 +162,7 @@ void ImageCanvasWidget::mouseMoveEvent(QMouseEvent *event) {
 
   QRect current_cursor = options_cache_->PosToGrid(pos);
   if (anchor_down_) {
-    options_cache_->set_selection(current_cursor.united(anchor_));
+    options_cache_->set_tile_selection(current_cursor.united(anchor_));
   } else {
     options_cache_->MoveSelection(current_cursor.center());
   }
@@ -181,9 +181,9 @@ void ImageCanvasWidget::ReceiveImage(QImage *image) {
 
   if (!options_cache_->transparency_enabled()) {
     painter.setCompositionMode(QPainter::CompositionMode_Source);
-    painter.eraseRect(options_cache_->selection());
+    painter.eraseRect(options_cache_->tile_selection());
   }
-  painter.drawImage(options_cache_->selection(), *image);
+  painter.drawImage(options_cache_->tile_selection(), *image);
 
   update();
 }

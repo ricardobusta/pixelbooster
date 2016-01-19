@@ -30,9 +30,9 @@
 #include "widgets/image_canvas_widget.h"
 #include "widgets/image_edit_widget.h"
 #include "widgets/color_palette_widget.h"
+#include "widgets/color_dialog.h"
 
 #include <QAction>
-#include <QColorDialog>
 #include <QFileDialog>
 #include <QLabel>
 #include <QMdiArea>
@@ -45,20 +45,20 @@ const QString kTxtSelectAltColor = "Select Secondary Color";
 const QString kColorButtonStyle = "background-color: %1; border: 1px solid black;";
 
 ActionHandler::ActionHandler(QObject *parent)
-  : QObject(parent),
-    options_cache_(pApp->options()),
-    window_cache_(dynamic_cast<MainWindow *>(parent)) {
+    : QObject(parent),
+      options_cache_(pApp->options()),
+      window_cache_(dynamic_cast<MainWindow *>(parent)) {
 }
 
 ActionHandler::~ActionHandler() {
 }
 
 void ActionHandler::RegisterTool(QAction *tool, int val) {
-  tool_action_map_.insert(tool,val);
+  tool_action_map_.insert(tool, val);
 }
 
 QAction *ActionHandler::GetTool(int val) {
-  return tool_action_map_.key(val,nullptr);
+  return tool_action_map_.key(val, nullptr);
 }
 
 void ActionHandler::NewFile() const {
@@ -90,6 +90,18 @@ void ActionHandler::OpenFile() const {
     if (!file_name.isEmpty()) {
       QImage image(file_name);
       if (!image.isNull()) {
+        if (image.format() == QImage::Format_Indexed8) {
+          int ans = QMessageBox::question(window_cache_,
+                                          QString("Unable to open image file."),
+                                          QString("The file you tried to open is an 8 bit indexed image format and is not supported in the current version of the software. Do you want to convert it to another image format?"),
+                                          QMessageBox::Yes | QMessageBox::No,
+                                          QMessageBox::No);
+          if (ans == QMessageBox::Yes) {
+            image = image.convertToFormat(QImage::Format_ARGB32);
+          } else {
+            return;
+          }
+        }
         CreateImageCanvas(image, file_name);
       }
     }
@@ -127,6 +139,25 @@ void ActionHandler::SaveAs() const {
   }
 }
 
+bool ActionHandler::CloseWindowHandler() const {
+  bool avoid_closing = false;
+  for (ImageCanvasWidget *w : *ImageCanvasWidget::open_canvas()) {
+    if (!w->saved_state()) {
+      avoid_closing = true;
+      break;
+    }
+  }
+  if (avoid_closing) {
+    int ans = QMessageBox::question(window_cache_, "Unsaved files...", "Do you want to keep the unsaved changes on the images?", "Save All", "Don't Save", "Cancel", 2, 2);
+    if (ans == 2) {
+      return false;
+    } else if (ans == 0) {
+      SaveAll();
+    }
+  }
+  return true;
+}
+
 void ActionHandler::Undo() const {
   window_cache_->edit_widget()->Undo();
 }
@@ -137,7 +168,7 @@ void ActionHandler::Redo() const {
 
 void ActionHandler::ToolPressed(QAction *a) const {
   auto it = tool_action_map_.find(a);
-  if(it!=tool_action_map_.end()){
+  if (it != tool_action_map_.end()) {
     options_cache_->set_tool(static_cast<TOOL_ENUM>(it.value()));
   }
 }
@@ -165,14 +196,14 @@ void ActionHandler::Zoom(int zoom) const {
 }
 
 void ActionHandler::OpenMainColorPick() const {
-  QColor color = QColorDialog::getColor(options_cache_->main_color(), window_cache_, kTxtSelectMainColor, QColorDialog::ShowAlphaChannel);
+  QColor color = ColorDialog::GetColor(options_cache_->main_color(), window_cache_, kTxtSelectMainColor);
   if (color.isValid()) {
     SetMainColor(color);
   }
 }
 
 void ActionHandler::OpenAltColorPick() const {
-  QColor color = QColorDialog::getColor(options_cache_->alt_color(), window_cache_, kTxtSelectAltColor, QColorDialog::ShowAlphaChannel);
+  QColor color = ColorDialog::GetColor(options_cache_->alt_color(), window_cache_, kTxtSelectAltColor);
   if (color.isValid()) {
     SetAltColor(color);
   }
@@ -221,7 +252,7 @@ void ActionHandler::SetColorGradient() const {
 }
 
 void ActionHandler::LoadPalette() const {
-  QString file_name = QFileDialog::getOpenFileName(window_cache_, "Import palette image file...",".","Images (*.png *.bmp *.jpg *.jpeg *.pbm *.pgm *.ppm *.tiff *.xbm *.xpm)");
+  QString file_name = QFileDialog::getOpenFileName(window_cache_, "Import palette image file...", ".", "Images (*.png *.bmp *.jpg *.jpeg *.pbm *.pgm *.ppm *.tiff *.xbm *.xpm)");
 
   if (!file_name.isEmpty()) {
     QImage image(file_name);
@@ -237,9 +268,7 @@ void ActionHandler::SavePalette() const {
   if (!output.isEmpty()) {
     bool ok = window_cache_->color_palette()->palette()->save(output);
     if (ok) {
-      QMessageBox message;
-      message.setText("Saved with success!");
-      message.exec();
+      QMessageBox::information(window_cache_, "Palette Saved.", "Palette file saved with success!");
     }
   }
 }

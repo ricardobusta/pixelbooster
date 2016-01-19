@@ -54,7 +54,7 @@ public:
   QLabel *zoom_label() const;
 
   void SetDegColor(const QImage &image);
- ColorPaletteWidget * color_palette() const;
+  ColorPaletteWidget *color_palette() const;
 
 private:
   Ui::MainWindow *ui;
@@ -73,7 +73,7 @@ private:
   void UpdateWidgetState();
 
   void changeEvent(QEvent *event);
-  void closeEvent(QCloseEvent *);
+  void closeEvent(QCloseEvent *event);
 
 private slots:
   void CurrentWindowChanged(QMdiSubWindow *w);

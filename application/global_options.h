@@ -45,8 +45,8 @@ public:
   QSize cursor_size() const;
   void set_cursor_size(const QSize &size);
 
-  QRect selection() const;
-  void set_selection(const QRect &selection);
+  QRect tile_selection() const;
+  void set_tile_selection(const QRect &tile_selection);
   void UpdateCursorShift();
   void CleanCursorShift();
   void MoveSelection(const QPoint &top_left);
@@ -84,7 +84,7 @@ public:
 
 private:
   QSize cursor_size_;
-  QRect selection_;
+  QRect tile_selection_;
   bool horizontal_shift_;
   bool vertical_shift_;
   QSize new_image_size_;

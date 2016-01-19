@@ -36,7 +36,7 @@ public:
   virtual ~ActionHandler();
 
   void RegisterTool(QAction *tool, int val);
-  QAction * GetTool(int val);
+  QAction *GetTool(int val);
 
 public slots:
   // File Actions
@@ -46,12 +46,14 @@ public slots:
   void SaveAll() const;
   void SaveAs() const;
 
+  bool CloseWindowHandler() const;
+
   // Other Actions
   void Undo() const;
   void Redo() const;
 
   // Tools
-  void ToolPressed(QAction*a) const;
+  void ToolPressed(QAction *a) const;
 
   // Interface Actions
   void About() const;
@@ -78,7 +80,7 @@ signals:
 private:
   GlobalOptions *options_cache_;
   MainWindow *window_cache_;
-  QMap<QAction*,int> tool_action_map_;
+  QMap<QAction *, int> tool_action_map_;
 
   void CreateImageCanvas(const QImage &image, const QString &file_name) const;
 };

@@ -77,4 +77,4 @@ inline QString _DEBUG_CLEAN_FUNCTION_NAME(QString function_name) {
 #define DEBUG_COUNTER \
   DEBUG_LOG(DEBUG_TYPE_INTERNAL, "DEBUG COUNT" << _DEBUG_COUNTER)
 
-#endif  // DEBUG_H
+#endif // DEBUG_H

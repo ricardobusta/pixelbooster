@@ -16,28 +16,30 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef COLOR_PALETTE_WIDGET_H
-#define COLOR_PALETTE_WIDGET_H
+#include "color_dialog.h"
+#include "ui_color_dialog.h"
 
-#include <QWidget>
+#include <QColorDialog>
 
-class ColorPaletteWidget : public QWidget {
-  Q_OBJECT
-public:
-  explicit ColorPaletteWidget(QWidget *parent = 0);
+ColorDialog::ColorDialog(QWidget *parent) : QDialog(parent),
+                                            ui(new Ui::Color_Dialog) {
+  ui->setupUi(this);
+}
 
-  virtual void paintEvent(QPaintEvent *);
+ColorDialog::~ColorDialog() {
+  delete ui;
+}
 
-  virtual void mousePressEvent(QMouseEvent *event);
-
-  void SetPalette(const QImage &image);
-  QImage *palette();
-
-private:
-  QImage palette_;
-signals:
-
-public slots:
-};
-
-#endif // COLOR_PALETTE_WIDGET_H
+QColor ColorDialog::GetColor(const QColor &initial, QWidget *parent, const QString &title) {
+  // To do:
+  if (true) {
+    return QColorDialog::getColor(initial, parent, title, QColorDialog::ShowAlphaChannel);
+  } else {
+    ColorDialog dialog;
+    dialog.exec();
+    if (dialog.result() == QDialog::Accepted) {
+      return QColor(Qt::red);
+    }
+    return QColor();
+  }
+}

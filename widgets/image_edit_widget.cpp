@@ -27,12 +27,12 @@
 #include "utils/debug.h"
 
 ImageEditWidget::ImageEditWidget(QWidget *parent)
-    : QWidget(parent),
-      left_button_down_(false),
-      right_button_down_(false),
-      press_right_inside_(false),
-      press_left_inside_(false),
-      action_started_(false) {
+  : QWidget(parent),
+    left_button_down_(false),
+    right_button_down_(false),
+    press_right_inside_(false),
+    press_left_inside_(false),
+    action_started_(false) {
   setMouseTracking(true);
   image_ = QImage(0, 0, QImage::Format_ARGB32_Premultiplied);
   overlay_image_ = QImage(image_.size(), image_.format());
@@ -224,8 +224,10 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
         ToolAlgorithm::BresenhamEllipse(&overlay_image_, rect, true, options_cache_->alt_color().rgba());
         ToolAlgorithm::BresenhamEllipse(&overlay_image_, rect, false, options_cache_->main_color().rgba());
       }else{
-        overlay_image_.fill(0x0);
-        overlay_image_.setPixel(img_pos,options_cache_->main_color().rgba());
+        if (action_started_){
+          overlay_image_.fill(0x0);
+          overlay_image_.setPixel(img_pos,options_cache_->main_color().rgba());
+        }
       }
     } else if (action == ACTION_RELEASE) {
       QPainter apply(&image_);
@@ -254,8 +256,10 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
         overlay.setBrush(options_cache_->alt_color());
         overlay.drawRect(rect);
       }else{
-        overlay_image_.fill(0x0);
-        overlay_image_.setPixel(img_pos,options_cache_->main_color().rgba());
+        if (action_started_){
+          overlay_image_.fill(0x0);
+          overlay_image_.setPixel(img_pos,options_cache_->main_color().rgba());
+        }
       }
     } else if (action == ACTION_RELEASE) {
       QPainter apply(&image_);
@@ -263,6 +267,8 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
       overlay_image_.fill(0x0);
       action_started_ = false;
     }
+    break;
+  case TOOL_SELECTION:
     break;
   default:
     break;

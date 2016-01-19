@@ -19,12 +19,12 @@
 #include "new_image_file_dialog.h"
 #include "ui_new_image_file_dialog.h"
 
-#include <QColorDialog>
 #include <QRegularExpression>
 
 #include "application/pixel_booster.h"
 #include "resources/translations/international_text.h"
 #include "utils/debug.h"
+#include "widgets/color_dialog.h"
 
 const QString kTxtColorDialogTitle = "Select backgrond color";
 
@@ -92,7 +92,7 @@ void NewImageFileDialog::SetColor(const QColor &color) {
 }
 
 void NewImageFileDialog::ColorButtonClicked() {
-  QColor color = QColorDialog::getColor(selected_color_, this, kTxtColorDialogTitle, QColorDialog::ShowAlphaChannel);
+  QColor color = ColorDialog::GetColor(selected_color_, this, kTxtColorDialogTitle);
   if (color.isValid()) {
     SetColor(color);
     pApp->options()->set_new_image_color(color);

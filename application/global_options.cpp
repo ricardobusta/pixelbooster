@@ -54,17 +54,17 @@ void GlobalOptions::set_cursor_size(const QSize &size) {
   cursor_size_ = size;
 }
 
-QRect GlobalOptions::selection() const {
-  return selection_;
+QRect GlobalOptions::tile_selection() const {
+  return tile_selection_;
 }
 
-void GlobalOptions::set_selection(const QRect &selection) {
-  selection_ = selection;
+void GlobalOptions::set_tile_selection(const QRect &selection) {
+  tile_selection_ = selection;
 }
 
 void GlobalOptions::UpdateCursorShift() {
-  horizontal_shift_ = ((selection_.width() / cursor_size().width()) % 2 == 0);
-  vertical_shift_ = ((selection_.height() / cursor_size().height()) % 2 == 0);
+  horizontal_shift_ = ((tile_selection_.width() / cursor_size().width()) % 2 == 0);
+  vertical_shift_ = ((tile_selection_.height() / cursor_size().height()) % 2 == 0);
 }
 
 void GlobalOptions::CleanCursorShift() {
@@ -73,7 +73,7 @@ void GlobalOptions::CleanCursorShift() {
 }
 
 void GlobalOptions::MoveSelection(const QPoint &center) {
-  selection_.moveCenter(center);
+  tile_selection_.moveCenter(center);
 }
 
 QRect GlobalOptions::PosToGrid(const QPoint &pos) const {
@@ -155,8 +155,8 @@ void GlobalOptions::SaveState(QSettings *settings) const {
 
 void GlobalOptions::LoadState(QSettings *settings) {
   cursor_size_ = SETTINGS_VALUE(kStateCursorSize).toSize();
-  selection_.setSize(cursor_size_);
-  selection_.setTopLeft(QPoint(0, 0));
+  tile_selection_.setSize(cursor_size_);
+  tile_selection_.setTopLeft(QPoint(0, 0));
   new_image_size_ = SETTINGS_VALUE(kStateNewImageSize).toSize();
   transparency_enabled_ = SETTINGS_VALUE(kStateTransparency).toBool();
   set_zoom_level(SETTINGS_VALUE(kStateZoomLevel).toInt());

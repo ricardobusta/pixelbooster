@@ -44,7 +44,8 @@ SOURCES += \
     widgets/color_palette_widget.cpp \
     logic/undo_redo.cpp \
     logic/tool_algorithm.cpp \
-    utils/pb_math.cpp
+    utils/pb_math.cpp \
+    widgets/color_dialog.cpp
 
 HEADERS  += \
     widgets/image_edit_widget.h \
@@ -63,14 +64,16 @@ HEADERS  += \
     resources/version.h \
     logic/undo_redo.h \
     logic/tool_algorithm.h \
-    utils/pb_math.h
+    utils/pb_math.h \
+    widgets/color_dialog.h
 
 FORMS    += \
     screens/new_image_file_dialog.ui \
     widgets/image_canvas_container.ui \
     screens/about_dialog.ui \
     screens/set_tile_size_dialog.ui \
-    screens/main_window.ui
+    screens/main_window.ui \
+    widgets/color_dialog.ui
 
 RESOURCES += \
     resources/icons/icons.qrc \
