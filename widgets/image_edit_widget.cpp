@@ -215,9 +215,17 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
       }
     } else if (action == ACTION_MOVE) {
       if (action_started_ && img_pos != action_anchor_) {
+
         overlay_image_.fill(0x0);
-        ToolAlgorithm::BresenhamEllipse(&overlay_image_, QRect(action_anchor_, img_pos).normalized(), true, options_cache_->alt_color().rgba());
-        ToolAlgorithm::BresenhamEllipse(&overlay_image_, QRect(action_anchor_, img_pos).normalized(), false, options_cache_->main_color().rgba());
+        QRect rect = QRect(qMin(action_anchor_.x(),img_pos.x()),
+                           qMin(action_anchor_.y(),img_pos.y()),
+                           qAbs(action_anchor_.x()-img_pos.x())+1,
+                           qAbs(action_anchor_.y()-img_pos.y())+1);
+        ToolAlgorithm::BresenhamEllipse(&overlay_image_, rect, true, options_cache_->alt_color().rgba());
+        ToolAlgorithm::BresenhamEllipse(&overlay_image_, rect, false, options_cache_->main_color().rgba());
+      }else{
+        overlay_image_.fill(0x0);
+        overlay_image_.setPixel(img_pos,options_cache_->main_color().rgba());
       }
     } else if (action == ACTION_RELEASE) {
       QPainter apply(&image_);
@@ -237,10 +245,17 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
     } else if (action == ACTION_MOVE) {
       if (action_started_ && img_pos != action_anchor_) {
         overlay_image_.fill(0x0);
+        QRect rect = QRect(qMin(action_anchor_.x(),img_pos.x()),
+                           qMin(action_anchor_.y(),img_pos.y()),
+                           qAbs(action_anchor_.x()-img_pos.x()),
+                           qAbs(action_anchor_.y()-img_pos.y()));
         QPainter overlay(&overlay_image_);
         overlay.setPen(options_cache_->main_color());
         overlay.setBrush(options_cache_->alt_color());
-        overlay.drawRect(QRect(action_anchor_, img_pos).normalized().adjusted(0, 0, -1, -1));
+        overlay.drawRect(rect);
+      }else{
+        overlay_image_.fill(0x0);
+        overlay_image_.setPixel(img_pos,options_cache_->main_color().rgba());
       }
     } else if (action == ACTION_RELEASE) {
       QPainter apply(&image_);
