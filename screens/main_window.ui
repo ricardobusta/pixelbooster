@@ -373,8 +373,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>258</width>
-            <height>278</height>
+            <width>199</width>
+            <height>283</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout">
@@ -647,19 +647,6 @@
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QToolButton" name="toolButton_12">
          <property name="enabled">
           <bool>false</bool>
@@ -739,6 +726,29 @@
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
            <normaloff>:/icons/rotate_ccw.png</normaloff>:/icons/rotate_ccw.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="toolButton_14">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons/icons.qrc">
+           <normaloff>:/icons/resize_selection.png</normaloff>:/icons/resize_selection.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -1024,7 +1034,6 @@ max-height: 16px;</string>
            <height>100</height>
           </size>
          </property>
-         <zorder>deg_color_widget</zorder>
         </widget>
        </item>
        <item>
@@ -1312,7 +1321,7 @@ max-height: 16px;</string>
   </action>
   <action name="actionCut">
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -1330,7 +1339,7 @@ max-height: 16px;</string>
   </action>
   <action name="actionCopy">
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -1348,7 +1357,7 @@ max-height: 16px;</string>
   </action>
   <action name="actionPaste">
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -1445,7 +1454,7 @@ max-height: 16px;</string>
     <bool>true</bool>
    </property>
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -1463,7 +1472,7 @@ max-height: 16px;</string>
     <bool>true</bool>
    </property>
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
