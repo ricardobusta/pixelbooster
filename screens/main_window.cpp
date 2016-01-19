@@ -227,6 +227,8 @@ void MainWindow::UpdateWidgetState() {
   ui->zoom_horizontalSlider->setValue(options_cache_->zoom_level());
   ui->zoom_label->setText(QString("x%1").arg(options_cache_->zoom_level()));
   ui->zoom_label->update();
+  ui->zoom_label->repaint();
+  DEBUG_MSG(ui->zoom_label->text());
 }
 
 void MainWindow::changeEvent(QEvent *event) {
