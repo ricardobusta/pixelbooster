@@ -374,7 +374,7 @@
             <x>0</x>
             <y>0</y>
             <width>199</width>
-            <height>283</height>
+            <height>294</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout">
@@ -1016,7 +1016,7 @@ max-height: 16px;</string>
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="16,3">
        <property name="topMargin">
         <number>0</number>
        </property>
@@ -1034,6 +1034,9 @@ max-height: 16px;</string>
            <height>100</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: black;</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -1041,8 +1044,11 @@ max-height: 16px;</string>
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>60</height>
+           <height>20</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: black;</string>
          </property>
         </widget>
        </item>

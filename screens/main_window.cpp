@@ -225,6 +225,8 @@ void MainWindow::UpdateWidgetState() {
   action_handler_->SetAltColor(options_cache_->alt_color());
   action_handler_->Translate(options_cache_->language());
   ui->zoom_horizontalSlider->setValue(options_cache_->zoom_level());
+  ui->zoom_label->setText(QString("x%1").arg(options_cache_->zoom_level()));
+  ui->zoom_label->update();
 }
 
 void MainWindow::changeEvent(QEvent *event) {
