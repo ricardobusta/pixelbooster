@@ -19,6 +19,23 @@
 
 #include "selection_tool.h"
 
-void SelectionTool::Use() {
-
+void SelectionTool::Use(QRect * selection, QPoint * anchor, bool * started,const ToolEvent &event) {
+  if (event.action() == ACTION_PRESS) {
+    if (event.lmb_down()) {
+      *anchor = event.img_pos();
+      *started = true;
+    }
+  } else if (event.action() == ACTION_MOVE) {
+    if (*started) {
+      QRect rect = QRect(
+            qMin(anchor->x(),event.img_pos().x()),
+            qMin(anchor->y(),event.img_pos().y()),
+            qAbs(anchor->x()-event.img_pos().x()),
+            qAbs(anchor->y()-event.img_pos().y())
+            );
+      *selection = rect;
+    }
+  } else if (event.action() == ACTION_RELEASE) {
+    *started = false;
+  }
 }

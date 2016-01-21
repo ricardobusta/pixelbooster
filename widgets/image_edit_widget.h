@@ -67,6 +67,8 @@ private:
   QPoint action_anchor_;
   bool action_started_;
 
+  QRect selection_;
+
   QImage overlay_image_;
 
   void ToolAction(const QMouseEvent *event, ACTION_TOOL action);

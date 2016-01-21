@@ -23,7 +23,7 @@
 #include "logic/tool_algorithm.h"
 
 namespace SelectionTool {
-void Use();
+void Use(QRect *selection, QPoint *anchor, bool *started, const ToolEvent &event);
 }
 
 #endif // SELECTION_TOOL_H

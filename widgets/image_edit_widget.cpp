@@ -93,9 +93,9 @@ void ImageEditWidget::paintEvent(QPaintEvent *) {
 
   painter.drawRect(cursor_);
 
-  if (cursor_.isValid()) {
-    painter.drawPoint(cursor_.topLeft());
-  }
+  // Draw Selection;
+  painter.setPen(QPen(QColor(Qt::red),1,Qt::DashLine));
+  painter.drawRect(selection_);
 }
 
 void ImageEditWidget::mouseMoveEvent(QMouseEvent *event) {
@@ -190,7 +190,7 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
     RectangleTool::Use(&image_,&overlay_image_,options_cache_->main_color(),options_cache_->alt_color(),&action_anchor_,&action_started_,tool_event);
     break;
   case TOOL_SELECTION:
-    SelectionTool::Use();
+    SelectionTool::Use(&selection_,&action_anchor_,&action_started_,tool_event);
     break;
   default:
     break;
