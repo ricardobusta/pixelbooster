@@ -64,6 +64,10 @@ private:
 
   GlobalOptions *options_cache_;
 
+  QRect window_geometry_;
+  QRect window_geometry_aux_;
+  bool safe_resolution_;
+
   void ConnectActions();
   void ConnectWidgets();
 
@@ -75,6 +79,7 @@ private:
 
   void changeEvent(QEvent *event);
   void closeEvent(QCloseEvent *event);
+  void resizeEvent(QResizeEvent *event);
 
 private slots:
   void CurrentWindowChanged(QMdiSubWindow *w);

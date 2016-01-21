@@ -42,14 +42,14 @@ const QString kConfigWindowState = "WindowState";
 const QString kConfigWindowGeometry = "WindowGeometry";
 const QString kConfigWindowMaximized = "Maximized";
 const bool kConfigWindowMaximizedDefault = false;
-const QRect kConfigDefaultWindowGeometry = QRect(0, 10, 800, 600);
+const QRect kConfigDefaultWindowGeometry = QRect(50, 50, 800, 600);
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),
-      ui(new Ui::MainWindow),
-      action_handler_(new ActionHandler(this)),
-      current_canvas_container_(nullptr),
-      options_cache_(pApp->options()) {
+  : QMainWindow(parent),
+    ui(new Ui::MainWindow),
+    action_handler_(new ActionHandler(this)),
+    current_canvas_container_(nullptr),
+    options_cache_(pApp->options()) {
   ui->setupUi(this);
 
   LoadSettings();
@@ -187,7 +187,6 @@ void MainWindow::SetToolButtons() {
   ui->rectangle_toolButton->setDefaultAction(ui->actionRectangle_Tool);
   ui->fill_toolButton->setDefaultAction(ui->actionFill_Tool);
   ui->pencil_toolButton->setDefaultAction(ui->actionPencil_Tool);
-
   ui->default_palette_toolButton->setDefaultAction(ui->actionDefault_Palette);
 
   QMenu * test_menu = new QMenu();
@@ -195,8 +194,7 @@ void MainWindow::SetToolButtons() {
   test_menu->addAction(ui->actionSave_As);
   test_menu->addAction(ui->actionSave_All);
   ui->actionSave_Menu->setMenu(test_menu);
-  test_menu->
-  QObject::connect(ui->actionSave_Menu,SIGNAL(triggered(bool)),ui->actionSave,SLOT(trigger()));
+  test_menu->QObject::connect(ui->actionSave_Menu,SIGNAL(triggered(bool)),ui->actionSave,SLOT(trigger()));
 }
 
 void MainWindow::SaveSettings() {
@@ -207,7 +205,12 @@ void MainWindow::SaveSettings() {
   settings.endGroup();
 
   settings.beginGroup(kConfigGroupWindow);
-  settings.setValue(kConfigWindowGeometry, this->geometry());
+  if(windowState() == Qt::WindowMaximized){
+    qDebug() << window_geometry_aux_;
+    settings.setValue(kConfigWindowGeometry, window_geometry_aux_);
+  }else{
+    settings.setValue(kConfigWindowGeometry, this->geometry());
+  }
   settings.setValue(kConfigWindowMaximized, this->isMaximized());
   settings.setValue(kConfigWindowState, this->saveState());
   settings.endGroup();
@@ -221,7 +224,9 @@ void MainWindow::LoadSettings() {
   settings.endGroup();
 
   settings.beginGroup(kConfigGroupWindow);
-  setGeometry(settings.value(kConfigWindowGeometry, kConfigDefaultWindowGeometry).toRect());
+  window_geometry_ = settings.value(kConfigWindowGeometry, kConfigDefaultWindowGeometry).toRect();
+  window_geometry_aux_ = window_geometry_;
+  setGeometry(window_geometry_);
   restoreState(settings.value(kConfigWindowState).toByteArray());
 
   if (settings.value(kConfigWindowMaximized, kConfigWindowMaximizedDefault).toBool()) {
@@ -259,6 +264,16 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     event->ignore();
   }
   SaveSettings();
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event) {
+  if(windowState() != Qt::WindowMaximized){
+    window_geometry_aux_ = window_geometry_;
+    window_geometry_ = geometry();
+  }else{
+    window_geometry_ = window_geometry_aux_;
+  }
+  qDebug() << windowState() << window_geometry_ << window_geometry_aux_;
 }
 
 void MainWindow::CurrentWindowChanged(QMdiSubWindow *w) {
