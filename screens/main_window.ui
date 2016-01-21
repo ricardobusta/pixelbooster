@@ -79,6 +79,7 @@
     <addaction name="actionCopy"/>
     <addaction name="actionPaste"/>
     <addaction name="actionDelete"/>
+    <addaction name="actionPick_All"/>
     <addaction name="actionSelect_All"/>
     <addaction name="separator"/>
     <addaction name="actionAdd_Text"/>
@@ -374,7 +375,7 @@
             <x>0</x>
             <y>0</y>
             <width>199</width>
-            <height>281</height>
+            <height>262</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout">
@@ -1132,7 +1133,7 @@ max-height: 16px;</string>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
-           <normaloff>:/icons/load_palette.png</normaloff>:/icons/load_palette.png</iconset>
+           <normaloff>:/icons/default_palette.png</normaloff>:/icons/default_palette.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -1321,7 +1322,7 @@ max-height: 16px;</string>
     <string>Undo</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>Undo the last action.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Z</string>
@@ -1339,7 +1340,7 @@ max-height: 16px;</string>
     <string>Redo</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>Redo the last undone action.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Y</string>
@@ -1357,7 +1358,7 @@ max-height: 16px;</string>
     <string>Cut</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>Cuts the selected image on the edit area.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+X</string>
@@ -1375,7 +1376,7 @@ max-height: 16px;</string>
     <string>Copy</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>Copies the selected image on the edit area.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
@@ -1393,7 +1394,7 @@ max-height: 16px;</string>
     <string>Paste</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>Pastes the copied image to the edit area.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+V</string>
@@ -1411,7 +1412,7 @@ max-height: 16px;</string>
     <string>Delete</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>Deletes the current selection.</string>
    </property>
    <property name="shortcut">
     <string>Del</string>
@@ -1425,7 +1426,7 @@ max-height: 16px;</string>
     <string>Select All</string>
    </property>
    <property name="statusTip">
-    <string>Soon!</string>
+    <string>Selects the entire edit area.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
@@ -1909,11 +1910,23 @@ max-height: 16px;</string>
    </property>
   </action>
   <action name="actionDefault_Palette">
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/default_palette.png</normaloff>:/icons/default_palette.png</iconset>
+   </property>
    <property name="text">
     <string>Default Palette</string>
    </property>
    <property name="toolTip">
     <string>Loads the default palette back.</string>
+   </property>
+  </action>
+  <action name="actionPick_All">
+   <property name="text">
+    <string>Pick All</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
    </property>
   </action>
  </widget>

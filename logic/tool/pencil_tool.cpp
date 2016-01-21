@@ -17,30 +17,24 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#include "color_dialog.h"
-#include "ui_color_dialog.h"
+#include "pencil_tool.h"
 
-#include <QColorDialog>
+#include "logic/tool_algorithm.h"
 
-ColorDialog::ColorDialog(QWidget *parent) : QDialog(parent),
-                                            ui(new Ui::Color_Dialog) {
-  ui->setupUi(this);
-}
+#include <QStatusBar>
+#include <QPainter>
 
-ColorDialog::~ColorDialog() {
-  delete ui;
-}
-
-QColor ColorDialog::GetColor(const QColor &initial, QWidget *parent, const QString &title) {
-  // To do:
-  if (true) {
-    return QColorDialog::getColor(initial, parent, title, QColorDialog::ShowAlphaChannel);
-  } else {
-    ColorDialog dialog;
-    dialog.exec();
-    if (dialog.result() == QDialog::Accepted) {
-      return QColor(Qt::red);
+void PencilTool::Use(QImage *image, const QColor &color, const ToolEvent &event) {
+  if (event.action() == ACTION_PRESS || event.action() == ACTION_MOVE) {
+    if (event.lmb_down()) {
+      Algorithm(image, event.img_prev_pos(), event.img_pos(), color);
+      pApp->main_window()->statusBar()->showMessage("Teste",0);
+    } else if (event.rmb_down()) {
+      pApp->main_window()->action_handler()->SetMainColor(image->pixel(event.img_pos()));
     }
-    return QColor();
   }
+}
+
+void PencilTool::Algorithm(QImage *image, const QPoint &p1, const QPoint p2, const QColor &color) {
+  ToolAlgorithm::BresenhamLine(image,p1,p2,color.rgba());
 }

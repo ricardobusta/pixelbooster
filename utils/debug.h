@@ -1,6 +1,7 @@
 /***************************************************************************\
 *  Pixel::Booster, a simple pixel art image editor.                         *
 *  Copyright (C) 2015  Ricardo Bustamante de Queiroz (ricardo@busta.com.br) *
+*  Visit the Official Homepage: pixel.busta.com.br                          *
 *                                                                           *
 *  This program is free software: you can redistribute it and/or modify     *
 *  it under the terms of the GNU General Public License as published by     *

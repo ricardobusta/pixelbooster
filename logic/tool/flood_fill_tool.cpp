@@ -17,30 +17,14 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#include "color_dialog.h"
-#include "ui_color_dialog.h"
+#include "flood_fill_tool.h"
 
-#include <QColorDialog>
-
-ColorDialog::ColorDialog(QWidget *parent) : QDialog(parent),
-                                            ui(new Ui::Color_Dialog) {
-  ui->setupUi(this);
-}
-
-ColorDialog::~ColorDialog() {
-  delete ui;
-}
-
-QColor ColorDialog::GetColor(const QColor &initial, QWidget *parent, const QString &title) {
-  // To do:
-  if (true) {
-    return QColorDialog::getColor(initial, parent, title, QColorDialog::ShowAlphaChannel);
-  } else {
-    ColorDialog dialog;
-    dialog.exec();
-    if (dialog.result() == QDialog::Accepted) {
-      return QColor(Qt::red);
+void FloodFillTool::Use(QImage *image, const QColor &color, const ToolEvent &event) {
+  if( event.action()== ACTION_PRESS){
+    if (event.lmb_down()) {
+      ToolAlgorithm::FloodFill(image, event.img_pos(), color);
+    } else if (event.rmb_down()) {
+      pApp->main_window()->action_handler()->SetMainColor(image->pixel(event.img_pos()));
     }
-    return QColor();
   }
 }

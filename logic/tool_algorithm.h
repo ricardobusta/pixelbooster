@@ -1,6 +1,7 @@
 /***************************************************************************\
 *  Pixel::Booster, a simple pixel art image editor.                         *
 *  Copyright (C) 2015  Ricardo Bustamante de Queiroz (ricardo@busta.com.br) *
+*  Visit the Official Homepage: pixel.busta.com.br                          *
 *                                                                           *
 *  This program is free software: you can redistribute it and/or modify     *
 *  it under the terms of the GNU General Public License as published by     *
@@ -23,6 +24,10 @@
 #include <QImage>
 #include <QPoint>
 
+#include "application/pixel_booster.h"
+#include "logic/action_handler.h"
+#include "screens/main_window.h"
+
 enum ACTION_TOOL : int {
   ACTION_PRESS,
   ACTION_RELEASE,
@@ -30,20 +35,40 @@ enum ACTION_TOOL : int {
   ACTION_CLICK
 };
 
-class ToolAlgorithm {
+class ToolEvent{
 public:
-  static void Pencil(QImage *image, const QPoint &p1, const QPoint p2, const QColor &color);
-  static void FloodFill(QImage *image, const ACTION_TOOL action, const QPoint &seed, const QColor &color);
-  //private:
-  static void BresenhamLine(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color);
-  static void BresenhamEllipse(QImage *image, const QRect &rect, bool fill, const QRgb &color);
-
+  ToolEvent(ACTION_TOOL action,
+            bool lmb_down,
+            bool rmb_down,
+            const QPoint &img_pos,
+            const QPoint &img_prev_pos):
+    action_(action),
+    lmb_down_(lmb_down),
+    rmb_down_(rmb_down),
+    img_pos_(img_pos),
+    img_prev_pos_(img_prev_pos){
+  }
+  ACTION_TOOL action() const{ return action_; }
+  bool lmb_down() const{ return lmb_down_; }
+  bool rmb_down() const{ return rmb_down_; }
+  QPoint img_pos() const{ return img_pos_; }
+  QPoint img_prev_pos() const{ return img_prev_pos_; }
 private:
-  static void Plot4EllipsePoints(QImage *image, const QPoint &c, const QPoint &p, const QPoint &e, const QRgb &color);
-
-  static void SetPixel(QImage *image, const QPoint &p, const QRgb &color);
-  static void SetPixel(QImage *image, const int x, const int y, const QRgb &color);
-  ToolAlgorithm();
+  ACTION_TOOL action_;
+  bool lmb_down_;
+  bool rmb_down_;
+  QPoint img_pos_;
+  QPoint img_prev_pos_;
 };
+
+namespace ToolAlgorithm {
+void FloodFill(QImage *image, const QPoint &seed, const QColor &color);
+void BresenhamLine(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color);
+void BresenhamEllipse(QImage *image, const QRect &rect, bool fill, const QRgb &color);
+
+void Plot4EllipsePoints(QImage *image, const QPoint &c, const QPoint &p, const QPoint &e, const QRgb &color);
+void SetPixel(QImage *image, const QPoint &p, const QRgb &color);
+void SetPixel(QImage *image, const int x, const int y, const QRgb &color);
+}
 
 #endif // TOOLALGORITHM_H

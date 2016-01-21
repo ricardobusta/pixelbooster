@@ -1,6 +1,7 @@
 /***************************************************************************\
 *  Pixel::Booster, a simple pixel art image editor.                         *
 *  Copyright (C) 2015  Ricardo Bustamante de Queiroz (ricardo@busta.com.br) *
+*  Visit the Official Homepage: pixel.busta.com.br                          *
 *                                                                           *
 *  This program is free software: you can redistribute it and/or modify     *
 *  it under the terms of the GNU General Public License as published by     *
@@ -133,6 +134,7 @@ void MainWindow::ConnectActions() {
   QObject::connect(ui->zoom_horizontalSlider, SIGNAL(valueChanged(int)), action_handler_, SLOT(Zoom(int)));
   QObject::connect(ui->actionLoad_Palette, SIGNAL(triggered(bool)), action_handler_, SLOT(LoadPalette()));
   QObject::connect(ui->actionSave_Palette, SIGNAL(triggered(bool)), action_handler_, SLOT(SavePalette()));
+  QObject::connect(ui->actionDefault_Palette, SIGNAL(triggered(bool)), action_handler_, SLOT(DefaultPalette()));
 
   // Group Tools
   QActionGroup *tool_action_group = new QActionGroup(this);
@@ -185,6 +187,8 @@ void MainWindow::SetToolButtons() {
   ui->rectangle_toolButton->setDefaultAction(ui->actionRectangle_Tool);
   ui->fill_toolButton->setDefaultAction(ui->actionFill_Tool);
   ui->pencil_toolButton->setDefaultAction(ui->actionPencil_Tool);
+
+  ui->default_palette_toolButton->setDefaultAction(ui->actionDefault_Palette);
 
   QMenu * test_menu = new QMenu();
   test_menu->addAction(ui->actionSave);

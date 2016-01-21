@@ -45,7 +45,13 @@ SOURCES += \
     logic/undo_redo.cpp \
     logic/tool_algorithm.cpp \
     utils/pb_math.cpp \
-    widgets/color_dialog.cpp
+    widgets/color_dialog.cpp \
+    logic/tool/pencil_tool.cpp \
+    logic/tool/flood_fill_tool.cpp \
+    logic/tool/line_tool.cpp \
+    logic/tool/rectangle_tool.cpp \
+    logic/tool/ellipse_tool.cpp \
+    logic/tool/selection_tool.cpp
 
 HEADERS  += \
     widgets/image_edit_widget.h \
@@ -65,7 +71,13 @@ HEADERS  += \
     logic/undo_redo.h \
     logic/tool_algorithm.h \
     utils/pb_math.h \
-    widgets/color_dialog.h
+    widgets/color_dialog.h \
+    logic/tool/pencil_tool.h \
+    logic/tool/flood_fill_tool.h \
+    logic/tool/line_tool.h \
+    logic/tool/rectangle_tool.h \
+    logic/tool/ellipse_tool.h \
+    logic/tool/selection_tool.h
 
 FORMS    += \
     screens/new_image_file_dialog.ui \

@@ -1,6 +1,7 @@
 /***************************************************************************\
 *  Pixel::Booster, a simple pixel art image editor.                         *
 *  Copyright (C) 2015  Ricardo Bustamante de Queiroz (ricardo@busta.com.br) *
+*  Visit the Official Homepage: pixel.busta.com.br                          *
 *                                                                           *
 *  This program is free software: you can redistribute it and/or modify     *
 *  it under the terms of the GNU General Public License as published by     *
@@ -23,40 +24,32 @@
 
 #include <QPainter>
 
-void ToolAlgorithm::Pencil(QImage *image, const QPoint &p1, const QPoint p2, const QColor &color) {
-  QPainter painter(image);
-  painter.setPen(color);
-  painter.drawLine(p1, p2);
-}
+void ToolAlgorithm::FloodFill(QImage *image, const QPoint &seed, const QColor &color) {
+  QRgb new_color = color.rgba();
+  QRgb old_color = image->pixel(seed);
+  if (new_color == old_color) {
+    return;
+  }
+  QList<QPoint> to_do_list = {seed};
 
-void ToolAlgorithm::FloodFill(QImage *image, const ACTION_TOOL action, const QPoint &seed, const QColor &color) {
-  if (action == ACTION_PRESS) {
-    QRgb new_color = color.rgba();
-    QRgb old_color = image->pixel(seed);
-    if (new_color == old_color) {
-      return;
-    }
-    QList<QPoint> to_do_list = {seed};
+  QVector<QPoint> expansion = {
+    QPoint(1, 0),
+    QPoint(0, 1),
+    QPoint(-1, 0),
+    QPoint(0, -1)};
 
-    QVector<QPoint> expansion = {
-        QPoint(1, 0),
-        QPoint(0, 1),
-        QPoint(-1, 0),
-        QPoint(0, -1)};
+  image->setPixel(seed, new_color);
 
-    image->setPixel(seed, new_color);
+  while (!to_do_list.isEmpty()) {
+    //DEBUG_MSG(to_do_list.length());
+    QPoint target = to_do_list.takeFirst();
 
-    while (!to_do_list.isEmpty()) {
-      //DEBUG_MSG(to_do_list.length());
-      QPoint target = to_do_list.takeFirst();
-
-      for (QPoint e : expansion) {
-        QPoint new_target = target + e;
-        //DEBUG_MSG(new_target);
-        if (image->rect().contains(new_target) && image->pixel(new_target) == old_color) {
-          to_do_list.push_back(new_target);
-          image->setPixel(new_target, new_color);
-        }
+    for (QPoint e : expansion) {
+      QPoint new_target = target + e;
+      //DEBUG_MSG(new_target);
+      if (image->rect().contains(new_target) && image->pixel(new_target) == old_color) {
+        to_do_list.push_back(new_target);
+        image->setPixel(new_target, new_color);
       }
     }
   }

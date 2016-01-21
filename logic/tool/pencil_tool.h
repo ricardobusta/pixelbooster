@@ -17,30 +17,14 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#include "color_dialog.h"
-#include "ui_color_dialog.h"
+#ifndef PENCIL_TOOL_H
+#define PENCIL_TOOL_H
 
-#include <QColorDialog>
+#include "logic/tool_algorithm.h"
 
-ColorDialog::ColorDialog(QWidget *parent) : QDialog(parent),
-                                            ui(new Ui::Color_Dialog) {
-  ui->setupUi(this);
+namespace PencilTool {
+  void Use(QImage *image, const QColor &color, const ToolEvent &event);
+  void Algorithm(QImage *image, const QPoint &p1, const QPoint p2, const QColor &color);
 }
 
-ColorDialog::~ColorDialog() {
-  delete ui;
-}
-
-QColor ColorDialog::GetColor(const QColor &initial, QWidget *parent, const QString &title) {
-  // To do:
-  if (true) {
-    return QColorDialog::getColor(initial, parent, title, QColorDialog::ShowAlphaChannel);
-  } else {
-    ColorDialog dialog;
-    dialog.exec();
-    if (dialog.result() == QDialog::Accepted) {
-      return QColor(Qt::red);
-    }
-    return QColor();
-  }
-}
+#endif // PENCIL_TOOL_H

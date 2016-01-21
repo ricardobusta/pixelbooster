@@ -1,6 +1,7 @@
 /***************************************************************************\
 *  Pixel::Booster, a simple pixel art image editor.                         *
 *  Copyright (C) 2015  Ricardo Bustamante de Queiroz (ricardo@busta.com.br) *
+*  Visit the Official Homepage: pixel.busta.com.br                          *
 *                                                                           *
 *  This program is free software: you can redistribute it and/or modify     *
 *  it under the terms of the GNU General Public License as published by     *
@@ -271,6 +272,11 @@ void ActionHandler::SavePalette() const {
       QMessageBox::information(window_cache_, "Palette Saved.", "Palette file saved with success!");
     }
   }
+}
+
+void ActionHandler::DefaultPalette() const {
+  window_cache_->color_palette()->SetPalette(QImage(":/images/color_palette.png"));
+  window_cache_->color_palette()->repaint();
 }
 
 void ActionHandler::Translate(const QString &language) const {

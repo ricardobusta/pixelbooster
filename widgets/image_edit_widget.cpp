@@ -1,6 +1,7 @@
 /***************************************************************************\
 *  Pixel::Booster, a simple pixel art image editor.                         *
 *  Copyright (C) 2015  Ricardo Bustamante de Queiroz (ricardo@busta.com.br) *
+*  Visit the Official Homepage: pixel.busta.com.br                          *
 *                                                                           *
 *  This program is free software: you can redistribute it and/or modify     *
 *  it under the terms of the GNU General Public License as published by     *
@@ -25,6 +26,9 @@
 #include "logic/action_handler.h"
 #include "screens/main_window.h"
 #include "utils/debug.h"
+#include "logic/tool/pencil_tool.h"
+#include "logic/tool/flood_fill_tool.h"
+#include <QStatusbar>
 
 ImageEditWidget::ImageEditWidget(QWidget *parent)
   : QWidget(parent),
@@ -159,7 +163,7 @@ void ImageEditWidget::mouseClickEvent(QMouseEvent *event) {
 
 void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
   QPoint pos = event->pos();
-  QPoint img_pos = WidgetToImageSpace(pos);
+  ToolEvent tool_event(action,left_button_down_,right_button_down_,WidgetToImageSpace(pos),WidgetToImageSpace(previous_pos_));
 
   if (action == ACTION_PRESS) {
     undo_redo_.Do(image_);
@@ -167,46 +171,35 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
 
   switch (options_cache_->tool()) {
   case TOOL_PENCIL:
-    if (action == ACTION_PRESS || action == ACTION_MOVE) {
-      if (left_button_down_) {
-        QPoint img_previous_pos = WidgetToImageSpace(previous_pos_);
-        ToolAlgorithm::Pencil(&image_, img_previous_pos, img_pos, options_cache_->main_color());
-      } else if (right_button_down_) {
-        pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
-      }
-    }
+    PencilTool::Use(&image_,options_cache_->main_color(),tool_event);
     break;
   case TOOL_FLOOD_FILL:
-    if (left_button_down_) {
-      ToolAlgorithm::FloodFill(&image_, action, img_pos, options_cache_->main_color());
-    } else if (right_button_down_) {
-      pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
-    }
+    FloodFillTool::Use(&image_,options_cache_->main_color(),tool_event);
     break;
   case TOOL_LINE:
-    if (action == ACTION_PRESS) {
+    /*if (action == ACTION_PRESS) {
       if (left_button_down_) {
         action_anchor_ = WidgetToImageSpace(pos);
         action_started_ = true;
         overlay_image_.fill(0x0);
-        ToolAlgorithm::BresenhamLine(&overlay_image_, action_anchor_, img_pos, options_cache_->main_color().rgba());
+        //ToolAlgorithm::BresenhamLine(&overlay_image_, action_anchor_, img_pos, options_cache_->main_color().rgba());
       } else if (right_button_down_) {
         pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
       }
     } else if (action == ACTION_MOVE) {
       if (action_started_) {
         overlay_image_.fill(0x0);
-        ToolAlgorithm::BresenhamLine(&overlay_image_, action_anchor_, img_pos, options_cache_->main_color().rgba());
+        //ToolAlgorithm::BresenhamLine(&overlay_image_, action_anchor_, img_pos, options_cache_->main_color().rgba());
       }
     } else if (action == ACTION_RELEASE) {
       QPainter apply(&image_);
       apply.drawImage(image_.rect(), overlay_image_);
       overlay_image_.fill(0x0);
       action_started_ = false;
-    }
+    }*/
     break;
   case TOOL_ELLIPSE:
-    if (action == ACTION_PRESS) {
+   /* if (action == ACTION_PRESS) {
       if (left_button_down_) {
         action_anchor_ = WidgetToImageSpace(pos);
         action_started_ = true;
@@ -221,8 +214,8 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
                            qMin(action_anchor_.y(),img_pos.y()),
                            qAbs(action_anchor_.x()-img_pos.x())+1,
                            qAbs(action_anchor_.y()-img_pos.y())+1);
-        ToolAlgorithm::BresenhamEllipse(&overlay_image_, rect, true, options_cache_->alt_color().rgba());
-        ToolAlgorithm::BresenhamEllipse(&overlay_image_, rect, false, options_cache_->main_color().rgba());
+        //ToolAlgorithm::BresenhamEllipse(&overlay_image_, rect, true, options_cache_->alt_color().rgba());
+        //ToolAlgorithm::BresenhamEllipse(&overlay_image_, rect, false, options_cache_->main_color().rgba());
       }else{
         if (action_started_){
           overlay_image_.fill(0x0);
@@ -234,10 +227,10 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
       apply.drawImage(image_.rect(), overlay_image_);
       overlay_image_.fill(0x0);
       action_started_ = false;
-    }
+    }*/
     break;
   case TOOL_RECTANGLE:
-    if (action == ACTION_PRESS) {
+    /*if (action == ACTION_PRESS) {
       if (left_button_down_) {
         action_anchor_ = WidgetToImageSpace(pos);
         action_started_ = true;
@@ -266,7 +259,7 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
       apply.drawImage(image_.rect(), overlay_image_);
       overlay_image_.fill(0x0);
       action_started_ = false;
-    }
+    }*/
     break;
   case TOOL_SELECTION:
     break;
