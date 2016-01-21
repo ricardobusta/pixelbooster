@@ -28,6 +28,10 @@
 #include "utils/debug.h"
 #include "logic/tool/pencil_tool.h"
 #include "logic/tool/flood_fill_tool.h"
+#include "logic/tool/line_tool.h"
+#include "logic/tool/ellipse_tool.h"
+#include "logic/tool/rectangle_tool.h"
+#include "logic/tool/selection_tool.h"
 #include <QStatusbar>
 
 ImageEditWidget::ImageEditWidget(QWidget *parent)
@@ -177,91 +181,16 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
     FloodFillTool::Use(&image_,options_cache_->main_color(),tool_event);
     break;
   case TOOL_LINE:
-    /*if (action == ACTION_PRESS) {
-      if (left_button_down_) {
-        action_anchor_ = WidgetToImageSpace(pos);
-        action_started_ = true;
-        overlay_image_.fill(0x0);
-        //ToolAlgorithm::BresenhamLine(&overlay_image_, action_anchor_, img_pos, options_cache_->main_color().rgba());
-      } else if (right_button_down_) {
-        pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
-      }
-    } else if (action == ACTION_MOVE) {
-      if (action_started_) {
-        overlay_image_.fill(0x0);
-        //ToolAlgorithm::BresenhamLine(&overlay_image_, action_anchor_, img_pos, options_cache_->main_color().rgba());
-      }
-    } else if (action == ACTION_RELEASE) {
-      QPainter apply(&image_);
-      apply.drawImage(image_.rect(), overlay_image_);
-      overlay_image_.fill(0x0);
-      action_started_ = false;
-    }*/
+    LineTool::Use(&image_,&overlay_image_,options_cache_->main_color(),&action_anchor_,&action_started_,tool_event);
     break;
   case TOOL_ELLIPSE:
-   /* if (action == ACTION_PRESS) {
-      if (left_button_down_) {
-        action_anchor_ = WidgetToImageSpace(pos);
-        action_started_ = true;
-      } else if (right_button_down_) {
-        pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
-      }
-    } else if (action == ACTION_MOVE) {
-      if (action_started_ && img_pos != action_anchor_) {
-
-        overlay_image_.fill(0x0);
-        QRect rect = QRect(qMin(action_anchor_.x(),img_pos.x()),
-                           qMin(action_anchor_.y(),img_pos.y()),
-                           qAbs(action_anchor_.x()-img_pos.x())+1,
-                           qAbs(action_anchor_.y()-img_pos.y())+1);
-        //ToolAlgorithm::BresenhamEllipse(&overlay_image_, rect, true, options_cache_->alt_color().rgba());
-        //ToolAlgorithm::BresenhamEllipse(&overlay_image_, rect, false, options_cache_->main_color().rgba());
-      }else{
-        if (action_started_){
-          overlay_image_.fill(0x0);
-          overlay_image_.setPixel(img_pos,options_cache_->main_color().rgba());
-        }
-      }
-    } else if (action == ACTION_RELEASE) {
-      QPainter apply(&image_);
-      apply.drawImage(image_.rect(), overlay_image_);
-      overlay_image_.fill(0x0);
-      action_started_ = false;
-    }*/
+    EllipseTool::Use(&image_,&overlay_image_,options_cache_->main_color(),options_cache_->alt_color(),&action_anchor_,&action_started_,tool_event);
     break;
   case TOOL_RECTANGLE:
-    /*if (action == ACTION_PRESS) {
-      if (left_button_down_) {
-        action_anchor_ = WidgetToImageSpace(pos);
-        action_started_ = true;
-      } else if (right_button_down_) {
-        pApp->main_window()->action_handler()->SetMainColor(image_.pixel(img_pos));
-      }
-    } else if (action == ACTION_MOVE) {
-      if (action_started_ && img_pos != action_anchor_) {
-        overlay_image_.fill(0x0);
-        QRect rect = QRect(qMin(action_anchor_.x(),img_pos.x()),
-                           qMin(action_anchor_.y(),img_pos.y()),
-                           qAbs(action_anchor_.x()-img_pos.x()),
-                           qAbs(action_anchor_.y()-img_pos.y()));
-        QPainter overlay(&overlay_image_);
-        overlay.setPen(options_cache_->main_color());
-        overlay.setBrush(options_cache_->alt_color());
-        overlay.drawRect(rect);
-      }else{
-        if (action_started_){
-          overlay_image_.fill(0x0);
-          overlay_image_.setPixel(img_pos,options_cache_->main_color().rgba());
-        }
-      }
-    } else if (action == ACTION_RELEASE) {
-      QPainter apply(&image_);
-      apply.drawImage(image_.rect(), overlay_image_);
-      overlay_image_.fill(0x0);
-      action_started_ = false;
-    }*/
+    RectangleTool::Use(&image_,&overlay_image_,options_cache_->main_color(),options_cache_->alt_color(),&action_anchor_,&action_started_,tool_event);
     break;
   case TOOL_SELECTION:
+    SelectionTool::Use();
     break;
   default:
     break;

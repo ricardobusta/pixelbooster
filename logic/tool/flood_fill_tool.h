@@ -23,7 +23,7 @@
 #include "logic/tool_algorithm.h"
 
 namespace FloodFillTool{
-  void Use(QImage *image, const QColor &color, const ToolEvent &event);
+void Use(QImage *image, const QColor &color, const ToolEvent &event);
 }
 
 #endif // FLOOD_FILL_TOOL_H
