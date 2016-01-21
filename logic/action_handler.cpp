@@ -45,10 +45,12 @@ const QString kTxtSelectAltColor = "Select Secondary Color";
 
 const QString kColorButtonStyle = "background-color: %1; border: 1px solid black;";
 
+const QString kSavedPaletteLocation = "palette.png";
+
 ActionHandler::ActionHandler(QObject *parent)
-    : QObject(parent),
-      options_cache_(pApp->options()),
-      window_cache_(dynamic_cast<MainWindow *>(parent)) {
+  : QObject(parent),
+    options_cache_(pApp->options()),
+    window_cache_(dynamic_cast<MainWindow *>(parent)) {
 }
 
 ActionHandler::~ActionHandler() {
@@ -259,6 +261,7 @@ void ActionHandler::LoadPalette() const {
     QImage image(file_name);
     if (!image.isNull()) {
       window_cache_->color_palette()->SetPalette(image);
+      image.save(kSavedPaletteLocation);
     }
   }
 }
@@ -275,8 +278,18 @@ void ActionHandler::SavePalette() const {
 }
 
 void ActionHandler::DefaultPalette() const {
-  window_cache_->color_palette()->SetPalette(QImage(":/images/color_palette.png"));
+  QImage image = QImage(":/images/color_palette.png");
+  window_cache_->color_palette()->SetPalette(image);
   window_cache_->color_palette()->repaint();
+  image.save(kSavedPaletteLocation);
+}
+
+void ActionHandler::LoadSavedPalette() const {
+  QImage image = QImage(kSavedPaletteLocation);
+  if(!image.isNull()){
+    window_cache_->color_palette()->SetPalette(image);
+    window_cache_->color_palette()->repaint();
+  }
 }
 
 void ActionHandler::Translate(const QString &language) const {

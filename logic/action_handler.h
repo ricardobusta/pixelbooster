@@ -70,6 +70,7 @@ public slots:
   void LoadPalette() const;
   void SavePalette() const;
   void DefaultPalette() const;
+  void LoadSavedPalette() const;
 
   // Language Actions
   void Translate(const QString &language) const;

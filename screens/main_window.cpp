@@ -206,7 +206,6 @@ void MainWindow::SaveSettings() {
 
   settings.beginGroup(kConfigGroupWindow);
   if(windowState() == Qt::WindowMaximized){
-    qDebug() << window_geometry_aux_;
     settings.setValue(kConfigWindowGeometry, window_geometry_aux_);
   }else{
     settings.setValue(kConfigWindowGeometry, this->geometry());
@@ -235,6 +234,8 @@ void MainWindow::LoadSettings() {
   settings.endGroup();
 
   action_handler()->SetColorGradient();
+
+  action_handler()->LoadSavedPalette();
 }
 
 void MainWindow::UpdateWidgetState() {
@@ -247,7 +248,6 @@ void MainWindow::UpdateWidgetState() {
   ui->zoom_label->setText(QString("x%1").arg(options_cache_->zoom_level()));
   ui->zoom_label->update();
   ui->zoom_label->repaint();
-  DEBUG_MSG(ui->zoom_label->text());
 }
 
 void MainWindow::changeEvent(QEvent *event) {
@@ -273,7 +273,6 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
   }else{
     window_geometry_ = window_geometry_aux_;
   }
-  qDebug() << windowState() << window_geometry_ << window_geometry_aux_;
 }
 
 void MainWindow::CurrentWindowChanged(QMdiSubWindow *w) {
