@@ -353,6 +353,16 @@
        y1="-23.30439"
        x2="264.6124"
        y2="-23.30439" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5241"
+       id="linearGradient4809"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,-0.99336749,1.0211431,0,226.77538,1074.5107)"
+       x1="264.84778"
+       y1="-22.692331"
+       x2="277.04715"
+       y2="-22.692331" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -361,14 +371,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="353.84879"
-     inkscape:cy="71.301554"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="246.52888"
+     inkscape:cy="154.80316"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-width="1536"
+     inkscape:window-height="801"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -387,7 +397,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -4157,6 +4167,13 @@
        d="m 440.88365,90.162111 -2.01056,-5.708052 -1.2978,1.297795 -2.22942,-2.179737 -1.05183,1.051832 2.17973,2.229426 -1.29778,1.297791 z"
        style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        sodipodi:nodetypes="cccccccc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:url(#linearGradient4809);fill-opacity:1;stroke:#0c3458;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 223.40234 797.32812 A 7.5 7.5 0 0 0 215.90234 804.82812 A 7.5 7.5 0 0 0 223.40234 812.32812 A 7.5 7.5 0 0 0 230.90234 804.82812 A 7.5 7.5 0 0 0 223.40234 797.32812 z "
+       id="path4807"
+       transform="translate(67.85714,-827.63781)"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
   </g>

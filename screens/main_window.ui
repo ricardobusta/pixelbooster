@@ -51,7 +51,7 @@
      <x>0</x>
      <y>0</y>
      <width>785</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -374,7 +374,7 @@
             <x>0</x>
             <y>0</y>
             <width>199</width>
-            <height>294</height>
+            <height>281</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout">
@@ -1107,6 +1107,26 @@ max-height: 16px;</string>
        </item>
        <item>
         <widget class="QToolButton" name="load_palette_toolButton">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons/icons.qrc">
+           <normaloff>:/icons/load_palette.png</normaloff>:/icons/load_palette.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="default_palette_toolButton">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -1886,6 +1906,14 @@ max-height: 16px;</string>
    </property>
    <property name="statusTip">
     <string>Saves the focused image file.</string>
+   </property>
+  </action>
+  <action name="actionDefault_Palette">
+   <property name="text">
+    <string>Default Palette</string>
+   </property>
+   <property name="toolTip">
+    <string>Loads the default palette back.</string>
    </property>
   </action>
  </widget>

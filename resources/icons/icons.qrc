@@ -42,6 +42,7 @@
         <file>flip_v.png</file>
         <file>rotate_ccw.png</file>
         <file>rotate_cw.png</file>
+        <file>default_palette.png</file>
     </qresource>
     <qresource prefix="/app_icon">
         <file>app_icon.svg</file>
