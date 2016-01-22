@@ -19,30 +19,36 @@
 
 #include "selection_tool.h"
 
-void SelectionTool::Use(QRect * selection, QPoint * anchor, bool * started,const ToolEvent &event) {
+void SelectionTool::Use(QRect *selection, QPoint *anchor, bool *started, const ToolEvent &event) {
   if (event.action() == ACTION_PRESS) {
     if (event.lmb_down()) {
-      *anchor = event.img_pos();
-      *started = true;
-      *selection = GetRect(*anchor,event.img_pos());
-    }else{
+      if (selection->isValid() && selection->contains(event.img_pos())) {
+        *anchor = event.img_pos() - selection->center();
+      } else {
+        *anchor = event.img_pos();
+        *started = true;
+        *selection = GetRect(*anchor, event.img_pos());
+      }
+    } else {
       *selection = QRect();
     }
   } else if (event.action() == ACTION_MOVE) {
     if (*started) {
-       *selection = GetRect(*anchor,event.img_pos());
+      *selection = GetRect(*anchor, event.img_pos());
+    }else{
+      if(event.lmb_down()){
+        selection->moveCenter(event.img_pos()-*anchor);
+      }
     }
   } else if (event.action() == ACTION_RELEASE) {
     *started = false;
   }
 }
 
-QRect SelectionTool::GetRect(const QPoint &start, const QPoint &end)
-{
+QRect SelectionTool::GetRect(const QPoint &start, const QPoint &end) {
   return QRect(
-        qMin(start.x(),end.x()),
-        qMin(start.y(),end.y()),
-        qAbs(start.x()-end.x())+1,
-        qAbs(start.y()-end.y())+1
-        );
+      qMin(start.x(), end.x()),
+      qMin(start.y(), end.y()),
+      qAbs(start.x() - end.x()) + 1,
+      qAbs(start.y() - end.y()) + 1);
 }

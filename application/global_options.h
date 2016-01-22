@@ -59,9 +59,7 @@ public:
   void set_transparency_enabled(bool transparency);
 
   int zoom() const;
-  void set_zoom_level(int zoom);
-
-  int zoom_level() const;
+  void set_zoom(int zoom);
 
   QColor main_color() const;
   void set_main_color(const QColor &color);
@@ -90,7 +88,6 @@ private:
   bool vertical_shift_;
   QSize new_image_size_;
   bool transparency_enabled_;
-  int zoom_level_;
   int zoom_;
   QColor main_color_;
   QColor alt_color_;

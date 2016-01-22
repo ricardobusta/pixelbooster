@@ -34,6 +34,7 @@ class ImageCanvasContainer;
 class GlobalOptions;
 class ImageEditWidget;
 class ColorPaletteWidget;
+class QSlider;
 
 /*!
  * \brief The MainWindow class
@@ -53,6 +54,7 @@ public:
   QWidget *main_color_button() const;
   QWidget *alt_color_button() const;
   QLabel *zoom_label() const;
+  QSlider *zoom_slider() const;
 
   void SetDegColor(const QImage &image);
   ColorPaletteWidget *color_palette() const;
@@ -80,6 +82,8 @@ private:
   void changeEvent(QEvent *event);
   void closeEvent(QCloseEvent *event);
   void resizeEvent(QResizeEvent *event);
+
+  bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
   void CurrentWindowChanged(QMdiSubWindow *w);

@@ -22,8 +22,10 @@
 
 #include "logic/tool_algorithm.h"
 
+class QScrollArea;
+
 namespace ZoomTool {
-  void Use(QRect *selection, QPoint *anchor, bool *started, const ToolEvent &event);
+  void Use(QRect *selection, QPoint *anchor, bool *started, const QScrollArea *scroll_area, const ToolEvent &event);
   QRect GetRect(const QPoint &start, const QPoint &end);
 }
 

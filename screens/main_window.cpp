@@ -26,14 +26,14 @@
 #include "logic/action_handler.h"
 #include "resources/version.h"
 #include "utils/debug.h"
-#include "widgets/image_canvas_container.h"
 #include "widgets/color_palette_widget.h"
+#include "widgets/image_canvas_container.h"
 
-#include <QTimer>
-#include <QSettings>
+#include <QCloseEvent>
 #include <QMenu>
 #include <QMessageBox>
-#include <QCloseEvent>
+#include <QSettings>
+#include <QTimer>
 
 const QString kConfigFileName = "config.ini";
 const QString kConfigGroupState = "State";
@@ -45,11 +45,11 @@ const bool kConfigWindowMaximizedDefault = false;
 const QRect kConfigDefaultWindowGeometry = QRect(50, 50, 800, 600);
 
 MainWindow::MainWindow(QWidget *parent)
-  : QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    action_handler_(new ActionHandler(this)),
-    current_canvas_container_(nullptr),
-    options_cache_(pApp->options()) {
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow),
+      action_handler_(new ActionHandler(this)),
+      current_canvas_container_(nullptr),
+      options_cache_(pApp->options()) {
   ui->setupUi(this);
 
   LoadSettings();
@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
   this->setWindowTitle(windowTitle() + " " + kVersionString);
 
   ui->edit_widget->Clear(options_cache_->tile_selection().size());
+  ui->edit_widget->set_scroll_area(ui->scrollArea);
 
   ConnectActions();
   ConnectWidgets();
@@ -99,6 +100,10 @@ QWidget *MainWindow::alt_color_button() const {
 
 QLabel *MainWindow::zoom_label() const {
   return ui->zoom_label;
+}
+
+QSlider *MainWindow::zoom_slider() const {
+  return ui->zoom_horizontalSlider;
 }
 
 void MainWindow::SetDegColor(const QImage &image) {
@@ -158,6 +163,9 @@ void MainWindow::ConnectActions() {
   action_handler()->RegisterTool(ui->actionSelection_Tool, TOOL_SELECTION);
   action_handler()->RegisterTool(ui->actionZoom_Tool, TOOL_ZOOM);
 
+  // Install event listeners
+  ui->scrollArea->viewport()->installEventFilter(this);
+
   // Inverse communication
   QObject::connect(action_handler_, SIGNAL(UpdateEditArea()), ui->edit_widget, SLOT(UpdateWidget()));
 
@@ -189,12 +197,12 @@ void MainWindow::SetToolButtons() {
   ui->pencil_toolButton->setDefaultAction(ui->actionPencil_Tool);
   ui->default_palette_toolButton->setDefaultAction(ui->actionDefault_Palette);
 
-  QMenu * test_menu = new QMenu();
+  QMenu *test_menu = new QMenu();
   test_menu->addAction(ui->actionSave);
   test_menu->addAction(ui->actionSave_As);
   test_menu->addAction(ui->actionSave_All);
   ui->actionSave_Menu->setMenu(test_menu);
-  test_menu->QObject::connect(ui->actionSave_Menu,SIGNAL(triggered(bool)),ui->actionSave,SLOT(trigger()));
+  test_menu->QObject::connect(ui->actionSave_Menu, SIGNAL(triggered(bool)), ui->actionSave, SLOT(trigger()));
 }
 
 void MainWindow::SaveSettings() {
@@ -205,9 +213,9 @@ void MainWindow::SaveSettings() {
   settings.endGroup();
 
   settings.beginGroup(kConfigGroupWindow);
-  if(windowState() == Qt::WindowMaximized){
+  if (windowState() == Qt::WindowMaximized) {
     settings.setValue(kConfigWindowGeometry, window_geometry_aux_);
-  }else{
+  } else {
     settings.setValue(kConfigWindowGeometry, this->geometry());
   }
   settings.setValue(kConfigWindowMaximized, this->isMaximized());
@@ -244,8 +252,8 @@ void MainWindow::UpdateWidgetState() {
   action_handler_->SetMainColor(options_cache_->main_color());
   action_handler_->SetAltColor(options_cache_->alt_color());
   action_handler_->Translate(options_cache_->language());
-  ui->zoom_horizontalSlider->setValue(options_cache_->zoom_level());
-  ui->zoom_label->setText(QString("x%1").arg(options_cache_->zoom_level()));
+  ui->zoom_horizontalSlider->setValue(options_cache_->zoom());
+  ui->zoom_label->setText(QString("x%1").arg(options_cache_->zoom()));
   ui->zoom_label->update();
   ui->zoom_label->repaint();
 }
@@ -258,21 +266,35 @@ void MainWindow::changeEvent(QEvent *event) {
 
 void MainWindow::closeEvent(QCloseEvent *event) {
   bool ans = action_handler()->CloseWindowHandler();
-  if(ans){
+  if (ans) {
     event->accept();
-  }else{
+  } else {
     event->ignore();
   }
   SaveSettings();
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
-  if(windowState() != Qt::WindowMaximized){
+  if (windowState() != Qt::WindowMaximized) {
     window_geometry_aux_ = window_geometry_;
     window_geometry_ = geometry();
-  }else{
+  } else {
     window_geometry_ = window_geometry_aux_;
   }
+}
+
+bool MainWindow::eventFilter(QObject * obj, QEvent * event) {
+  if(obj == ui->scrollArea->viewport()){
+    if(event->type() == QEvent::Wheel){
+      QWheelEvent * wheel_event = static_cast<QWheelEvent*>(event);
+      if(wheel_event->modifiers() & Qt::ControlModifier){
+        int increment = wheel_event->delta()>0?1:wheel_event->delta()<0?-1:0;
+        action_handler()->Zoom(options_cache_->zoom()+increment);
+        return true;
+      }
+    }
+  }
+  return QMainWindow::eventFilter(obj,event);
 }
 
 void MainWindow::CurrentWindowChanged(QMdiSubWindow *w) {

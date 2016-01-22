@@ -27,6 +27,7 @@
 #include "logic/undo_redo.h"
 
 class GlobalOptions;
+class QScrollArea;
 
 /*!
  * \brief The ImageEditWidget class
@@ -40,6 +41,10 @@ public:
 
   void Undo();
   void Redo();
+
+  void set_scroll_area(QScrollArea *scroll_area);
+
+  void ClearSelection();
 
 protected:
   virtual void paintEvent(QPaintEvent *);
@@ -76,6 +81,8 @@ private:
 
   QRect SelectionRect(const QRect &rect);
   QPoint WidgetToImageSpace(const QPoint &pos);
+
+  QScrollArea *scroll_area_;
 signals:
   void SendImage(QImage *);
 public slots:

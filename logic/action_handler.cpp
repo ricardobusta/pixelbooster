@@ -39,6 +39,7 @@
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QMessageBox>
+#include <QSlider>
 
 const QString kTxtSelectMainColor = "Select Main Color";
 const QString kTxtSelectAltColor = "Select Secondary Color";
@@ -173,6 +174,7 @@ void ActionHandler::ToolPressed(QAction *a) const {
   auto it = tool_action_map_.find(a);
   if (it != tool_action_map_.end()) {
     options_cache_->set_tool(static_cast<TOOL_ENUM>(it.value()));
+    window_cache_->edit_widget()->ClearSelection();
   }
 }
 
@@ -193,8 +195,13 @@ void ActionHandler::ToggleTransparency(bool transparency) const {
 }
 
 void ActionHandler::Zoom(int zoom) const {
-  options_cache_->set_zoom_level(zoom);
-  window_cache_->zoom_label()->setText(QString("x%1").arg(zoom));
+  int z = clamp(zoom,1,32);
+  options_cache_->set_zoom(z);
+  window_cache_->zoom_label()->setText(QString("x%1").arg(z));
+  QSlider *slider = window_cache_->zoom_slider();
+  slider->blockSignals(true);
+  slider->setValue(z);
+  slider->blockSignals(false);
   emit UpdateEditArea();
 }
 

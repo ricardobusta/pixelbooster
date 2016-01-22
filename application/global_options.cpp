@@ -22,6 +22,7 @@
 #include <QSettings>
 
 #include "utils/debug.h"
+#include "utils/pb_math.h"
 
 const QString kStateCursorSize = "CursorSize";
 const QSize kStateCursorSizeDefault = QSize(32, 32);
@@ -107,13 +108,8 @@ int GlobalOptions::zoom() const {
   return zoom_;
 }
 
-void GlobalOptions::set_zoom_level(int zoom) {
-  zoom_level_ = zoom;
-  zoom_ = zoom;
-}
-
-int GlobalOptions::zoom_level() const {
-  return zoom_level_;
+void GlobalOptions::set_zoom(int zoom) {
+  zoom_ = clamp(zoom,1,32);
 }
 
 QColor GlobalOptions::main_color() const {
@@ -144,7 +140,7 @@ void GlobalOptions::SaveState(QSettings *settings) const {
   settings->setValue(kStateCursorSize, cursor_size_);
   settings->setValue(kStateNewImageSize, new_image_size_);
   settings->setValue(kStateTransparency, transparency_enabled_);
-  settings->setValue(kStateZoomLevel, zoom_level_);
+  settings->setValue(kStateZoomLevel, zoom_);
   settings->setValue(kStateTool, tool_);
   settings->setValue(kStateColorMain, main_color_.name());
   settings->setValue(kStateColorAlt, alt_color_.name());
@@ -160,7 +156,7 @@ void GlobalOptions::LoadState(QSettings *settings) {
   tile_selection_.setTopLeft(QPoint(0, 0));
   new_image_size_ = SETTINGS_VALUE(kStateNewImageSize).toSize();
   transparency_enabled_ = SETTINGS_VALUE(kStateTransparency).toBool();
-  set_zoom_level(SETTINGS_VALUE(kStateZoomLevel).toInt());
+  set_zoom(SETTINGS_VALUE(kStateZoomLevel).toInt());
   set_tool((TOOL_ENUM)SETTINGS_VALUE(kStateTool).toInt());
   main_color_ = QColor(SETTINGS_VALUE(kStateColorMain).toString());
   alt_color_ = QColor(SETTINGS_VALUE(kStateColorAlt).toString());

@@ -77,6 +77,17 @@ void ImageEditWidget::Redo() {
   }
 }
 
+void ImageEditWidget::set_scroll_area(QScrollArea *scroll_area) {
+  scroll_area_ = scroll_area;
+}
+
+void ImageEditWidget::ClearSelection()
+{
+  selection_ = QRect();
+  zoom_area_ = QRect();
+  repaint();
+}
+
 void ImageEditWidget::paintEvent(QPaintEvent *) {
   QPainter painter(this);
 
@@ -84,13 +95,16 @@ void ImageEditWidget::paintEvent(QPaintEvent *) {
     return;
   }
 
-  int zoom = pApp->options()->zoom();
+  int zoom = options_cache_->zoom();
 
   QRect image_rect = image_.rect();
   image_rect.setSize(QSize(image_.width() * zoom, image_.height() * zoom));
 
   painter.drawImage(image_rect, image_);
-  painter.drawImage(image_rect, overlay_image_);
+
+  if (action_started_) {
+    painter.drawImage(image_rect, overlay_image_);
+  }
 
   // Draw Selection;
   if (selection_.isValid()) {
@@ -125,7 +139,7 @@ void ImageEditWidget::paintEvent(QPaintEvent *) {
 }
 
 void ImageEditWidget::mouseMoveEvent(QMouseEvent *event) {
-  int zoom = pApp->options()->zoom();
+  int zoom = options_cache_->zoom();
   QPoint pos = event->pos();
 
   if (rect().contains(pos)) {
@@ -219,7 +233,7 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
     SelectionTool::Use(&selection_, &action_anchor_, &action_started_, tool_event);
     break;
   case TOOL_ZOOM:
-    ZoomTool::Use(&zoom_area_, &action_anchor_, &action_started_, tool_event);
+    ZoomTool::Use(&zoom_area_, &action_anchor_, &action_started_, scroll_area_, tool_event);
     break;
   default:
     break;
@@ -241,7 +255,7 @@ QPoint ImageEditWidget::WidgetToImageSpace(const QPoint &pos) {
 }
 
 void ImageEditWidget::GetImage(QImage *image) {
-  if (NULL == image || image->isNull()) {
+  if (nullptr == image || image->isNull()) {
     return;
   }
 

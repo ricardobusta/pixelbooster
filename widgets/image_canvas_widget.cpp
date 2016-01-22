@@ -175,7 +175,7 @@ void ImageCanvasWidget::leaveEvent(QEvent *) {
 }
 
 void ImageCanvasWidget::ReceiveImage(QImage *image) {
-  if (NULL == image || image->isNull()) {
+  if (nullptr == image || image->isNull()) {
     return;
   }
   QPainter painter(&image_);
