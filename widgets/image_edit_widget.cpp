@@ -24,23 +24,24 @@
 
 #include "application/pixel_booster.h"
 #include "logic/action_handler.h"
-#include "screens/main_window.h"
-#include "utils/debug.h"
-#include "logic/tool/pencil_tool.h"
+#include "logic/tool/ellipse_tool.h"
 #include "logic/tool/flood_fill_tool.h"
 #include "logic/tool/line_tool.h"
-#include "logic/tool/ellipse_tool.h"
+#include "logic/tool/pencil_tool.h"
 #include "logic/tool/rectangle_tool.h"
 #include "logic/tool/selection_tool.h"
+#include "logic/tool/zoom_tool.h"
+#include "screens/main_window.h"
+#include "utils/debug.h"
 #include <QStatusbar>
 
 ImageEditWidget::ImageEditWidget(QWidget *parent)
-  : QWidget(parent),
-    left_button_down_(false),
-    right_button_down_(false),
-    press_right_inside_(false),
-    press_left_inside_(false),
-    action_started_(false) {
+    : QWidget(parent),
+      left_button_down_(false),
+      right_button_down_(false),
+      press_right_inside_(false),
+      press_left_inside_(false),
+      action_started_(false) {
   setMouseTracking(true);
   image_ = QImage(0, 0, QImage::Format_ARGB32_Premultiplied);
   overlay_image_ = QImage(image_.size(), image_.format());
@@ -91,11 +92,36 @@ void ImageEditWidget::paintEvent(QPaintEvent *) {
   painter.drawImage(image_rect, image_);
   painter.drawImage(image_rect, overlay_image_);
 
-  painter.drawRect(cursor_);
-
   // Draw Selection;
-  painter.setPen(QPen(QColor(Qt::red),1,Qt::DashLine));
-  painter.drawRect(selection_);
+  if (selection_.isValid()) {
+    QRect selection = SelectionRect(selection_);
+    painter.setPen(Qt::blue);
+    painter.setBrush(Qt::NoBrush);
+    painter.drawRect(selection);
+    QVector<qreal> dashes = {2, 2};
+    QPen pen;
+    pen.setColor(Qt::cyan);
+    pen.setDashPattern(dashes);
+    painter.setPen(pen);
+    painter.drawRect(selection);
+  }
+
+  // Draw Zoom;
+  if (zoom_area_.isValid()) {
+    QRect zoom_area = SelectionRect(zoom_area_);
+    painter.setPen(Qt::darkGreen);
+    painter.setBrush(Qt::NoBrush);
+    painter.drawRect(zoom_area);
+    QVector<qreal> dashes = {2, 2};
+    QPen pen;
+    pen.setColor(Qt::green);
+    pen.setDashPattern(dashes);
+    painter.setPen(pen);
+    painter.drawRect(zoom_area);
+  }
+  // Draw Cursor
+  painter.setPen(QColor(Qt::black));
+  painter.drawRect(cursor_);
 }
 
 void ImageEditWidget::mouseMoveEvent(QMouseEvent *event) {
@@ -167,7 +193,7 @@ void ImageEditWidget::mouseClickEvent(QMouseEvent *event) {
 
 void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
   QPoint pos = event->pos();
-  ToolEvent tool_event(action,left_button_down_,right_button_down_,WidgetToImageSpace(pos),WidgetToImageSpace(previous_pos_));
+  ToolEvent tool_event(action, left_button_down_, right_button_down_, WidgetToImageSpace(pos), WidgetToImageSpace(previous_pos_));
 
   if (action == ACTION_PRESS) {
     undo_redo_.Do(image_);
@@ -175,26 +201,38 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
 
   switch (options_cache_->tool()) {
   case TOOL_PENCIL:
-    PencilTool::Use(&image_,options_cache_->main_color(),tool_event);
+    PencilTool::Use(&image_, options_cache_->main_color(), tool_event);
     break;
   case TOOL_FLOOD_FILL:
-    FloodFillTool::Use(&image_,options_cache_->main_color(),tool_event);
+    FloodFillTool::Use(&image_, options_cache_->main_color(), tool_event);
     break;
   case TOOL_LINE:
-    LineTool::Use(&image_,&overlay_image_,options_cache_->main_color(),&action_anchor_,&action_started_,tool_event);
+    LineTool::Use(&image_, &overlay_image_, options_cache_->main_color(), &action_anchor_, &action_started_, tool_event);
     break;
   case TOOL_ELLIPSE:
-    EllipseTool::Use(&image_,&overlay_image_,options_cache_->main_color(),options_cache_->alt_color(),&action_anchor_,&action_started_,tool_event);
+    EllipseTool::Use(&image_, &overlay_image_, options_cache_->main_color(), options_cache_->alt_color(), &action_anchor_, &action_started_, tool_event);
     break;
   case TOOL_RECTANGLE:
-    RectangleTool::Use(&image_,&overlay_image_,options_cache_->main_color(),options_cache_->alt_color(),&action_anchor_,&action_started_,tool_event);
+    RectangleTool::Use(&image_, &overlay_image_, options_cache_->main_color(), options_cache_->alt_color(), &action_anchor_, &action_started_, tool_event);
     break;
   case TOOL_SELECTION:
-    SelectionTool::Use(&selection_,&action_anchor_,&action_started_,tool_event);
+    SelectionTool::Use(&selection_, &action_anchor_, &action_started_, tool_event);
+    break;
+  case TOOL_ZOOM:
+    ZoomTool::Use(&zoom_area_, &action_anchor_, &action_started_, tool_event);
     break;
   default:
     break;
   }
+}
+
+QRect ImageEditWidget::SelectionRect(const QRect &rect) {
+  int zoom = options_cache_->zoom();
+  QPoint topleft = rect.topLeft() * zoom;
+  QSize size = (rect.size()) * zoom;
+  QRect sel = QRect(topleft, size);
+  sel.adjust(0, 0, -1, -1);
+  return sel;
 }
 
 QPoint ImageEditWidget::WidgetToImageSpace(const QPoint &pos) {

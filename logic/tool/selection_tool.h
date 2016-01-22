@@ -24,6 +24,7 @@
 
 namespace SelectionTool {
 void Use(QRect *selection, QPoint *anchor, bool *started, const ToolEvent &event);
+QRect GetRect(const QPoint &start, const QPoint &end);
 }
 
 #endif // SELECTION_TOOL_H

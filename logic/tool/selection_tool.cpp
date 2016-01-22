@@ -24,18 +24,25 @@ void SelectionTool::Use(QRect * selection, QPoint * anchor, bool * started,const
     if (event.lmb_down()) {
       *anchor = event.img_pos();
       *started = true;
+      *selection = GetRect(*anchor,event.img_pos());
+    }else{
+      *selection = QRect();
     }
   } else if (event.action() == ACTION_MOVE) {
     if (*started) {
-      QRect rect = QRect(
-            qMin(anchor->x(),event.img_pos().x()),
-            qMin(anchor->y(),event.img_pos().y()),
-            qAbs(anchor->x()-event.img_pos().x()),
-            qAbs(anchor->y()-event.img_pos().y())
-            );
-      *selection = rect;
+       *selection = GetRect(*anchor,event.img_pos());
     }
   } else if (event.action() == ACTION_RELEASE) {
     *started = false;
   }
+}
+
+QRect SelectionTool::GetRect(const QPoint &start, const QPoint &end)
+{
+  return QRect(
+        qMin(start.x(),end.x()),
+        qMin(start.y(),end.y()),
+        qAbs(start.x()-end.x())+1,
+        qAbs(start.y()-end.y())+1
+        );
 }

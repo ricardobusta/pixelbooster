@@ -51,7 +51,8 @@ SOURCES += \
     logic/tool/line_tool.cpp \
     logic/tool/rectangle_tool.cpp \
     logic/tool/ellipse_tool.cpp \
-    logic/tool/selection_tool.cpp
+    logic/tool/selection_tool.cpp \
+    logic/tool/zoom_tool.cpp
 
 HEADERS  += \
     widgets/image_edit_widget.h \
@@ -77,7 +78,8 @@ HEADERS  += \
     logic/tool/line_tool.h \
     logic/tool/rectangle_tool.h \
     logic/tool/ellipse_tool.h \
-    logic/tool/selection_tool.h
+    logic/tool/selection_tool.h \
+    logic/tool/zoom_tool.h
 
 FORMS    += \
     screens/new_image_file_dialog.ui \

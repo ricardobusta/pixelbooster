@@ -17,71 +17,14 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef IMAGE_EDIT_WIDGET_H
-#define IMAGE_EDIT_WIDGET_H
-
-#include <QImage>
-#include <QWidget>
+#ifndef ZOOM_TOOL_H
+#define ZOOM_TOOL_H
 
 #include "logic/tool_algorithm.h"
-#include "logic/undo_redo.h"
 
-class GlobalOptions;
+namespace ZoomTool {
+  void Use(QRect *selection, QPoint *anchor, bool *started, const ToolEvent &event);
+  QRect GetRect(const QPoint &start, const QPoint &end);
+}
 
-/*!
- * \brief The ImageEditWidget class
- */
-class ImageEditWidget : public QWidget {
-  Q_OBJECT
-public:
-  explicit ImageEditWidget(QWidget *parent = 0);
-
-  void Clear(const QSize &size);
-
-  void Undo();
-  void Redo();
-
-protected:
-  virtual void paintEvent(QPaintEvent *);
-  virtual void mouseMoveEvent(QMouseEvent *event);
-  virtual void leaveEvent(QEvent *);
-  virtual void mousePressEvent(QMouseEvent *event);
-  virtual void mouseReleaseEvent(QMouseEvent *event);
-  virtual void mouseClickEvent(QMouseEvent *event);
-
-private:
-  QImage image_;
-  QRect cursor_;
-
-  UndoRedo undo_redo_;
-
-  bool press_right_inside_;
-  bool press_left_inside_;
-
-  bool left_button_down_;
-  bool right_button_down_;
-
-  GlobalOptions *options_cache_;
-
-  QPoint previous_pos_;
-  QPoint action_anchor_;
-  bool action_started_;
-
-  QRect selection_;
-  QRect zoom_area_;
-
-  QImage overlay_image_;
-
-  void ToolAction(const QMouseEvent *event, ACTION_TOOL action);
-
-  QRect SelectionRect(const QRect &rect);
-  QPoint WidgetToImageSpace(const QPoint &pos);
-signals:
-  void SendImage(QImage *);
-public slots:
-  void GetImage(QImage *image);
-  void HandleRequest();
-  void UpdateWidget();
-};
-
-#endif // IMAGE_EDIT_WIDGET_H
+#endif // ZOOM_TOOL_H
