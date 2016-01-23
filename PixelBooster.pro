@@ -52,7 +52,8 @@ SOURCES += \
     logic/tool/rectangle_tool.cpp \
     logic/tool/ellipse_tool.cpp \
     logic/tool/selection_tool.cpp \
-    logic/tool/zoom_tool.cpp
+    logic/tool/zoom_tool.cpp \
+    screens/resize_image_dialog.cpp
 
 HEADERS  += \
     widgets/image_edit_widget.h \
@@ -79,7 +80,8 @@ HEADERS  += \
     logic/tool/rectangle_tool.h \
     logic/tool/ellipse_tool.h \
     logic/tool/selection_tool.h \
-    logic/tool/zoom_tool.h
+    logic/tool/zoom_tool.h \
+    screens/resize_image_dialog.h
 
 FORMS    += \
     screens/new_image_file_dialog.ui \
@@ -87,7 +89,8 @@ FORMS    += \
     screens/about_dialog.ui \
     screens/set_tile_size_dialog.ui \
     screens/main_window.ui \
-    widgets/color_dialog.ui
+    widgets/color_dialog.ui \
+    screens/resize_image_dialog.ui
 
 RESOURCES += \
     resources/icons/icons.qrc \

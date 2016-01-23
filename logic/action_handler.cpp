@@ -25,6 +25,7 @@
 #include "screens/main_window.h"
 #include "screens/new_image_file_dialog.h"
 #include "screens/set_tile_size_dialog.h"
+#include "screens/resize_image_dialog.h"
 #include "utils/debug.h"
 #include "utils/pb_math.h"
 #include "widgets/color_dialog.h"
@@ -40,6 +41,7 @@
 #include <QMdiSubWindow>
 #include <QMessageBox>
 #include <QSlider>
+#include <QPainter>
 
 const QString kTxtSelectMainColor = "Select Main Color";
 const QString kTxtSelectAltColor = "Select Secondary Color";
@@ -309,16 +311,23 @@ void ActionHandler::ToggleShowPixelGrid(bool show) const {
   window_cache_->edit_widget()->repaint();
 }
 
-void ActionHandler::CopyToClipboard() const {
-  window_cache_->edit_widget()->Copy();
-}
+void ActionHandler::ImageSize() const {
+  ImageCanvasContainer *c = window_cache_->current_canvas_container();
+  if(c==nullptr) return;
+  QImage old_image = c->GetCanvasWidget()->image();
+  QSize size = old_image.size();
 
-void ActionHandler::CutToClipboard() const {
-  window_cache_->edit_widget()->Cut();
-}
+  ResizeImageDialog dialog(size,window_cache_);
+  int res = dialog.exec();
 
-void ActionHandler::PasteFromClipboard() const {
-  window_cache_->edit_widget()->Paste();
+  if(res == QDialog::Accepted){
+    QSize new_size = dialog.new_size();
+    QImage new_image = QImage(new_size,QImage::Format_ARGB32);
+    new_image.fill(options_cache_->alt_color());
+    QPainter p(&new_image);
+    p.drawImage(old_image.rect(),old_image);
+    c->GetCanvasWidget()->SetImage(new_image);
+  }
 }
 
 void ActionHandler::Translate(const QString &language) const {

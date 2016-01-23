@@ -57,9 +57,6 @@ NewImageFileDialog::NewImageFileDialog(QWidget *parent) : QDialog(parent),
   }
 
   QObject::connect(ui->preset_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(UpdatePresetValues(int)));
-  QObject::connect(ui->width_spinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdateWidthValue(int)));
-  QObject::connect(ui->height_spinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdateHeightValue(int)));
-  QObject::connect(ui->format_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(UpdateFormatValue(int)));
   QObject::connect(ui->color_pushButton, SIGNAL(clicked()), this, SLOT(ColorButtonClicked()));
 
   QSize new_image_size = pApp->options()->new_image_size();
@@ -123,18 +120,7 @@ void NewImageFileDialog::UpdatePresetValues(int index) {
   }
 }
 
-void NewImageFileDialog::UpdateWidthValue(int w) {
-  selected_size_.setWidth(w);
-}
-
-void NewImageFileDialog::UpdateHeightValue(int h) {
-  selected_size_.setHeight(h);
-}
-
-void NewImageFileDialog::UpdateFormatValue(int f) {
-  selected_format_ = kFormatOptions[f].first;
-}
-
 void NewImageFileDialog::UpdateGlobalNewImageSize() {
+  selected_size_ = QSize(ui->width_spinBox->value(),ui->height_spinBox->value());
   pApp->options()->set_new_image_size(selected_size_);
 }

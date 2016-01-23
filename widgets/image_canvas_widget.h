@@ -34,6 +34,7 @@ public:
   virtual ~ImageCanvasWidget();
 
   void SetImage(const QImage &image);
+  QImage image();
 
   void set_active(bool active);
 

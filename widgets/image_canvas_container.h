@@ -41,11 +41,12 @@ public:
   void SetAsActive(ImageEditWidget *edit_widget);
   void RemoveAsActive(ImageEditWidget *edit_widget);
   ImageCanvasWidget *GetCanvasWidget() const;
-
 private:
   Ui::ImageCanvasContainer *ui;
 
   QString file_name_;
+
+  void closeEvent(QCloseEvent *event);
 
 private slots:
   void IndicateUnsavedChanges(bool unsaved);

@@ -23,6 +23,9 @@
 #include "utils/debug.h"
 #include "widgets/image_edit_widget.h"
 
+#include <QCloseEvent>
+#include <QMessageBox>
+
 ImageCanvasContainer::ImageCanvasContainer(const QImage &image, const QString &file_name, QWidget *parent) : QScrollArea(parent),
                                                                                                              ui(new Ui::ImageCanvasContainer),
                                                                                                              file_name_(file_name) {
@@ -59,6 +62,22 @@ void ImageCanvasContainer::RemoveAsActive(ImageEditWidget *edit_widget) {
 
 ImageCanvasWidget *ImageCanvasContainer::GetCanvasWidget() const {
   return ui->image_canvas_widget_;
+}
+
+void ImageCanvasContainer::closeEvent(QCloseEvent *event) {
+  if (!GetCanvasWidget()->saved_state()) {
+    int ans = QMessageBox::question(this, "Unsaved files...", "Do you want to keep the unsaved changes on the images?", "Save", "Don't Save", "Cancel", 2, 2);
+    qDebug() << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MUST MOVE TO MDI AREA ASAP! !!!!!!!!!!!!!!!!!!!!!!!!";
+    if(ans==2){
+      event->ignore();
+    }else if(ans==0){
+      GetCanvasWidget()->Save();
+      event->accept();
+    }else{
+      event->accept();
+    }
+  }
+  event->accept();
 }
 
 void ImageCanvasContainer::IndicateUnsavedChanges(bool unsaved) {

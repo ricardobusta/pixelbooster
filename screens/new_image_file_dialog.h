@@ -52,9 +52,6 @@ private slots:
   void ColorButtonClicked();
 
   void UpdatePresetValues(int index);
-  void UpdateWidthValue(int w);
-  void UpdateHeightValue(int h);
-  void UpdateFormatValue(int f);
   void UpdateGlobalNewImageSize();
 };
 

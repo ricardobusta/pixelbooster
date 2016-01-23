@@ -195,6 +195,7 @@
    <addaction name="actionShow_Grid"/>
    <addaction name="separator"/>
    <addaction name="actionImage_Size"/>
+   <addaction name="actionZoom_Image_2x"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dockWidget">
@@ -1520,7 +1521,7 @@ max-height: 16px;</string>
   </action>
   <action name="actionImage_Size">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -1933,6 +1934,15 @@ max-height: 16px;</string>
    </property>
    <property name="shortcut">
     <string>F3</string>
+   </property>
+  </action>
+  <action name="actionZoom_Image_2x">
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/double_size.png</normaloff>:/icons/double_size.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Image 2x</string>
    </property>
   </action>
  </widget>

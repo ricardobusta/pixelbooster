@@ -45,11 +45,6 @@ public:
   void set_scroll_area(QScrollArea *scroll_area);
 
   void ClearSelection();
-
-  void Copy();
-  void Cut();
-  void Paste();
-
 protected:
   virtual void paintEvent(QPaintEvent *);
   virtual void mouseMoveEvent(QMouseEvent *event);
@@ -95,6 +90,10 @@ public slots:
   void GetImage(QImage *image);
   void HandleRequest();
   void UpdateWidget();
+
+  void Copy();
+  void Cut();
+  void Paste();
 };
 
 #endif // IMAGE_EDIT_WIDGET_H

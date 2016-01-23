@@ -43,6 +43,7 @@
         <file>rotate_ccw.png</file>
         <file>rotate_cw.png</file>
         <file>default_palette.png</file>
+        <file>double_size.png</file>
     </qresource>
     <qresource prefix="/app_icon">
         <file>app_icon.svg</file>

@@ -54,6 +54,10 @@ void ImageCanvasWidget::SetImage(const QImage &image) {
   this->setFixedSize(image_.size());
 }
 
+QImage ImageCanvasWidget::image() {
+  return image_;
+}
+
 void ImageCanvasWidget::set_active(bool active) {
   active_ = active;
 }
