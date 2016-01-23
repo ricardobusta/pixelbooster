@@ -31,6 +31,9 @@ SetTileSizeDialog::SetTileSizeDialog(QWidget *parent) : QDialog(parent),
   DEBUG_MSG("Cursor size" << cursor_size);
   ui->tile_width_spinBox->setValue(cursor_size.width());
   ui->tile_height_spinBox->setValue(cursor_size.height());
+  QSize grid_size = pApp->options()->grid_size();
+  ui->grid_width_spinBox->setValue(grid_size.width());
+  ui->grid_height_spinBox->setValue(grid_size.height());
 
   QObject::connect(this, SIGNAL(accepted()), this, SLOT(UpdateGlobalValues()));
 }
@@ -41,4 +44,5 @@ SetTileSizeDialog::~SetTileSizeDialog() {
 
 void SetTileSizeDialog::UpdateGlobalValues() {
   pApp->options()->set_cursor_size(QSize(ui->tile_width_spinBox->value(), ui->tile_height_spinBox->value()));
+  pApp->options()->set_grid_size(QSize(ui->grid_width_spinBox->value(), ui->grid_height_spinBox->value()));
 }

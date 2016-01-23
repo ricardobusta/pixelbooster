@@ -299,6 +299,16 @@ void ActionHandler::LoadSavedPalette() const {
   }
 }
 
+void ActionHandler::ToggleShowGrid(bool show) const {
+  options_cache_->set_show_grid(show);
+  window_cache_->edit_widget()->repaint();
+}
+
+void ActionHandler::ToggleShowPixelGrid(bool show) const {
+  options_cache_->set_show_pixel_grid(show);
+  window_cache_->edit_widget()->repaint();
+}
+
 void ActionHandler::Translate(const QString &language) const {
   options_cache_->set_language(language);
   pApp->Translate(language);

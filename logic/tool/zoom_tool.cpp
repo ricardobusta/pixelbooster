@@ -39,7 +39,7 @@ void ZoomTool::Use(QRect *selection, QPoint *anchor, bool *started, const QScrol
     }
   } else if (event.action() == ACTION_RELEASE) {
     *started = false;
-    if (selection->isValid()) {
+    if (selection->isValid() && selection->width()>1 && selection->height()>1) {
       int zoom_w =   scroll_area->rect().width() / selection->width();
       int zoom_h =   scroll_area->rect().height() / selection->height();
       DEBUG_MSG(zoom_w << zoom_h);

@@ -46,6 +46,9 @@ public:
   QSize cursor_size() const;
   void set_cursor_size(const QSize &size);
 
+  QSize grid_size() const;
+  void set_grid_size(const QSize &size);
+
   QRect tile_selection() const;
   void set_tile_selection(const QRect &tile_selection);
   void UpdateCursorShift();
@@ -70,19 +73,26 @@ public:
   void set_new_image_color(const QColor &color);
   QColor new_image_color() const;
 
-  QRect PosToGrid(const QPoint &pos) const;
-
-  void SaveState(QSettings *settings) const;
-  void LoadState(QSettings *settings);
-
   void set_tool(const TOOL_ENUM tool);
   TOOL_ENUM tool() const;
 
   void set_language(const QString &language);
   QString language() const;
 
+  bool show_grid() const;
+  void set_show_grid(bool show);
+
+  bool show_pixel_grid() const;
+  void set_show_pixel_grid(bool show);
+
+  QRect PosToGrid(const QPoint &pos) const;
+
+  void SaveState(QSettings *settings) const;
+  void LoadState(QSettings *settings);
+
 private:
   QSize cursor_size_;
+  QSize grid_size_;
   QRect tile_selection_;
   bool horizontal_shift_;
   bool vertical_shift_;
@@ -94,6 +104,8 @@ private:
   TOOL_ENUM tool_;
   QString language_;
   QColor new_image_color_;
+  bool show_pixel_grid_;
+  bool show_grid_;
 };
 
 #endif // GLOBAL_OPTIONS_H

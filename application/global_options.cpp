@@ -26,6 +26,8 @@
 
 const QString kStateCursorSize = "CursorSize";
 const QSize kStateCursorSizeDefault = QSize(32, 32);
+const QString kStateGridSize = "GridSize";
+const QSize kStateGridSizeDefault = QSize(32, 32);
 const QString kStateNewImageSize = "NewImageSize";
 const QSize kStateNewImageSizeDefault = QSize(256, 256);
 const QString kStateTransparency = "TransparencyEnabled";
@@ -42,6 +44,10 @@ const QString kStateLanguage = "Language";
 const QString kStateLanguageDefault = "en_us";
 const QString kStateNewImageColor = "NewImageColor";
 const QColor kStateNewImageColorDefault = QColor(Qt::white).name();
+const QString kStateShowGrid = "ShowGrid";
+const bool kStateShowGridDefault = false;
+const QString kStateShowPixelGrid= "ShowPixelGrid";
+const bool kStateShowPixelGridDefault = false;
 
 GlobalOptions::GlobalOptions() : vertical_shift_(false),
                                  horizontal_shift_(false),
@@ -54,6 +60,14 @@ QSize GlobalOptions::cursor_size() const {
 
 void GlobalOptions::set_cursor_size(const QSize &size) {
   cursor_size_ = size;
+}
+
+QSize GlobalOptions::grid_size() const {
+  return grid_size_;
+}
+
+void GlobalOptions::set_grid_size(const QSize &size) {
+  grid_size_ = size;
 }
 
 QRect GlobalOptions::tile_selection() const {
@@ -109,7 +123,7 @@ int GlobalOptions::zoom() const {
 }
 
 void GlobalOptions::set_zoom(int zoom) {
-  zoom_ = clamp(zoom,1,32);
+  zoom_ = clamp(zoom, 1, 32);
 }
 
 QColor GlobalOptions::main_color() const {
@@ -138,6 +152,7 @@ QColor GlobalOptions::new_image_color() const {
 
 void GlobalOptions::SaveState(QSettings *settings) const {
   settings->setValue(kStateCursorSize, cursor_size_);
+  settings->setValue(kStateGridSize, grid_size_);
   settings->setValue(kStateNewImageSize, new_image_size_);
   settings->setValue(kStateTransparency, transparency_enabled_);
   settings->setValue(kStateZoomLevel, zoom_);
@@ -146,12 +161,15 @@ void GlobalOptions::SaveState(QSettings *settings) const {
   settings->setValue(kStateColorAlt, alt_color_.name());
   settings->setValue(kStateLanguage, language_);
   settings->setValue(kStateNewImageColor, new_image_color_);
+  settings->setValue(kStateShowGrid, show_grid_);
+  settings->setValue(kStateShowPixelGrid, show_pixel_grid_);
 }
 
 #define SETTINGS_VALUE(var) (settings->value(var, var##Default))
 
 void GlobalOptions::LoadState(QSettings *settings) {
   cursor_size_ = SETTINGS_VALUE(kStateCursorSize).toSize();
+  grid_size_ = SETTINGS_VALUE(kStateGridSize).toSize();
   tile_selection_.setSize(cursor_size_);
   tile_selection_.setTopLeft(QPoint(0, 0));
   new_image_size_ = SETTINGS_VALUE(kStateNewImageSize).toSize();
@@ -162,6 +180,8 @@ void GlobalOptions::LoadState(QSettings *settings) {
   alt_color_ = QColor(SETTINGS_VALUE(kStateColorAlt).toString());
   language_ = SETTINGS_VALUE(kStateLanguage).toString();
   new_image_color_ = SETTINGS_VALUE(kStateNewImageColor).toString();
+  show_grid_ = SETTINGS_VALUE(kStateShowGrid).toBool();
+  show_pixel_grid_ = SETTINGS_VALUE(kStateShowPixelGrid).toBool();
 }
 
 #undef SETTINGS_VALUE
@@ -180,4 +200,24 @@ void GlobalOptions::set_language(const QString &language) {
 
 QString GlobalOptions::language() const {
   return language_;
+}
+
+bool GlobalOptions::show_grid() const
+{
+  return show_grid_;
+}
+
+void GlobalOptions::set_show_grid(bool show)
+{
+  show_grid_ = show;
+}
+
+bool GlobalOptions::show_pixel_grid() const
+{
+  return show_pixel_grid_;
+}
+
+void GlobalOptions::set_show_pixel_grid(bool show)
+{
+  show_pixel_grid_ = show;
 }

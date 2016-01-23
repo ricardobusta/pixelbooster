@@ -33,6 +33,7 @@
 #include "logic/tool/zoom_tool.h"
 #include "screens/main_window.h"
 #include "utils/debug.h"
+#include "utils/pb_math.h"
 #include <QStatusbar>
 
 ImageEditWidget::ImageEditWidget(QWidget *parent)
@@ -81,8 +82,7 @@ void ImageEditWidget::set_scroll_area(QScrollArea *scroll_area) {
   scroll_area_ = scroll_area;
 }
 
-void ImageEditWidget::ClearSelection()
-{
+void ImageEditWidget::ClearSelection() {
   selection_ = QRect();
   zoom_area_ = QRect();
   repaint();
@@ -105,6 +105,29 @@ void ImageEditWidget::paintEvent(QPaintEvent *) {
   if (action_started_) {
     painter.drawImage(image_rect, overlay_image_);
   }
+
+  // Draw Grid
+  painter.setPen(QColor(0, 0, 0, 50));
+  if (zoom > 1 && options_cache_->show_pixel_grid()) {
+    for (int x = 0; x < image_.width(); x++) {
+      painter.drawLine(x * zoom, 0, x * zoom, image_.height() * zoom);
+    }
+    for (int y = 0; y < image_.width(); y++) {
+      painter.drawLine(0, y * zoom, image_.width() * zoom, y * zoom);
+    }
+  }
+  if (options_cache_->show_grid()) {
+    QSize grid_size = options_cache_->grid_size();
+    painter.setPen(QColor(255, 0, 0, 100));
+    for (int x = 0; x < image_.width(); x += grid_size.width()) {
+      painter.drawLine(x * zoom, 0, x * zoom, image_.height() * zoom);
+    }
+    for (int y = 0; y < image_.width(); y += grid_size.height()) {
+      painter.drawLine(0, y * zoom, image_.width() * zoom, y * zoom);
+    }
+  }
+
+  // Draw Divisions
 
   // Draw Selection;
   if (selection_.isValid()) {
@@ -143,7 +166,8 @@ void ImageEditWidget::mouseMoveEvent(QMouseEvent *event) {
   QPoint pos = event->pos();
 
   if (rect().contains(pos)) {
-    QPoint p = QPoint((pos.x() / zoom) * zoom, (pos.y() / zoom) * zoom);
+    int z = clamp(zoom, 1, 32);
+    QPoint p = QPoint((pos.x() / z) * z, (pos.y() / z) * z);
     int cursor_size = zoom - 1;
     cursor_ = QRect(p, QSize(cursor_size, cursor_size));
   } else {
@@ -230,7 +254,7 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
     RectangleTool::Use(&image_, &overlay_image_, options_cache_->main_color(), options_cache_->alt_color(), &action_anchor_, &action_started_, tool_event);
     break;
   case TOOL_SELECTION:
-    SelectionTool::Use(&selection_, &action_anchor_, &action_started_, tool_event);
+    SelectionTool::Use(&image_, &selection_, &action_anchor_, &action_started_, tool_event);
     break;
   case TOOL_ZOOM:
     ZoomTool::Use(&zoom_area_, &action_anchor_, &action_started_, scroll_area_, tool_event);
@@ -258,6 +282,8 @@ void ImageEditWidget::GetImage(QImage *image) {
   if (nullptr == image || image->isNull()) {
     return;
   }
+
+  selection_ = QRect();
 
   image_ = *image;
   overlay_image_ = QImage(image_.size(), image_.format());

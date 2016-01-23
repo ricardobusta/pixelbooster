@@ -51,7 +51,7 @@
      <x>0</x>
      <y>0</y>
      <width>785</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -90,8 +90,8 @@
      <string>View</string>
     </property>
     <addaction name="actionTile_Size"/>
+    <addaction name="actionShow_Pixel_Grid"/>
     <addaction name="actionShow_Grid"/>
-    <addaction name="actionShow_Divisions"/>
    </widget>
    <widget class="QMenu" name="menuLayers">
     <property name="title">
@@ -191,8 +191,8 @@
    <addaction name="actionPaste"/>
    <addaction name="separator"/>
    <addaction name="actionTile_Size"/>
+   <addaction name="actionShow_Pixel_Grid"/>
    <addaction name="actionShow_Grid"/>
-   <addaction name="actionShow_Divisions"/>
    <addaction name="separator"/>
    <addaction name="actionImage_Size"/>
   </widget>
@@ -375,7 +375,7 @@
             <x>0</x>
             <y>0</y>
             <width>199</width>
-            <height>262</height>
+            <height>274</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout">
@@ -1476,37 +1476,43 @@ max-height: 16px;</string>
     <string>Tile Size: Configure the size of the tile selection</string>
    </property>
   </action>
-  <action name="actionShow_Grid">
+  <action name="actionShow_Pixel_Grid">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
      <normaloff>:/icons/show_grid.png</normaloff>:/icons/show_grid.png</iconset>
    </property>
    <property name="text">
-    <string>Show Grid</string>
+    <string>Show Pixel Grid</string>
+   </property>
+   <property name="toolTip">
+    <string>Show Pixel Grid</string>
    </property>
    <property name="statusTip">
     <string>Soon!</string>
    </property>
   </action>
-  <action name="actionShow_Divisions">
+  <action name="actionShow_Grid">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
      <normaloff>:/icons/show_divisions.png</normaloff>:/icons/show_divisions.png</iconset>
    </property>
    <property name="text">
-    <string>Show Divisions</string>
+    <string>Show Grid</string>
+   </property>
+   <property name="toolTip">
+    <string>Show Grid</string>
    </property>
    <property name="statusTip">
     <string>Soon!</string>

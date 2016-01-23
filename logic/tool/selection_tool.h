@@ -23,7 +23,7 @@
 #include "logic/tool_algorithm.h"
 
 namespace SelectionTool {
-void Use(QRect *selection, QPoint *anchor, bool *started, const ToolEvent &event);
+void Use(QImage *image, QRect *selection, QPoint *anchor, bool *started, const ToolEvent &event);
 QRect GetRect(const QPoint &start, const QPoint &end);
 }
 

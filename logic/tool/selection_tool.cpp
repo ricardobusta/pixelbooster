@@ -19,24 +19,29 @@
 
 #include "selection_tool.h"
 
-void SelectionTool::Use(QRect *selection, QPoint *anchor, bool *started, const ToolEvent &event) {
+void SelectionTool::Use(QImage *image, QRect *selection, QPoint *anchor, bool *started, const ToolEvent &event) {
   if (event.action() == ACTION_PRESS) {
     if (event.lmb_down()) {
       if (selection->isValid() && selection->contains(event.img_pos())) {
+        // Selection already exists. Moving it.
         *anchor = event.img_pos() - selection->center();
       } else {
+        // Selection do not exist. Creating it.
         *anchor = event.img_pos();
         *started = true;
         *selection = GetRect(*anchor, event.img_pos());
       }
     } else {
+      // Pressing rmb clears the selection.
       *selection = QRect();
     }
   } else if (event.action() == ACTION_MOVE) {
     if (*started) {
+      // Creating the selection area.
       *selection = GetRect(*anchor, event.img_pos());
     }else{
-      if(event.lmb_down()){
+      // Selection area already exists. Move it.
+      if(selection->isValid() && event.lmb_down()){
         selection->moveCenter(event.img_pos()-*anchor);
       }
     }

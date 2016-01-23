@@ -71,6 +71,8 @@ public slots:
   void SavePalette() const;
   void DefaultPalette() const;
   void LoadSavedPalette() const;
+  void ToggleShowGrid(bool show) const;
+  void ToggleShowPixelGrid(bool show) const;
 
   // Language Actions
   void Translate(const QString &language) const;

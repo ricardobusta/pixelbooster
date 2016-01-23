@@ -140,6 +140,8 @@ void MainWindow::ConnectActions() {
   QObject::connect(ui->actionLoad_Palette, SIGNAL(triggered(bool)), action_handler_, SLOT(LoadPalette()));
   QObject::connect(ui->actionSave_Palette, SIGNAL(triggered(bool)), action_handler_, SLOT(SavePalette()));
   QObject::connect(ui->actionDefault_Palette, SIGNAL(triggered(bool)), action_handler_, SLOT(DefaultPalette()));
+  QObject::connect(ui->actionShow_Grid, SIGNAL(triggered(bool)), action_handler_, SLOT(ToggleShowGrid(bool)));
+  QObject::connect(ui->actionShow_Pixel_Grid, SIGNAL(triggered(bool)), action_handler_, SLOT(ToggleShowPixelGrid(bool)));
 
   // Group Tools
   QActionGroup *tool_action_group = new QActionGroup(this);
@@ -256,6 +258,8 @@ void MainWindow::UpdateWidgetState() {
   ui->zoom_label->setText(QString("x%1").arg(options_cache_->zoom()));
   ui->zoom_label->update();
   ui->zoom_label->repaint();
+  ui->actionShow_Grid->setChecked(options_cache_->show_grid());
+  ui->actionShow_Pixel_Grid->setChecked(options_cache_->show_pixel_grid());
 }
 
 void MainWindow::changeEvent(QEvent *event) {
