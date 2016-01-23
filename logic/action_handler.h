@@ -73,6 +73,9 @@ public slots:
   void LoadSavedPalette() const;
   void ToggleShowGrid(bool show) const;
   void ToggleShowPixelGrid(bool show) const;
+  void CopyToClipboard() const;
+  void CutToClipboard() const;
+  void PasteFromClipboard() const;
 
   // Language Actions
   void Translate(const QString &language) const;

@@ -27,11 +27,11 @@
 #include "screens/set_tile_size_dialog.h"
 #include "utils/debug.h"
 #include "utils/pb_math.h"
+#include "widgets/color_dialog.h"
+#include "widgets/color_palette_widget.h"
 #include "widgets/image_canvas_container.h"
 #include "widgets/image_canvas_widget.h"
 #include "widgets/image_edit_widget.h"
-#include "widgets/color_palette_widget.h"
-#include "widgets/color_dialog.h"
 
 #include <QAction>
 #include <QFileDialog>
@@ -49,9 +49,9 @@ const QString kColorButtonStyle = "background-color: %1; border: 1px solid black
 const QString kSavedPaletteLocation = "palette.png";
 
 ActionHandler::ActionHandler(QObject *parent)
-  : QObject(parent),
-    options_cache_(pApp->options()),
-    window_cache_(dynamic_cast<MainWindow *>(parent)) {
+    : QObject(parent),
+      options_cache_(pApp->options()),
+      window_cache_(dynamic_cast<MainWindow *>(parent)) {
 }
 
 ActionHandler::~ActionHandler() {
@@ -195,7 +195,7 @@ void ActionHandler::ToggleTransparency(bool transparency) const {
 }
 
 void ActionHandler::Zoom(int zoom) const {
-  int z = clamp(zoom,1,32);
+  int z = clamp(zoom, 1, 32);
   options_cache_->set_zoom(z);
   window_cache_->zoom_label()->setText(QString("x%1").arg(z));
   QSlider *slider = window_cache_->zoom_slider();
@@ -293,7 +293,7 @@ void ActionHandler::DefaultPalette() const {
 
 void ActionHandler::LoadSavedPalette() const {
   QImage image = QImage(kSavedPaletteLocation);
-  if(!image.isNull()){
+  if (!image.isNull()) {
     window_cache_->color_palette()->SetPalette(image);
     window_cache_->color_palette()->repaint();
   }
@@ -307,6 +307,18 @@ void ActionHandler::ToggleShowGrid(bool show) const {
 void ActionHandler::ToggleShowPixelGrid(bool show) const {
   options_cache_->set_show_pixel_grid(show);
   window_cache_->edit_widget()->repaint();
+}
+
+void ActionHandler::CopyToClipboard() const {
+  window_cache_->edit_widget()->Copy();
+}
+
+void ActionHandler::CutToClipboard() const {
+  window_cache_->edit_widget()->Cut();
+}
+
+void ActionHandler::PasteFromClipboard() const {
+  window_cache_->edit_widget()->Paste();
 }
 
 void ActionHandler::Translate(const QString &language) const {

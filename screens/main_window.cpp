@@ -142,6 +142,9 @@ void MainWindow::ConnectActions() {
   QObject::connect(ui->actionDefault_Palette, SIGNAL(triggered(bool)), action_handler_, SLOT(DefaultPalette()));
   QObject::connect(ui->actionShow_Grid, SIGNAL(triggered(bool)), action_handler_, SLOT(ToggleShowGrid(bool)));
   QObject::connect(ui->actionShow_Pixel_Grid, SIGNAL(triggered(bool)), action_handler_, SLOT(ToggleShowPixelGrid(bool)));
+  QObject::connect(ui->actionCopy,SIGNAL(triggered(bool)),action_handler_,SLOT(CopyToClipboard()));
+  QObject::connect(ui->actionCut,SIGNAL(triggered(bool)),action_handler_,SLOT(CutToClipboard()));
+  QObject::connect(ui->actionPaste,SIGNAL(triggered(bool)),action_handler_,SLOT(PasteFromClipboard()));
 
   // Group Tools
   QActionGroup *tool_action_group = new QActionGroup(this);

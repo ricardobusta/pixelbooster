@@ -19,8 +19,10 @@
 
 #include "image_edit_widget.h"
 
+#include <QClipboard>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QStatusbar>
 
 #include "application/pixel_booster.h"
 #include "logic/action_handler.h"
@@ -34,7 +36,6 @@
 #include "screens/main_window.h"
 #include "utils/debug.h"
 #include "utils/pb_math.h"
-#include <QStatusbar>
 
 ImageEditWidget::ImageEditWidget(QWidget *parent)
     : QWidget(parent),
@@ -65,7 +66,7 @@ void ImageEditWidget::Clear(const QSize &size) {
 void ImageEditWidget::Undo() {
   QImage img = undo_redo_.Undo(image_);
   if (!img.isNull()) {
-    if(image_.size() != img.size()){
+    if (image_.size() != img.size()) {
       image_.scaled(img.size());
     }
     image_ = img;
@@ -89,6 +90,30 @@ void ImageEditWidget::ClearSelection() {
   SelectionTool::ClearSelection(&image_, &selection_, &image_selection_);
   zoom_area_ = QRect();
   repaint();
+}
+
+void ImageEditWidget::Copy() {
+  if (!image_selection_.isNull()) {
+    QApplication::clipboard()->setImage(image_selection_);
+  }
+}
+
+void ImageEditWidget::Cut() {
+  Copy();
+  selection_ = QRect();
+  image_selection_ = QImage();
+  repaint();
+}
+
+void ImageEditWidget::Paste() {
+  QImage img = QApplication::clipboard()->image();
+  if (!img.isNull()) {
+    if (!selection_.isValid()) {
+      selection_.setTopLeft(QPoint(0, 0));
+    }
+    selection_.setSize(img.size());
+    image_selection_ = img;
+  }
 }
 
 void ImageEditWidget::paintEvent(QPaintEvent *) {

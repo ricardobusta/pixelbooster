@@ -46,6 +46,10 @@ public:
 
   void ClearSelection();
 
+  void Copy();
+  void Cut();
+  void Paste();
+
 protected:
   virtual void paintEvent(QPaintEvent *);
   virtual void mouseMoveEvent(QMouseEvent *event);
