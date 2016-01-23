@@ -28,6 +28,8 @@
 #include "logic/action_handler.h"
 #include "screens/main_window.h"
 
+class UndoRedo;
+
 enum ACTION_TOOL : int {
   ACTION_PRESS,
   ACTION_RELEASE,
@@ -35,30 +37,34 @@ enum ACTION_TOOL : int {
   ACTION_CLICK
 };
 
-class ToolEvent{
+class ToolEvent {
 public:
   ToolEvent(ACTION_TOOL action,
             bool lmb_down,
             bool rmb_down,
             const QPoint &img_pos,
-            const QPoint &img_prev_pos):
-    action_(action),
-    lmb_down_(lmb_down),
-    rmb_down_(rmb_down),
-    img_pos_(img_pos),
-    img_prev_pos_(img_prev_pos){
+            const QPoint &img_prev_pos,
+            UndoRedo *undo_redo) : action_(action),
+                                   lmb_down_(lmb_down),
+                                   rmb_down_(rmb_down),
+                                   img_pos_(img_pos),
+                                   img_prev_pos_(img_prev_pos),
+                                   undo_redo_(undo_redo) {
   }
-  ACTION_TOOL action() const{ return action_; }
-  bool lmb_down() const{ return lmb_down_; }
-  bool rmb_down() const{ return rmb_down_; }
-  QPoint img_pos() const{ return img_pos_; }
-  QPoint img_prev_pos() const{ return img_prev_pos_; }
+  ACTION_TOOL action() const { return action_; }
+  bool lmb_down() const { return lmb_down_; }
+  bool rmb_down() const { return rmb_down_; }
+  QPoint img_pos() const { return img_pos_; }
+  QPoint img_prev_pos() const { return img_prev_pos_; }
+  UndoRedo *undo_redo() const { return undo_redo_; }
+
 private:
   ACTION_TOOL action_;
   bool lmb_down_;
   bool rmb_down_;
   QPoint img_pos_;
   QPoint img_prev_pos_;
+  UndoRedo *undo_redo_;
 };
 
 namespace ToolAlgorithm {

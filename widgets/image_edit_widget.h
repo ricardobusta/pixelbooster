@@ -58,6 +58,8 @@ private:
   QImage image_;
   QRect cursor_;
 
+  QImage image_selection_;
+
   UndoRedo undo_redo_;
 
   bool press_right_inside_;

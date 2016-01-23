@@ -22,10 +22,12 @@
 #include <QPainter>
 
 #include "logic/tool_algorithm.h"
+#include "logic/undo_redo.h"
 
-void LineTool::Use(QImage * image, QImage * overlay, const QColor &color, QPoint * anchor, bool * started,const ToolEvent &event) {
+void LineTool::Use(QImage *image, QImage *overlay, const QColor &color, QPoint *anchor, bool *started, const ToolEvent &event) {
   if (event.action() == ACTION_PRESS) {
     if (event.lmb_down()) {
+      event.undo_redo()->Do(*image);
       *anchor = event.img_pos();
       *started = true;
       overlay->fill(0x0);

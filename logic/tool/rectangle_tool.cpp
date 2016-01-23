@@ -21,9 +21,12 @@
 
 #include <QPainter>
 
-void RectangleTool::Use(QImage * image, QImage * overlay, const QColor &main_color, const QColor &alt_color, QPoint * anchor, bool * started,const ToolEvent &event) {
+#include "logic/undo_redo.h"
+
+void RectangleTool::Use(QImage *image, QImage *overlay, const QColor &main_color, const QColor &alt_color, QPoint *anchor, bool *started, const ToolEvent &event) {
   if (event.action() == ACTION_PRESS) {
     if (event.lmb_down()) {
+      event.undo_redo()->Do(*image);
       *anchor = event.img_pos();
       *started = true;
     } else if (event.rmb_down()) {
@@ -33,19 +36,18 @@ void RectangleTool::Use(QImage * image, QImage * overlay, const QColor &main_col
     if (*started && event.img_pos() != *anchor) {
       overlay->fill(0x0);
       QRect rect = QRect(
-            qMin(anchor->x(),event.img_pos().x()),
-            qMin(anchor->y(),event.img_pos().y()),
-            qAbs(anchor->x()-event.img_pos().x()),
-            qAbs(anchor->y()-event.img_pos().y())
-            );
+          qMin(anchor->x(), event.img_pos().x()),
+          qMin(anchor->y(), event.img_pos().y()),
+          qAbs(anchor->x() - event.img_pos().x()),
+          qAbs(anchor->y() - event.img_pos().y()));
       QPainter painter(overlay);
       painter.setPen(main_color);
       painter.setBrush(alt_color);
       painter.drawRect(rect);
-    }else{
-      if (*started){
+    } else {
+      if (*started) {
         overlay->fill(0x0);
-        overlay->setPixel(event.img_pos(),main_color.rgba());
+        overlay->setPixel(event.img_pos(), main_color.rgba());
       }
     }
   } else if (event.action() == ACTION_RELEASE) {

@@ -20,6 +20,7 @@
 #include "pencil_tool.h"
 
 #include "logic/tool_algorithm.h"
+#include "logic/undo_redo.h"
 
 #include <QStatusBar>
 #include <QPainter>
@@ -27,6 +28,9 @@
 void PencilTool::Use(QImage *image, const QColor &color, const ToolEvent &event) {
   if (event.action() == ACTION_PRESS || event.action() == ACTION_MOVE) {
     if (event.lmb_down()) {
+      if(event.action() == ACTION_PRESS){
+        event.undo_redo()->Do(*image);
+      }
       Algorithm(image, event.img_prev_pos(), event.img_pos(), color);
       pApp->main_window()->statusBar()->showMessage("Teste",0);
     } else if (event.rmb_down()) {

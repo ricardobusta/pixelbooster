@@ -21,9 +21,12 @@
 
 #include <QPainter>
 
+#include "logic/undo_redo.h"
+
 void EllipseTool::Use(QImage *image, QImage *overlay, const QColor &main_color, const QColor &alt_color, QPoint *anchor, bool *started, const ToolEvent &event) {
   if (event.action() == ACTION_PRESS) {
      if (event.lmb_down()) {
+       event.undo_redo()->Do(*image);
        *anchor = event.img_pos();
        *started = true;
      } else if (event.rmb_down()) {

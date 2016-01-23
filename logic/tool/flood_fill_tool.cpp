@@ -19,9 +19,12 @@
 
 #include "flood_fill_tool.h"
 
+#include "logic/undo_redo.h"
+
 void FloodFillTool::Use(QImage *image, const QColor &color, const ToolEvent &event) {
   if( event.action()== ACTION_PRESS){
     if (event.lmb_down()) {
+      event.undo_redo()->Do(*image);
       ToolAlgorithm::FloodFill(image, event.img_pos(), color);
     } else if (event.rmb_down()) {
       pApp->main_window()->action_handler()->SetMainColor(image->pixel(event.img_pos()));

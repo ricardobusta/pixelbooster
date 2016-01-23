@@ -65,8 +65,11 @@ void ImageEditWidget::Clear(const QSize &size) {
 void ImageEditWidget::Undo() {
   QImage img = undo_redo_.Undo(image_);
   if (!img.isNull()) {
+    if(image_.size() != img.size()){
+      image_.scaled(img.size());
+    }
     image_ = img;
-    update();
+    UpdateWidget();
   }
 }
 
@@ -74,7 +77,7 @@ void ImageEditWidget::Redo() {
   QImage img = undo_redo_.Redo(image_);
   if (!img.isNull()) {
     image_ = img;
-    update();
+    UpdateWidget();
   }
 }
 
@@ -83,7 +86,7 @@ void ImageEditWidget::set_scroll_area(QScrollArea *scroll_area) {
 }
 
 void ImageEditWidget::ClearSelection() {
-  selection_ = QRect();
+  SelectionTool::ClearSelection(&image_, &selection_, &image_selection_);
   zoom_area_ = QRect();
   repaint();
 }
@@ -106,13 +109,18 @@ void ImageEditWidget::paintEvent(QPaintEvent *) {
     painter.drawImage(image_rect, overlay_image_);
   }
 
+  QRect selection = SelectionRect(selection_);
+  if (!image_selection_.isNull()) {
+    painter.drawImage(selection.adjusted(0, 0, 1, 1), image_selection_);
+  }
+
   // Draw Grid
   painter.setPen(QColor(0, 0, 0, 50));
   if (zoom > 1 && options_cache_->show_pixel_grid()) {
     for (int x = 0; x < image_.width(); x++) {
       painter.drawLine(x * zoom, 0, x * zoom, image_.height() * zoom);
     }
-    for (int y = 0; y < image_.width(); y++) {
+    for (int y = 0; y < image_.height(); y++) {
       painter.drawLine(0, y * zoom, image_.width() * zoom, y * zoom);
     }
   }
@@ -122,7 +130,7 @@ void ImageEditWidget::paintEvent(QPaintEvent *) {
     for (int x = 0; x < image_.width(); x += grid_size.width()) {
       painter.drawLine(x * zoom, 0, x * zoom, image_.height() * zoom);
     }
-    for (int y = 0; y < image_.width(); y += grid_size.height()) {
+    for (int y = 0; y < image_.height(); y += grid_size.height()) {
       painter.drawLine(0, y * zoom, image_.width() * zoom, y * zoom);
     }
   }
@@ -131,7 +139,6 @@ void ImageEditWidget::paintEvent(QPaintEvent *) {
 
   // Draw Selection;
   if (selection_.isValid()) {
-    QRect selection = SelectionRect(selection_);
     painter.setPen(Qt::blue);
     painter.setBrush(Qt::NoBrush);
     painter.drawRect(selection);
@@ -231,11 +238,7 @@ void ImageEditWidget::mouseClickEvent(QMouseEvent *event) {
 
 void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
   QPoint pos = event->pos();
-  ToolEvent tool_event(action, left_button_down_, right_button_down_, WidgetToImageSpace(pos), WidgetToImageSpace(previous_pos_));
-
-  if (action == ACTION_PRESS) {
-    undo_redo_.Do(image_);
-  }
+  ToolEvent tool_event(action, left_button_down_, right_button_down_, WidgetToImageSpace(pos), WidgetToImageSpace(previous_pos_), &undo_redo_);
 
   switch (options_cache_->tool()) {
   case TOOL_PENCIL:
@@ -254,7 +257,7 @@ void ImageEditWidget::ToolAction(const QMouseEvent *event, ACTION_TOOL action) {
     RectangleTool::Use(&image_, &overlay_image_, options_cache_->main_color(), options_cache_->alt_color(), &action_anchor_, &action_started_, tool_event);
     break;
   case TOOL_SELECTION:
-    SelectionTool::Use(&image_, &selection_, &action_anchor_, &action_started_, tool_event);
+    SelectionTool::Use(&image_, &selection_, &image_selection_, options_cache_->alt_color(), &action_anchor_, &action_started_, tool_event);
     break;
   case TOOL_ZOOM:
     ZoomTool::Use(&zoom_area_, &action_anchor_, &action_started_, scroll_area_, tool_event);
@@ -285,11 +288,11 @@ void ImageEditWidget::GetImage(QImage *image) {
 
   selection_ = QRect();
 
+  undo_redo_.Do(image_);
+
   image_ = *image;
   overlay_image_ = QImage(image_.size(), image_.format());
   overlay_image_.fill(0x0);
-
-  undo_redo_.Do(image_);
 
   UpdateWidget();
 }

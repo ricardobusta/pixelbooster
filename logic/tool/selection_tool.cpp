@@ -19,7 +19,12 @@
 
 #include "selection_tool.h"
 
-void SelectionTool::Use(QImage *image, QRect *selection, QPoint *anchor, bool *started, const ToolEvent &event) {
+#include "utils/debug.h"
+#include "logic/undo_redo.h"
+
+#include <QPainter>
+
+void SelectionTool::Use(QImage *image, QRect *selection, QImage *image_selected, const QColor &color, QPoint *anchor, bool *started, const ToolEvent &event) {
   if (event.action() == ACTION_PRESS) {
     if (event.lmb_down()) {
       if (selection->isValid() && selection->contains(event.img_pos())) {
@@ -27,25 +32,32 @@ void SelectionTool::Use(QImage *image, QRect *selection, QPoint *anchor, bool *s
         *anchor = event.img_pos() - selection->center();
       } else {
         // Selection do not exist. Creating it.
+        ClearSelection(image, selection, image_selected);
         *anchor = event.img_pos();
         *started = true;
         *selection = GetRect(*anchor, event.img_pos());
       }
     } else {
       // Pressing rmb clears the selection.
-      *selection = QRect();
+      ClearSelection(image, selection, image_selected);
     }
   } else if (event.action() == ACTION_MOVE) {
     if (*started) {
       // Creating the selection area.
       *selection = GetRect(*anchor, event.img_pos());
-    }else{
+    } else {
       // Selection area already exists. Move it.
-      if(selection->isValid() && event.lmb_down()){
-        selection->moveCenter(event.img_pos()-*anchor);
+      if (selection->isValid() && event.lmb_down()) {
+        selection->moveCenter(event.img_pos() - *anchor);
       }
     }
   } else if (event.action() == ACTION_RELEASE) {
+    if (*started == true) {
+      event.undo_redo()->Do(*image);
+      *image_selected = image->copy(*selection);
+      QPainter p(image);
+      p.fillRect(*selection, color);
+    }
     *started = false;
   }
 }
@@ -56,4 +68,13 @@ QRect SelectionTool::GetRect(const QPoint &start, const QPoint &end) {
       qMin(start.y(), end.y()),
       qAbs(start.x() - end.x()) + 1,
       qAbs(start.y() - end.y()) + 1);
+}
+
+void SelectionTool::ClearSelection(QImage *image, QRect *selection, QImage *image_selected) {
+  if (!image_selected->isNull()) {
+    QPainter p(image);
+    p.drawImage(*selection, *image_selected);
+  }
+  *image_selected = QImage();
+  *selection = QRect();
 }
