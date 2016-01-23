@@ -98,8 +98,6 @@
      <string>Image</string>
     </property>
     <addaction name="actionImage_Size"/>
-    <addaction name="actionClear"/>
-    <addaction name="actionClear_All"/>
    </widget>
    <widget class="QMenu" name="menuPalette">
     <property name="title">
@@ -189,6 +187,7 @@
    <addaction name="actionCut"/>
    <addaction name="actionCopy"/>
    <addaction name="actionPaste"/>
+   <addaction name="actionDelete"/>
    <addaction name="separator"/>
    <addaction name="actionTile_Size"/>
    <addaction name="actionShow_Pixel_Grid"/>
@@ -557,9 +556,9 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QToolButton" name="toolButton_5">
+        <widget class="QToolButton" name="shift_up_toolButton">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>...</string>
@@ -580,9 +579,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_6">
+        <widget class="QToolButton" name="shift_down_toolButton">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>...</string>
@@ -603,9 +602,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton">
+        <widget class="QToolButton" name="shift_right_toolButton">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>...</string>
@@ -626,9 +625,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_2">
+        <widget class="QToolButton" name="shift_left_toolButton">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>...</string>
@@ -649,9 +648,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_12">
+        <widget class="QToolButton" name="flip_horizontal_toolButton">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>...</string>
@@ -672,9 +671,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_11">
+        <widget class="QToolButton" name="flip_vertical_toolButton">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>...</string>
@@ -695,9 +694,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_10">
+        <widget class="QToolButton" name="rotate_90_cw_toolButton">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>...</string>
@@ -718,9 +717,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_13">
+        <widget class="QToolButton" name="rotate_90_ccw_toolButton">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>...</string>
@@ -741,9 +740,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_14">
+        <widget class="QToolButton" name="scale_toolButton">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>...</string>
@@ -815,34 +814,13 @@
          <property name="spacing">
           <number>0</number>
          </property>
-         <item row="0" column="0">
-          <widget class="QToolButton" name="toolButton_3">
+         <item row="1" column="1">
+          <widget class="QToolButton" name="toolButton_9">
            <property name="enabled">
             <bool>false</bool>
            </property>
            <property name="text">
-            <string>...</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../resources/icons/icons.qrc">
-             <normaloff>:/icons/pattern_0.png</normaloff>:/icons/pattern_0.png</iconset>
-           </property>
-           <property name="autoRaise">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QToolButton" name="toolButton_4">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>...</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../resources/icons/icons.qrc">
-             <normaloff>:/icons/pattern_0.png</normaloff>:/icons/pattern_0.png</iconset>
+            <string/>
            </property>
            <property name="autoRaise">
             <bool>true</bool>
@@ -855,28 +833,33 @@
             <bool>false</bool>
            </property>
            <property name="text">
-            <string>...</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../resources/icons/icons.qrc">
-             <normaloff>:/icons/pattern_0.png</normaloff>:/icons/pattern_0.png</iconset>
+            <string/>
            </property>
            <property name="autoRaise">
             <bool>true</bool>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QToolButton" name="toolButton_9">
+         <item row="0" column="1">
+          <widget class="QToolButton" name="toolButton_4">
            <property name="enabled">
             <bool>false</bool>
            </property>
            <property name="text">
-            <string>...</string>
+            <string/>
            </property>
-           <property name="icon">
-            <iconset resource="../resources/icons/icons.qrc">
-             <normaloff>:/icons/pattern_0.png</normaloff>:/icons/pattern_0.png</iconset>
+           <property name="autoRaise">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QToolButton" name="toolButton_3">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string/>
            </property>
            <property name="autoRaise">
             <bool>true</bool>
@@ -1128,13 +1111,16 @@ max-height: 16px;</string>
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="default_palette_toolButton">
+        <widget class="QToolButton" name="save_palette_toolButton">
          <property name="enabled">
           <bool>true</bool>
          </property>
+         <property name="text">
+          <string>...</string>
+         </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
-           <normaloff>:/icons/default_palette.png</normaloff>:/icons/default_palette.png</iconset>
+           <normaloff>:/icons/save_palette.png</normaloff>:/icons/save_palette.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -1148,16 +1134,13 @@ max-height: 16px;</string>
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="save_palette_toolButton">
+        <widget class="QToolButton" name="default_palette_toolButton">
          <property name="enabled">
           <bool>true</bool>
          </property>
-         <property name="text">
-          <string>...</string>
-         </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
-           <normaloff>:/icons/save_palette.png</normaloff>:/icons/save_palette.png</iconset>
+           <normaloff>:/icons/default_palette.png</normaloff>:/icons/default_palette.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -1287,6 +1270,10 @@ max-height: 16px;</string>
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/close.png</normaloff>:/icons/close.png</iconset>
+   </property>
    <property name="text">
     <string>Close</string>
    </property>
@@ -1297,6 +1284,10 @@ max-height: 16px;</string>
   <action name="actionExit">
    <property name="enabled">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/exit.png</normaloff>:/icons/exit.png</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -1403,7 +1394,7 @@ max-height: 16px;</string>
   </action>
   <action name="actionDelete">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
@@ -1421,7 +1412,7 @@ max-height: 16px;</string>
   </action>
   <action name="actionSelect_All">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Select All</string>
@@ -1529,22 +1520,6 @@ max-height: 16px;</string>
    </property>
    <property name="text">
     <string>Image Size</string>
-   </property>
-  </action>
-  <action name="actionClear">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Clear</string>
-   </property>
-  </action>
-  <action name="actionClear_All">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Clear All</string>
    </property>
   </action>
   <action name="actionTransparency">

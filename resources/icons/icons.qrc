@@ -44,6 +44,8 @@
         <file>rotate_cw.png</file>
         <file>default_palette.png</file>
         <file>double_size.png</file>
+        <file>exit.png</file>
+        <file>close.png</file>
     </qresource>
     <qresource prefix="/app_icon">
         <file>app_icon.svg</file>

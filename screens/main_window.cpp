@@ -142,10 +142,12 @@ void MainWindow::ConnectActions() {
   QObject::connect(ui->actionDefault_Palette, SIGNAL(triggered(bool)), action_handler_, SLOT(DefaultPalette()));
   QObject::connect(ui->actionShow_Grid, SIGNAL(triggered(bool)), action_handler_, SLOT(ToggleShowGrid(bool)));
   QObject::connect(ui->actionShow_Pixel_Grid, SIGNAL(triggered(bool)), action_handler_, SLOT(ToggleShowPixelGrid(bool)));
-  QObject::connect(ui->actionCopy,SIGNAL(triggered(bool)),ui->edit_widget,SLOT(Copy()));
-  QObject::connect(ui->actionCut,SIGNAL(triggered(bool)),ui->edit_widget,SLOT(Cut()));
-  QObject::connect(ui->actionPaste,SIGNAL(triggered(bool)),ui->edit_widget,SLOT(Paste()));
-  QObject::connect(ui->actionImage_Size,SIGNAL(triggered(bool)),action_handler_,SLOT(ImageSize()));
+  QObject::connect(ui->actionCopy, SIGNAL(triggered(bool)), ui->edit_widget, SLOT(Copy()));
+  QObject::connect(ui->actionCut, SIGNAL(triggered(bool)), ui->edit_widget, SLOT(Cut()));
+  QObject::connect(ui->actionPaste, SIGNAL(triggered(bool)), ui->edit_widget, SLOT(Paste()));
+  QObject::connect(ui->actionDelete, SIGNAL(triggered(bool)), ui->edit_widget, SLOT(Delete()));
+  QObject::connect(ui->actionSelect_All, SIGNAL(triggered(bool)), ui->edit_widget, SLOT(SelectAll()));
+  QObject::connect(ui->actionImage_Size, SIGNAL(triggered(bool)), action_handler_, SLOT(ImageSize()));
 
   // Group Tools
   QActionGroup *tool_action_group = new QActionGroup(this);
@@ -291,18 +293,18 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
   }
 }
 
-bool MainWindow::eventFilter(QObject * obj, QEvent * event) {
-  if(obj == ui->scrollArea->viewport()){
-    if(event->type() == QEvent::Wheel){
-      QWheelEvent * wheel_event = static_cast<QWheelEvent*>(event);
-      if(wheel_event->modifiers() & Qt::ControlModifier){
-        int increment = wheel_event->delta()>0?1:wheel_event->delta()<0?-1:0;
-        action_handler()->Zoom(options_cache_->zoom()+increment);
+bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
+  if (obj == ui->scrollArea->viewport()) {
+    if (event->type() == QEvent::Wheel) {
+      QWheelEvent *wheel_event = static_cast<QWheelEvent *>(event);
+      if (wheel_event->modifiers() & Qt::ControlModifier) {
+        int increment = wheel_event->delta() > 0 ? 1 : wheel_event->delta() < 0 ? -1 : 0;
+        action_handler()->Zoom(options_cache_->zoom() + increment);
         return true;
       }
     }
   }
-  return QMainWindow::eventFilter(obj,event);
+  return QMainWindow::eventFilter(obj, event);
 }
 
 void MainWindow::CurrentWindowChanged(QMdiSubWindow *w) {

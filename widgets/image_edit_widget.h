@@ -94,6 +94,8 @@ public slots:
   void Copy();
   void Cut();
   void Paste();
+  void Delete();
+  void SelectAll();
 };
 
 #endif // IMAGE_EDIT_WIDGET_H

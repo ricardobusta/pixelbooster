@@ -116,6 +116,19 @@ void ImageEditWidget::Paste() {
   }
 }
 
+void ImageEditWidget::Delete() {
+  selection_ = QRect();
+  image_selection_ = QImage();
+  repaint();
+}
+
+void ImageEditWidget::SelectAll() {
+  selection_ = image_.rect();
+  image_selection_ = image_;
+  image_.fill(options_cache_->alt_color());
+  repaint();
+}
+
 void ImageEditWidget::paintEvent(QPaintEvent *) {
   QPainter painter(this);
 
