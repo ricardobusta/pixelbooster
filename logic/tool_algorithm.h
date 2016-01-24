@@ -69,10 +69,13 @@ private:
 
 namespace ToolAlgorithm {
 void FloodFill(QImage *image, const QPoint &seed, const QColor &color);
-void BresenhamLine(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color);
-void BresenhamEllipse(QImage *image, const QRect &rect, bool fill, const QRgb &color);
 
+void BresenhamLine(QImage *image, const QPoint &p1, const QPoint &p2, const QRgb &color);
+
+void BresenhamEllipse(QImage *image, const QRect &rect, bool fill, const QRgb &color);
+void Bresenham4LinesEllipse(QImage *image, const QPoint &p1, const QPoint &p2, const QPoint &c, const QPoint &e, const QRgb &color);
 void Plot4EllipsePoints(QImage *image, const QPoint &c, const QPoint &p, const QPoint &e, const QRgb &color);
+
 void SetPixel(QImage *image, const QPoint &p, const QRgb &color);
 void SetPixel(QImage *image, const int x, const int y, const QRgb &color);
 }

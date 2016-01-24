@@ -33,10 +33,10 @@ void ToolAlgorithm::FloodFill(QImage *image, const QPoint &seed, const QColor &c
   QList<QPoint> to_do_list = {seed};
 
   QVector<QPoint> expansion = {
-    QPoint(1, 0),
-    QPoint(0, 1),
-    QPoint(-1, 0),
-    QPoint(0, -1)};
+      QPoint(1, 0),
+      QPoint(0, 1),
+      QPoint(-1, 0),
+      QPoint(0, -1)};
 
   image->setPixel(seed, new_color);
 
@@ -180,18 +180,52 @@ void ToolAlgorithm::BresenhamEllipse(QImage *image, const QRect &rect, bool fill
 
   // The two ellipse parts are separated and must be connected
   if (abs(last_h.x() - last_v.x()) > 1 || abs(last_h.y() - last_v.y()) > 1) {
-    QPoint hp1 = c + last_h;
-    QPoint vp1 = c + last_v;
-    QPoint hp2 = c - last_h + e;
-    QPoint vp2 = c - last_v + e;
-    QPoint hp3 = QPoint(hp1.x(), hp2.y());
-    QPoint vp3 = QPoint(vp1.x(), vp2.y());
-    QPoint hp4 = QPoint(hp2.x(), hp1.y());
-    QPoint vp4 = QPoint(vp2.x(), vp1.y());
-    BresenhamLine(image, hp1, vp1, color);
-    BresenhamLine(image, hp2, vp2, color);
-    BresenhamLine(image, hp3, vp3, color);
-    BresenhamLine(image, hp4, vp4, color);
+    Bresenham4LinesEllipse(image, last_h, last_v, c, e, color);
+  }
+}
+
+void ToolAlgorithm::Bresenham4LinesEllipse(QImage *image, const QPoint &p1, const QPoint &p2, const QPoint &c, const QPoint &e, const QRgb &color) {
+  // Algorithm taken from http://www.roguebasin.com/index.php?title=Bresenham%27s_Line_Algorithm
+
+  int x1 = p1.x();
+  int y1 = p1.y();
+  const int x2 = p2.x();
+  const int y2 = p2.y();
+
+  int delta_x(x2 - x1);
+  signed char const ix((delta_x > 0) - (delta_x < 0));
+  delta_x = std::abs(delta_x) << 1;
+
+  int delta_y(y2 - y1);
+  signed char const iy((delta_y > 0) - (delta_y < 0));
+  delta_y = std::abs(delta_y) << 1;
+
+  Plot4EllipsePoints(image, c, QPoint(x1, y1), e, color);
+
+  if (delta_x >= delta_y) {
+    int error(delta_y - (delta_x >> 1));
+    while (x1 != x2) {
+      if ((error >= 0) && (error || (ix > 0))) {
+        error -= delta_x;
+        y1 += iy;
+      }
+      error += delta_y;
+      x1 += ix;
+
+      Plot4EllipsePoints(image, c, QPoint(x1, y1), e, color);
+    }
+  } else {
+    int error(delta_x - (delta_y >> 1));
+    while (y1 != y2) {
+      if ((error >= 0) && (error || (iy > 0))) {
+        error -= delta_y;
+        x1 += ix;
+      }
+      error += delta_x;
+      y1 += iy;
+
+      Plot4EllipsePoints(image, c, QPoint(x1, y1), e, color);
+    }
   }
 }
 

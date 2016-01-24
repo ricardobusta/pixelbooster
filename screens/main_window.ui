@@ -92,6 +92,8 @@
     <addaction name="actionTile_Size"/>
     <addaction name="actionShow_Pixel_Grid"/>
     <addaction name="actionShow_Grid"/>
+    <addaction name="separator"/>
+    <addaction name="actionZoom_Image_2x"/>
    </widget>
    <widget class="QMenu" name="menuLayers">
     <property name="title">
@@ -145,8 +147,6 @@
     <addaction name="separator"/>
     <addaction name="actionCascade"/>
     <addaction name="actionTile_Subwindows"/>
-    <addaction name="separator"/>
-    <addaction name="actionNormal_Size"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -1912,6 +1912,9 @@ max-height: 16px;</string>
    </property>
   </action>
   <action name="actionZoom_Image_2x">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../resources/icons/icons.qrc">
      <normaloff>:/icons/double_size.png</normaloff>:/icons/double_size.png</iconset>
