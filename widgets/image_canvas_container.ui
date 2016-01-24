@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ScrollArea</string>
+   <string notr="true">ScrollArea</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
