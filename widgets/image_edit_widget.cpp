@@ -110,9 +110,13 @@ void ImageEditWidget::Paste() {
   if (!img.isNull()) {
     if (!selection_.isValid()) {
       selection_.setTopLeft(QPoint(0, 0));
+    }else{
+      QPainter p(&image_);
+      p.drawImage(selection_,image_selection_);
     }
     selection_.setSize(img.size());
     image_selection_ = img;
+    repaint();
   }
 }
 
