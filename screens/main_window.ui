@@ -195,6 +195,8 @@
    <addaction name="separator"/>
    <addaction name="actionImage_Size"/>
    <addaction name="actionZoom_Image_2x"/>
+   <addaction name="separator"/>
+   <addaction name="actionContents"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dockWidget">
@@ -245,7 +247,7 @@
        <item row="0" column="0">
         <widget class="QToolButton" name="select_toolButton">
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -259,7 +261,7 @@
        <item row="10" column="0">
         <widget class="QToolButton" name="rectangle_toolButton">
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -273,7 +275,7 @@
        <item row="1" column="0">
         <widget class="QToolButton" name="zoom_toolButton">
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -287,7 +289,7 @@
        <item row="2" column="0">
         <widget class="QToolButton" name="pencil_toolButton">
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -301,7 +303,7 @@
        <item row="7" column="0">
         <widget class="QToolButton" name="line_toolButton">
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -315,7 +317,7 @@
        <item row="8" column="0">
         <widget class="QToolButton" name="ellipse_toolButton">
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -329,7 +331,7 @@
        <item row="4" column="0">
         <widget class="QToolButton" name="text_toolButton">
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -343,7 +345,7 @@
        <item row="3" column="0">
         <widget class="QToolButton" name="fill_toolButton">
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -522,11 +524,14 @@
            <property name="maximum">
             <number>32</number>
            </property>
+           <property name="pageStep">
+            <number>1</number>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="tickPosition">
-            <enum>QSlider::TicksBelow</enum>
+            <enum>QSlider::TicksAbove</enum>
            </property>
            <property name="tickInterval">
             <number>1</number>
@@ -561,7 +566,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -584,7 +589,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -607,7 +612,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -630,7 +635,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -653,7 +658,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -676,7 +681,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -699,7 +704,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -722,7 +727,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -745,7 +750,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons/icons.qrc">
@@ -822,6 +827,10 @@
            <property name="text">
             <string/>
            </property>
+           <property name="icon">
+            <iconset resource="../resources/icons/icons.qrc">
+             <normaloff>:/icons/pattern_1.png</normaloff>:/icons/pattern_1.png</iconset>
+           </property>
            <property name="autoRaise">
             <bool>true</bool>
            </property>
@@ -834,6 +843,10 @@
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources/icons/icons.qrc">
+             <normaloff>:/icons/pattern_1.png</normaloff>:/icons/pattern_1.png</iconset>
            </property>
            <property name="autoRaise">
             <bool>true</bool>
@@ -848,6 +861,10 @@
            <property name="text">
             <string/>
            </property>
+           <property name="icon">
+            <iconset resource="../resources/icons/icons.qrc">
+             <normaloff>:/icons/pattern_1.png</normaloff>:/icons/pattern_1.png</iconset>
+           </property>
            <property name="autoRaise">
             <bool>true</bool>
            </property>
@@ -860,6 +877,10 @@
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources/icons/icons.qrc">
+             <normaloff>:/icons/pattern_0.png</normaloff>:/icons/pattern_0.png</iconset>
            </property>
            <property name="autoRaise">
             <bool>true</bool>
@@ -1186,7 +1207,7 @@ max-height: 16px;</string>
     <string>Creates a new image file from scratch.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+N</string>
+    <string notr="true">Ctrl+N</string>
    </property>
   </action>
   <action name="actionOpen">
@@ -1204,7 +1225,7 @@ max-height: 16px;</string>
     <string>Opens an existing image file.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+O</string>
+    <string notr="true">Ctrl+O</string>
    </property>
   </action>
   <action name="actionOpen_Recent">
@@ -1213,6 +1234,9 @@ max-height: 16px;</string>
    </property>
    <property name="text">
     <string>Open Recent</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionSave">
@@ -1230,7 +1254,7 @@ max-height: 16px;</string>
     <string>Saves the focused image file.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+S</string>
+    <string notr="true">Ctrl+S</string>
    </property>
   </action>
   <action name="actionSave_As">
@@ -1246,6 +1270,9 @@ max-height: 16px;</string>
    </property>
    <property name="statusTip">
     <string>Saves the focused image file with another name.</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionSave_All">
@@ -1263,7 +1290,7 @@ max-height: 16px;</string>
     <string>Saves all the open image files.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+S</string>
+    <string notr="true">Ctrl+Shift+S</string>
    </property>
   </action>
   <action name="actionClose">
@@ -1279,6 +1306,9 @@ max-height: 16px;</string>
    </property>
    <property name="statusTip">
     <string>Close the currently opened image.</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionExit">
@@ -1296,7 +1326,7 @@ max-height: 16px;</string>
     <string>Exits the application.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Q</string>
+    <string notr="true">Ctrl+Q</string>
    </property>
   </action>
   <action name="actionUndo">
@@ -1317,7 +1347,7 @@ max-height: 16px;</string>
     <string>Undo the last action.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Z</string>
+    <string notr="true">Ctrl+Z</string>
    </property>
   </action>
   <action name="actionRedo">
@@ -1335,7 +1365,7 @@ max-height: 16px;</string>
     <string>Redo the last undone action.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Y</string>
+    <string notr="true">Ctrl+Y</string>
    </property>
   </action>
   <action name="actionCut">
@@ -1353,7 +1383,7 @@ max-height: 16px;</string>
     <string>Cuts the selected image on the edit area.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+X</string>
+    <string notr="true">Ctrl+X</string>
    </property>
   </action>
   <action name="actionCopy">
@@ -1371,7 +1401,7 @@ max-height: 16px;</string>
     <string>Copies the selected image on the edit area.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+C</string>
+    <string notr="true">Ctrl+C</string>
    </property>
   </action>
   <action name="actionPaste">
@@ -1389,7 +1419,7 @@ max-height: 16px;</string>
     <string>Pastes the copied image to the edit area.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+V</string>
+    <string notr="true">Ctrl+V</string>
    </property>
   </action>
   <action name="actionDelete">
@@ -1407,7 +1437,7 @@ max-height: 16px;</string>
     <string>Deletes the current selection.</string>
    </property>
    <property name="shortcut">
-    <string>Del</string>
+    <string notr="true">Del</string>
    </property>
   </action>
   <action name="actionSelect_All">
@@ -1421,7 +1451,7 @@ max-height: 16px;</string>
     <string>Selects the entire edit area.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string notr="true">Ctrl+A</string>
    </property>
   </action>
   <action name="actionAdd_Text">
@@ -1439,7 +1469,7 @@ max-height: 16px;</string>
     <string>Soon!</string>
    </property>
    <property name="shortcut">
-    <string>T</string>
+    <string notr="true">T</string>
    </property>
   </action>
   <action name="actionCreate_Shadow">
@@ -1451,6 +1481,9 @@ max-height: 16px;</string>
    </property>
    <property name="statusTip">
     <string>Soon!</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionTile_Size">
@@ -1466,6 +1499,9 @@ max-height: 16px;</string>
    </property>
    <property name="statusTip">
     <string>Tile Size: Configure the size of the tile selection</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionShow_Pixel_Grid">
@@ -1488,6 +1524,9 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Soon!</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionShow_Grid">
    <property name="checkable">
@@ -1509,6 +1548,9 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Soon!</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionImage_Size">
    <property name="enabled">
@@ -1520,6 +1562,9 @@ max-height: 16px;</string>
    </property>
    <property name="text">
     <string>Image Size</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionTransparency">
@@ -1539,6 +1584,9 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Enables transparency when pasting the edit area content back to the image.</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionLoad_Palette">
    <property name="enabled">
@@ -1553,6 +1601,9 @@ max-height: 16px;</string>
    </property>
    <property name="statusTip">
     <string>Soon!</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionSave_Palette">
@@ -1569,6 +1620,9 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Soon!</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionEdit_Palette">
    <property name="enabled">
@@ -1579,6 +1633,9 @@ max-height: 16px;</string>
    </property>
    <property name="statusTip">
     <string>Soon!</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionClear_Mask">
@@ -1591,6 +1648,9 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Soon!</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionInvert_Mask">
    <property name="enabled">
@@ -1602,6 +1662,9 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Soon!</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionAuto_Mask">
    <property name="enabled">
@@ -1609,6 +1672,9 @@ max-height: 16px;</string>
    </property>
    <property name="text">
     <string>Auto Mask</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionPT_BR">
@@ -1622,6 +1688,9 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Sets the language to PT_BR</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionEN_US">
    <property name="icon">
@@ -1633,6 +1702,9 @@ max-height: 16px;</string>
    </property>
    <property name="statusTip">
     <string>Sets the language to EN_US</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionAbout">
@@ -1646,10 +1718,17 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Information about the software.</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionContents">
    <property name="enabled">
     <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
    </property>
    <property name="text">
     <string>Contents</string>
@@ -1679,7 +1758,7 @@ max-height: 16px;</string>
     <string>Soon!</string>
    </property>
    <property name="shortcut">
-    <string>S</string>
+    <string notr="true">S</string>
    </property>
   </action>
   <action name="actionZoom_Tool">
@@ -1700,7 +1779,7 @@ max-height: 16px;</string>
     <string>Soon!</string>
    </property>
    <property name="shortcut">
-    <string>Z</string>
+    <string notr="true">Z</string>
    </property>
   </action>
   <action name="actionFill_Tool">
@@ -1724,7 +1803,7 @@ max-height: 16px;</string>
     <string>Fills an area of the same color with the selected color.</string>
    </property>
    <property name="shortcut">
-    <string>F</string>
+    <string notr="true">F</string>
    </property>
   </action>
   <action name="actionPencil_Tool">
@@ -1748,7 +1827,7 @@ max-height: 16px;</string>
     <string>The pencil tool draws freely while pressed.</string>
    </property>
    <property name="shortcut">
-    <string>P</string>
+    <string notr="true">P</string>
    </property>
   </action>
   <action name="actionLine_Tool">
@@ -1769,7 +1848,7 @@ max-height: 16px;</string>
     <string>The line tool draws a straight line between two points.</string>
    </property>
    <property name="shortcut">
-    <string>L</string>
+    <string notr="true">L</string>
    </property>
   </action>
   <action name="actionRectangle_Tool">
@@ -1790,7 +1869,7 @@ max-height: 16px;</string>
     <string>The rectangle tool draws a rectangle between two points.</string>
    </property>
    <property name="shortcut">
-    <string>R</string>
+    <string notr="true">R</string>
    </property>
   </action>
   <action name="actionEllipse_Tool">
@@ -1811,7 +1890,7 @@ max-height: 16px;</string>
     <string>The ellipse tool draws an ellipse between two points.</string>
    </property>
    <property name="shortcut">
-    <string>E</string>
+    <string notr="true">E</string>
    </property>
   </action>
   <action name="actionCascade">
@@ -1828,6 +1907,9 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Soon!</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionNormal_Size">
    <property name="enabled">
@@ -1838,6 +1920,9 @@ max-height: 16px;</string>
    </property>
    <property name="statusTip">
     <string>Soon!</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionTile_Subwindows">
@@ -1851,6 +1936,9 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Soon!</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionGradient">
    <property name="icon">
@@ -1861,7 +1949,7 @@ max-height: 16px;</string>
     <string>Gradient</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+D</string>
+    <string notr="true">Ctrl+D</string>
    </property>
   </action>
   <action name="actionSwap_Colors">
@@ -1873,7 +1961,7 @@ max-height: 16px;</string>
     <string>Swap Colors</string>
    </property>
    <property name="shortcut">
-    <string>X</string>
+    <string notr="true">X</string>
    </property>
   </action>
   <action name="actionSave_Menu">
@@ -1890,6 +1978,9 @@ max-height: 16px;</string>
    <property name="statusTip">
     <string>Saves the focused image file.</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionDefault_Palette">
    <property name="icon">
@@ -1902,13 +1993,16 @@ max-height: 16px;</string>
    <property name="toolTip">
     <string>Loads the default palette back.</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionPick_All">
    <property name="text">
     <string>Pick All</string>
    </property>
    <property name="shortcut">
-    <string>F3</string>
+    <string notr="true">F3</string>
    </property>
   </action>
   <action name="actionZoom_Image_2x">
@@ -1921,6 +2015,9 @@ max-height: 16px;</string>
    </property>
    <property name="text">
     <string>Zoom Image 2x</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
  </widget>

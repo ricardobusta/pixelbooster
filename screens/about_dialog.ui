@@ -70,12 +70,12 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="version_label_2">
          <property name="styleSheet">
           <string notr="true">font: 36pt &quot;Arial&quot;;</string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt; color:#149957;&quot;&gt;Pixel&lt;/span&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;::&lt;/span&gt;&lt;span style=&quot; font-size:36pt; color:#155899;&quot;&gt;Booster&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt; color:#149957;&quot;&gt;Pixel&lt;/span&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;::&lt;/span&gt;&lt;span style=&quot; font-size:36pt; color:#155899;&quot;&gt;Booster&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>
@@ -85,14 +85,14 @@
        <item>
         <widget class="QLabel" name="version_label">
          <property name="text">
-          <string>version</string>
+          <string notr="true">version</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="website_label">
          <property name="text">
-          <string>pixel.busta.com.br </string>
+          <string notr="true">pixel.busta.com.br </string>
          </property>
         </widget>
        </item>
@@ -104,16 +104,16 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="creator_label">
          <property name="text">
-          <string>by Ricardo Bustamante de Queiroz (www.busta.com.br),</string>
+          <string notr="true">by Ricardo Bustamante de Queiroz (www.busta.com.br),</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="contributors_label">
          <property name="text">
-          <string>Leonardo Bustamante, Vanessa Karla, Renan Rodrigues</string>
+          <string notr="true">Leonardo Bustamante, Vanessa Karla, Renan Rodrigues</string>
          </property>
         </widget>
        </item>
