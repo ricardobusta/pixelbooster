@@ -24,8 +24,8 @@
 #include "screens/about_dialog.h"
 #include "screens/main_window.h"
 #include "screens/new_image_file_dialog.h"
-#include "screens/set_tile_size_dialog.h"
 #include "screens/resize_image_dialog.h"
+#include "screens/set_tile_size_dialog.h"
 #include "utils/debug.h"
 #include "utils/pb_math.h"
 #include "widgets/color_dialog.h"
@@ -40,8 +40,8 @@
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QMessageBox>
-#include <QSlider>
 #include <QPainter>
+#include <QSlider>
 
 const QString kTxtSelectMainColor = "Select Main Color";
 const QString kTxtSelectAltColor = "Select Secondary Color";
@@ -118,10 +118,10 @@ void ActionHandler::SaveFile() const {
   ImageCanvasContainer *c = window_cache_->current_canvas_container();
   if (nullptr != c) {
     ImageCanvasWidget *w = c->GetCanvasWidget();
-    if (!w->saved_state()) {
-      DEBUG_MSG("Saving image");
-      w->Save();
-    }
+    //if (!w->saved_state()) {
+    DEBUG_MSG("Saving image");
+    w->Save();
+    //}
   }
 }
 
@@ -129,10 +129,10 @@ void ActionHandler::SaveAll() const {
   DEBUG_MSG("Should attempt to save all unsaved files");
 
   for (ImageCanvasWidget *w : *ImageCanvasWidget::open_canvas()) {
-    if (!w->saved_state()) {
-      DEBUG_MSG("Saving image");
-      w->Save();
-    }
+    //if (!w->saved_state()) {
+    DEBUG_MSG("Saving image");
+    w->Save();
+    //}
   }
 }
 
@@ -313,19 +313,20 @@ void ActionHandler::ToggleShowPixelGrid(bool show) const {
 
 void ActionHandler::ImageSize() const {
   ImageCanvasContainer *c = window_cache_->current_canvas_container();
-  if(c==nullptr) return;
+  if (c == nullptr)
+    return;
   QImage old_image = c->GetCanvasWidget()->image();
   QSize size = old_image.size();
 
-  ResizeImageDialog dialog(size,window_cache_);
+  ResizeImageDialog dialog(size, window_cache_);
   int res = dialog.exec();
 
-  if(res == QDialog::Accepted){
+  if (res == QDialog::Accepted) {
     QSize new_size = dialog.new_size();
-    QImage new_image = QImage(new_size,QImage::Format_ARGB32);
+    QImage new_image = QImage(new_size, QImage::Format_ARGB32);
     new_image.fill(options_cache_->alt_color());
     QPainter p(&new_image);
-    p.drawImage(old_image.rect(),old_image);
+    p.drawImage(old_image.rect(), old_image);
     c->GetCanvasWidget()->SetImage(new_image);
   }
 }

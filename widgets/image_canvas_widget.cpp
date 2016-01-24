@@ -76,6 +76,12 @@ void ImageCanvasWidget::SaveState() {
 }
 
 void ImageCanvasWidget::Save() {
+  if(saved_state()){
+    QFile file(image_path_);
+    if(file.exists()){
+      return;
+    }
+  }
   if (image_path_.isEmpty()) {
     SaveAs();
   } else {
