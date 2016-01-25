@@ -2020,6 +2020,177 @@ max-height: 16px;</string>
     <string notr="true"/>
    </property>
   </action>
+  <action name="actionShift_Left">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/move_left.png</normaloff>:/icons/move_left.png</iconset>
+   </property>
+   <property name="text">
+    <string>Shift Left</string>
+   </property>
+   <property name="toolTip">
+    <string>Shift Left</string>
+   </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
+  </action>
+  <action name="actionShift_Right">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/move_right.png</normaloff>:/icons/move_right.png</iconset>
+   </property>
+   <property name="text">
+    <string>Shift Right</string>
+   </property>
+   <property name="toolTip">
+    <string>Shift Right</string>
+   </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
+  </action>
+  <action name="actionShift_Up">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/move_up.png</normaloff>:/icons/move_up.png</iconset>
+   </property>
+   <property name="text">
+    <string>Shift Up</string>
+   </property>
+   <property name="toolTip">
+    <string>Shift Up</string>
+   </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
+  </action>
+  <action name="actionShift_Down">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/move_down.png</normaloff>:/icons/move_down.png</iconset>
+   </property>
+   <property name="text">
+    <string>Shift Down</string>
+   </property>
+   <property name="toolTip">
+    <string>Shift Down</string>
+   </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+  </action>
+  <action name="actionFlip_Horizontal">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/flip_h.png</normaloff>:/icons/flip_h.png</iconset>
+   </property>
+   <property name="text">
+    <string>Flip Horizontal</string>
+   </property>
+   <property name="toolTip">
+    <string>Flip Horizontal</string>
+   </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+  </action>
+  <action name="actionFlip_Vertical">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/flip_v.png</normaloff>:/icons/flip_v.png</iconset>
+   </property>
+   <property name="text">
+    <string>Flip Vertical</string>
+   </property>
+   <property name="toolTip">
+    <string>Flip Vertical</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
+  </action>
+  <action name="actionRotate_90_CCW">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/rotate_ccw.png</normaloff>:/icons/rotate_ccw.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate 90º CCW</string>
+   </property>
+   <property name="toolTip">
+    <string>Rotate 90º CCW</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
+  </action>
+  <action name="actionRotate_90_CW">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/rotate_cw.png</normaloff>:/icons/rotate_cw.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate 90º CW</string>
+   </property>
+   <property name="toolTip">
+    <string>Rotate 90º CW</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
+  </action>
+  <action name="actionScale_Selection">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/icons/icons.qrc">
+     <normaloff>:/icons/resize_selection.png</normaloff>:/icons/resize_selection.png</iconset>
+   </property>
+   <property name="text">
+    <string>Scale Selection</string>
+   </property>
+   <property name="toolTip">
+    <string>Scale Selection</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

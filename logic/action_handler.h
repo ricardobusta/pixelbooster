@@ -55,6 +55,7 @@ public slots:
 
   // Tools
   void ToolPressed(QAction *a) const;
+  void ArrowPressed(QAction *a) const;
 
   // Interface Actions
   void About() const;

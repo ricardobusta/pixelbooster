@@ -171,6 +171,19 @@ void MainWindow::ConnectActions() {
   action_handler()->RegisterTool(ui->actionSelection_Tool, TOOL_SELECTION);
   action_handler()->RegisterTool(ui->actionZoom_Tool, TOOL_ZOOM);
 
+  // Arrow tools
+  QMenu *arrow_menu = new QMenu(this);
+  arrow_menu->addAction(ui->actionShift_Left);
+  arrow_menu->addAction(ui->actionShift_Right);
+  arrow_menu->addAction(ui->actionShift_Up);
+  arrow_menu->addAction(ui->actionShift_Down);
+  arrow_menu->addAction(ui->actionRotate_90_CCW);
+  arrow_menu->addAction(ui->actionRotate_90_CW);
+  arrow_menu->addAction(ui->actionFlip_Horizontal);
+  arrow_menu->addAction(ui->actionFlip_Vertical);
+  arrow_menu->addAction(ui->actionScale_Selection);
+  QObject::connect(arrow_menu,SIGNAL(triggered(QAction*)),action_handler_,SLOT(ArrowPressed(QAction *)));
+
   // Install event listeners
   ui->scrollArea->viewport()->installEventFilter(this);
 
@@ -204,6 +217,16 @@ void MainWindow::SetToolButtons() {
   ui->fill_toolButton->setDefaultAction(ui->actionFill_Tool);
   ui->pencil_toolButton->setDefaultAction(ui->actionPencil_Tool);
   ui->default_palette_toolButton->setDefaultAction(ui->actionDefault_Palette);
+
+  ui->shift_left_toolButton->setDefaultAction(ui->actionShift_Left);
+  ui->shift_right_toolButton->setDefaultAction(ui->actionShift_Right);
+  ui->shift_up_toolButton->setDefaultAction(ui->actionShift_Up);
+  ui->shift_down_toolButton->setDefaultAction(ui->actionShift_Down);
+  ui->flip_horizontal_toolButton->setDefaultAction(ui->actionFlip_Horizontal);
+  ui->flip_vertical_toolButton->setDefaultAction(ui->actionFlip_Vertical);
+  ui->rotate_90_ccw_toolButton->setDefaultAction(ui->actionRotate_90_CCW);
+  ui->rotate_90_cw_toolButton->setDefaultAction(ui->actionRotate_90_CW);
+  ui->scale_toolButton->setDefaultAction(ui->actionScale_Selection);
 
   QMenu *test_menu = new QMenu();
   test_menu->addAction(ui->actionSave);

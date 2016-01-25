@@ -45,6 +45,9 @@ public:
   void set_scroll_area(QScrollArea *scroll_area);
 
   void ClearSelection();
+
+  void Rotate(bool cw);
+  void Flip(bool h, bool v);
 protected:
   virtual void paintEvent(QPaintEvent *);
   virtual void mouseMoveEvent(QMouseEvent *event);

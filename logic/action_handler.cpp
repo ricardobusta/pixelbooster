@@ -180,6 +180,21 @@ void ActionHandler::ToolPressed(QAction *a) const {
   }
 }
 
+void ActionHandler::ArrowPressed(QAction *a) const {
+  DEBUG_MSG(a->objectName());
+  QString tool = a->objectName();
+
+  if (tool == "actionRotate_90_CCW") {
+    window_cache_->edit_widget()->Rotate(false);
+  } else if (tool == "actionRotate_90_CW") {
+    window_cache_->edit_widget()->Rotate(true);
+  } else if (tool == "actionFlip_Horizontal") {
+    window_cache_->edit_widget()->Flip(true, false);
+  } else if (tool == "actionFlip_Vertical") {
+    window_cache_->edit_widget()->Flip(false, true);
+  }
+}
+
 void ActionHandler::About() const {
   AboutDialog *about_dialog = new AboutDialog(window_cache_);
   about_dialog->exec();

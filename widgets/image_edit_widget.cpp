@@ -92,6 +92,35 @@ void ImageEditWidget::ClearSelection() {
   repaint();
 }
 
+void ImageEditWidget::Rotate(bool cw) {
+  QTransform t;
+  t.rotate(cw?90:-90);
+  if(selection_.isValid()){
+    QImage i = QImage(image_selection_.height(),image_selection_.width(),image_selection_.format());
+    QPainter p(&i);
+    p.drawImage(i.rect(),image_selection_.transformed(t));
+    image_selection_ = i;
+    QPoint c = selection_.center();
+    selection_.setSize(QSize(selection_.height(),selection_.width()));
+    selection_.moveCenter(c);
+  }else{
+    QImage i = QImage(image_.height(),image_.width(),image_.format());
+    QPainter p(&i);
+    p.drawImage(i.rect(),image_.transformed(t));
+    GetImage(&i);
+  }
+  repaint();
+}
+
+void ImageEditWidget::Flip(bool h, bool v) {
+  if(selection_.isValid()){
+    image_selection_ = image_selection_.mirrored(h,v);
+  }else{
+    image_ = image_.mirrored(h,v);
+  }
+  repaint();
+}
+
 void ImageEditWidget::Copy() {
   if (!image_selection_.isNull()) {
     QApplication::clipboard()->setImage(image_selection_);
@@ -110,9 +139,9 @@ void ImageEditWidget::Paste() {
   if (!img.isNull()) {
     if (!selection_.isValid()) {
       selection_.setTopLeft(QPoint(0, 0));
-    }else{
+    } else {
       QPainter p(&image_);
-      p.drawImage(selection_,image_selection_);
+      p.drawImage(selection_, image_selection_);
     }
     selection_.setSize(img.size());
     image_selection_ = img;
