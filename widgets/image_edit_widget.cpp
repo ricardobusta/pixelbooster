@@ -108,6 +108,7 @@ void ImageEditWidget::Rotate(bool cw) {
     QPainter p(&i);
     p.drawImage(i.rect(),image_.transformed(t));
     GetImage(&i);
+    options_cache_->set_tile_selection(QRect(QPoint(),i.size()));
   }
   repaint();
 }
