@@ -190,11 +190,20 @@ void ImageCanvasWidget::ReceiveImage(QImage *image) {
   }
   QPainter painter(&image_);
 
+  QRect r = options_cache_->tile_selection();
+  bool m_x = r.x()<0;
+  bool m_y = r.y()<0;
+
+  if(m_x || m_y){
+    r.moveCenter(r.center()+QPoint(m_x?-1:0,m_y?-1:0));
+  }
+
   if (!options_cache_->transparency_enabled()) {
     painter.setCompositionMode(QPainter::CompositionMode_Source);
-    painter.eraseRect(options_cache_->tile_selection());
+    painter.eraseRect(r);
   }
-  painter.drawImage(options_cache_->tile_selection(), *image);
+
+  painter.drawImage(r, *image);
 
   update();
 }
