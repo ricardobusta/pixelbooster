@@ -194,6 +194,7 @@ void ImageCanvasWidget::ReceiveImage(QImage *image) {
   bool m_x = r.x()<0;
   bool m_y = r.y()<0;
 
+  // Fix for weird Qt bug while rendering a rect inside the image...
   if(m_x || m_y){
     r.moveCenter(r.center()+QPoint(m_x?-1:0,m_y?-1:0));
   }
