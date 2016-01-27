@@ -67,7 +67,7 @@ ImageCanvasWidget *ImageCanvasContainer::GetCanvasWidget() const {
 void ImageCanvasContainer::closeEvent(QCloseEvent *event) {
   if (!GetCanvasWidget()->saved_state()) {
     int ans = QMessageBox::question(this, "Unsaved files...", "Do you want to keep the unsaved changes on the images?", "Save", "Don't Save", "Cancel", 2, 2);
-    qDebug() << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MUST MOVE TO MDI AREA ASAP! !!!!!!!!!!!!!!!!!!!!!!!!";
+    //qDebug() << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MUST MOVE TO MDI AREA ASAP! !!!!!!!!!!!!!!!!!!!!!!!!";
     if(ans==2){
       event->ignore();
     }else if(ans==0){
