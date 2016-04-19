@@ -53,7 +53,8 @@ SOURCES += \
     logic/tool/ellipse_tool.cpp \
     logic/tool/selection_tool.cpp \
     logic/tool/zoom_tool.cpp \
-    screens/resize_image_dialog.cpp
+    screens/resize_image_dialog.cpp \
+    screens/help_dialog.cpp
 
 HEADERS  += \
     widgets/image_edit_widget.h \
@@ -81,7 +82,8 @@ HEADERS  += \
     logic/tool/ellipse_tool.h \
     logic/tool/selection_tool.h \
     logic/tool/zoom_tool.h \
-    screens/resize_image_dialog.h
+    screens/resize_image_dialog.h \
+    screens/help_dialog.h
 
 FORMS    += \
     screens/new_image_file_dialog.ui \
@@ -90,13 +92,15 @@ FORMS    += \
     screens/set_tile_size_dialog.ui \
     screens/main_window.ui \
     widgets/color_dialog.ui \
-    screens/resize_image_dialog.ui
+    screens/resize_image_dialog.ui \
+    screens/help_dialog.ui
 
 RESOURCES += \
     resources/icons/icons.qrc \
     resources/images/images.qrc \
     resources/translations/translations.qrc \
-    resources/cursors/cursors.qrc
+    resources/cursors/cursors.qrc \
+    resources/help/help.qrc
 
 # To update .ts files with the most recent translations run lupdate
 # To generate the .qm files that will be needed by the application run lrelease

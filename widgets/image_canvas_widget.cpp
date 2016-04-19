@@ -30,9 +30,9 @@ QVector<ImageCanvasWidget *> ImageCanvasWidget::open_canvas_;
 
 ImageCanvasWidget::ImageCanvasWidget(QWidget *parent)
     : QWidget(parent),
-      anchor_down_(false),
-      active_(false),
       options_cache_(pApp->options()),
+      active_(false),
+      anchor_down_(false),
       saved_state_(true) {
   setMouseTracking(true);
 
@@ -76,9 +76,9 @@ void ImageCanvasWidget::SaveState() {
 }
 
 void ImageCanvasWidget::Save() {
-  if(saved_state()){
+  if (saved_state()) {
     QFile file(image_path_);
-    if(file.exists()){
+    if (file.exists()) {
       return;
     }
   }
@@ -191,12 +191,12 @@ void ImageCanvasWidget::ReceiveImage(QImage *image) {
   QPainter painter(&image_);
 
   QRect r = options_cache_->tile_selection();
-  bool m_x = r.x()<0;
-  bool m_y = r.y()<0;
+  bool m_x = r.x() < 0;
+  bool m_y = r.y() < 0;
 
   // Fix for weird Qt bug while rendering a rect inside the image...
-  if(m_x || m_y){
-    r.moveCenter(r.center()+QPoint(m_x?-1:0,m_y?-1:0));
+  if (m_x || m_y) {
+    r.moveCenter(r.center() + QPoint(m_x ? -1 : 0, m_y ? -1 : 0));
   }
 
   if (!options_cache_->transparency_enabled()) {

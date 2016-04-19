@@ -49,6 +49,6 @@ GlobalOptions *PixelBooster::options() const {
 
 void PixelBooster::Translate(QString language) {
   QTranslator *translator = new QTranslator();
-  bool res = translator->load(":/translations/pixel_booster_" + language);
-  res = this->installTranslator(translator);
+  translator->load(":/translations/pixel_booster_" + language);
+  this->installTranslator(translator);
 }

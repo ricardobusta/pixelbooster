@@ -17,7 +17,7 @@
 <context>
     <name>ActionHandler</name>
     <message>
-        <location filename="../../logic/action_handler.cpp" line="280"/>
+        <location filename="../../logic/action_handler.cpp" line="295"/>
         <source>Save palette image file as...</source>
         <translation>Salvar arquivo de paleta como...</translation>
     </message>
@@ -75,7 +75,7 @@
     <name>MainWindow</name>
     <message>
         <source>Pixel::Booster</source>
-        <translation type="vanished">Pixel::Booster</translation>
+        <translation type="obsolete">Pixel::Booster</translation>
     </message>
     <message>
         <location filename="../../screens/main_window.ui" line="59"/>
@@ -94,7 +94,7 @@
     </message>
     <message>
         <source>Layers</source>
-        <translation type="vanished">Camadas</translation>
+        <translation type="obsolete">Camadas</translation>
     </message>
     <message>
         <location filename="../../screens/main_window.ui" line="110"/>
@@ -147,251 +147,305 @@
         <translation>Clique para escolher a cor de fundo.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1194"/>
+        <location filename="../../screens/main_window.ui" line="1191"/>
         <source>New</source>
         <translation>Novo</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1197"/>
+        <location filename="../../screens/main_window.ui" line="1194"/>
         <source>Creates a new image file from scratch.</source>
         <translation>Cria um novo arquivo de imagem em branco.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1212"/>
+        <location filename="../../screens/main_window.ui" line="1209"/>
         <source>Open</source>
         <translation>Abrir</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1215"/>
+        <location filename="../../screens/main_window.ui" line="1212"/>
         <source>Opens an existing image file.</source>
         <translation>Abre um arquivo de imagem existente.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1226"/>
+        <location filename="../../screens/main_window.ui" line="1223"/>
         <source>Open Recent</source>
         <translation>Abrir Recente</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1241"/>
-        <location filename="../../screens/main_window.ui" line="1970"/>
+        <location filename="../../screens/main_window.ui" line="1238"/>
+        <location filename="../../screens/main_window.ui" line="1967"/>
         <source>Save</source>
         <translation>Salvar</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1244"/>
-        <location filename="../../screens/main_window.ui" line="1973"/>
+        <location filename="../../screens/main_window.ui" line="1241"/>
+        <location filename="../../screens/main_window.ui" line="1970"/>
         <source>Saves the focused image file.</source>
         <translation>Salva o arquivo de imagem em foco.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1259"/>
+        <location filename="../../screens/main_window.ui" line="1256"/>
         <source>Save As</source>
         <translation>Salvar Como</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1262"/>
+        <location filename="../../screens/main_window.ui" line="1259"/>
         <source>Saves the focused image file with another name.</source>
         <translation>Salva o arquivo de imagem em foco com outro nome.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1277"/>
+        <location filename="../../screens/main_window.ui" line="1274"/>
         <source>Save All</source>
         <translation>Salvar Todos</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1280"/>
+        <location filename="../../screens/main_window.ui" line="1277"/>
         <source>Saves all the open image files.</source>
         <translation>Salva todos os arquivos de imagem abertos.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1295"/>
+        <location filename="../../screens/main_window.ui" line="1292"/>
         <source>Close</source>
         <translation>Fechar</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1298"/>
+        <location filename="../../screens/main_window.ui" line="1295"/>
         <source>Close the currently opened image.</source>
         <translation>Fecha o arquivo de imagem em foco.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1313"/>
+        <location filename="../../screens/main_window.ui" line="1310"/>
         <source>Exit</source>
         <translation>Sair</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1316"/>
+        <location filename="../../screens/main_window.ui" line="1313"/>
         <source>Exits the application.</source>
         <translation>Sai da aplicação.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1334"/>
+        <location filename="../../screens/main_window.ui" line="1331"/>
         <source>Undo</source>
         <translation>Desfazer</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1337"/>
+        <location filename="../../screens/main_window.ui" line="1334"/>
         <source>Undo the last action.</source>
         <translation>Desfaz a última ação.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1355"/>
+        <location filename="../../screens/main_window.ui" line="1352"/>
         <source>Redo the last undone action.</source>
         <translation>Refaz a última ação desfeita.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1373"/>
+        <location filename="../../screens/main_window.ui" line="1370"/>
         <source>Cuts the selected image on the edit area.</source>
         <translation>Corta a imagem selecionada na área de edição.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1391"/>
+        <location filename="../../screens/main_window.ui" line="1388"/>
         <source>Copies the selected image on the edit area.</source>
         <translation>Copia a imagem selecionada para a área de edição.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1409"/>
+        <location filename="../../screens/main_window.ui" line="1406"/>
         <source>Pastes the copied image to the edit area.</source>
         <translation>Cola a imagem copiada na área de edição.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1427"/>
+        <location filename="../../screens/main_window.ui" line="1424"/>
         <source>Deletes the current selection.</source>
         <translation>Deleta a seleção atual.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1441"/>
+        <location filename="../../screens/main_window.ui" line="1438"/>
         <source>Selects the entire edit area.</source>
         <translation>Seleciona toda a área de edição.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1459"/>
+        <location filename="../../screens/main_window.ui" line="1456"/>
         <source>Adds text to the edit area.</source>
         <translation>Adiciona texto na área de edição.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1473"/>
+        <location filename="../../screens/main_window.ui" line="1470"/>
         <source>Creates a shadow around the object.</source>
         <translation>Cria uma sombra ao redor do objeto.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1491"/>
+        <location filename="../../screens/main_window.ui" line="1488"/>
         <source>Configures the size of the tile selection</source>
         <translation>Configura o tamanho da área de seleção</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1515"/>
+        <location filename="../../screens/main_window.ui" line="1512"/>
         <source>Displays a grid to show the division of each pixel.</source>
         <translation>Mostra uma grade que exibe a divisão entre cada pixel.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1539"/>
+        <location filename="../../screens/main_window.ui" line="1536"/>
         <source>Displays a grid with customizable size.</source>
         <translation>Mostra uma grade de tamanho personalizável.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1557"/>
+        <location filename="../../screens/main_window.ui" line="1554"/>
         <source>Resizes the current image.</source>
         <translation>Redimensiona a imagem atual.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1578"/>
+        <location filename="../../screens/main_window.ui" line="1575"/>
         <source>Makes transparent pixels add with the background color instead of replacing them.</source>
         <translation>Faz com que pixeis transparentes sejam somados com a cor de fundo ao inves de substitui-los.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1596"/>
+        <location filename="../../screens/main_window.ui" line="1593"/>
         <source>Loads a color palette from an image file.</source>
         <translation>Carrega uma paleta de cores a partir de um arquivo de imagem.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1614"/>
+        <location filename="../../screens/main_window.ui" line="1611"/>
         <source>Saves the current palette as an image file.</source>
         <translation>Salva a paleta atual como um arquivo de imagem.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1628"/>
-        <location filename="../../screens/main_window.ui" line="1642"/>
-        <location filename="../../screens/main_window.ui" line="1656"/>
+        <location filename="../../screens/main_window.ui" line="1625"/>
+        <location filename="../../screens/main_window.ui" line="1639"/>
+        <location filename="../../screens/main_window.ui" line="1653"/>
         <source>Soon!</source>
         <translation>Em breve!</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1991"/>
+        <location filename="../../screens/main_window.ui" line="1988"/>
         <source>Loads the default palette.</source>
         <translation>Carrega a paleta padrão.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="2002"/>
+        <location filename="../../screens/main_window.ui" line="1999"/>
         <source>Pick the entire image to the edit area.</source>
         <translation>Captura a imagem inteira para a área de edição.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="2020"/>
+        <location filename="../../screens/main_window.ui" line="2017"/>
         <source>Zoom in the image to twice the size.</source>
         <translation>Dá um zoom que dobra o tamanho da imagem.</translation>
     </message>
     <message>
-        <source>Contents</source>
-        <translation type="vanished">Conteúdo</translation>
+        <location filename="../../screens/main_window.ui" line="2032"/>
+        <location filename="../../screens/main_window.ui" line="2035"/>
+        <source>Shift Left</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1781"/>
+        <location filename="../../screens/main_window.ui" line="2053"/>
+        <location filename="../../screens/main_window.ui" line="2056"/>
+        <source>Shift Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../screens/main_window.ui" line="2074"/>
+        <location filename="../../screens/main_window.ui" line="2077"/>
+        <source>Shift Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../screens/main_window.ui" line="2095"/>
+        <location filename="../../screens/main_window.ui" line="2098"/>
+        <source>Shift Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../screens/main_window.ui" line="2113"/>
+        <location filename="../../screens/main_window.ui" line="2116"/>
+        <source>Flip Horizontal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../screens/main_window.ui" line="2131"/>
+        <location filename="../../screens/main_window.ui" line="2134"/>
+        <source>Flip Vertical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../screens/main_window.ui" line="2149"/>
+        <location filename="../../screens/main_window.ui" line="2152"/>
+        <source>Rotate 90º CCW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../screens/main_window.ui" line="2167"/>
+        <location filename="../../screens/main_window.ui" line="2170"/>
+        <source>Rotate 90º CW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../screens/main_window.ui" line="2185"/>
+        <location filename="../../screens/main_window.ui" line="2188"/>
+        <source>Scale Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="obsolete">Conteúdo</translation>
+    </message>
+    <message>
+        <location filename="../../screens/main_window.ui" line="1778"/>
         <source>Zoom in around the selected area.</source>
         <translation>Dá um zoom na área selecionada.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1910"/>
+        <location filename="../../screens/main_window.ui" line="1907"/>
         <source>Rearrange all the sub-windows in a cascade format.</source>
         <translation>Reorganiza todas as sub janelas em forma de cascata.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1922"/>
+        <location filename="../../screens/main_window.ui" line="1919"/>
         <source>Tile Sub-windows</source>
         <translation>Sub Janelas em Grade</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1925"/>
+        <location filename="../../screens/main_window.ui" line="1922"/>
         <source>Rearrange the sub-windows in tiles.</source>
         <translation>Reorganiza as sub janelas em uma grade.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1937"/>
+        <location filename="../../screens/main_window.ui" line="1934"/>
         <source>Gradient</source>
         <translation>Gradiente</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1940"/>
+        <location filename="../../screens/main_window.ui" line="1937"/>
         <source>Calculates the gradient between the foreground color and the background color.</source>
         <translation>Calcula o gradiente entre a cor da frente e a cor de fundo.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1952"/>
+        <location filename="../../screens/main_window.ui" line="1949"/>
         <source>Swap Colors</source>
         <translation>Trocar Cores</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1955"/>
+        <location filename="../../screens/main_window.ui" line="1952"/>
         <source>Swaps the foreground color and the background color.</source>
         <translation>Troca a cor da frente com a cor de fundo.</translation>
     </message>
     <message>
+        <location filename="../../screens/main_window.ui" line="1982"/>
         <location filename="../../screens/main_window.ui" line="1985"/>
-        <location filename="../../screens/main_window.ui" line="1988"/>
         <source>Default Palette</source>
         <translation>Paleta Padrão</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1999"/>
+        <location filename="../../screens/main_window.ui" line="1996"/>
         <source>Pick All</source>
         <translation>Capturar Tudo
 </translation>
     </message>
     <message>
         <source>Pick the entire image to the selection area.</source>
-        <translation type="vanished">Captura toda a imagem para a área de edição.</translation>
+        <translation type="obsolete">Captura toda a imagem para a área de edição.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="2017"/>
+        <location filename="../../screens/main_window.ui" line="2014"/>
         <source>Zoom Image 2x</source>
         <translation>Zoom na imagem 2x</translation>
     </message>
@@ -406,68 +460,68 @@
         <translation>Cores</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1352"/>
+        <location filename="../../screens/main_window.ui" line="1349"/>
         <source>Redo</source>
         <translation>Refazer</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1370"/>
+        <location filename="../../screens/main_window.ui" line="1367"/>
         <source>Cut</source>
         <translation>Cortar</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1388"/>
+        <location filename="../../screens/main_window.ui" line="1385"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1406"/>
+        <location filename="../../screens/main_window.ui" line="1403"/>
         <source>Paste</source>
         <translation>Colar</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1424"/>
+        <location filename="../../screens/main_window.ui" line="1421"/>
         <source>Delete</source>
         <translation>Deletar</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1438"/>
+        <location filename="../../screens/main_window.ui" line="1435"/>
         <source>Select All</source>
         <translation>Selecionar Tudo</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1456"/>
+        <location filename="../../screens/main_window.ui" line="1453"/>
         <source>Add Text</source>
         <translation>Adicionar Texto</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1470"/>
+        <location filename="../../screens/main_window.ui" line="1467"/>
         <source>Create Shadow</source>
         <translation>Criar Sombra</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1488"/>
+        <location filename="../../screens/main_window.ui" line="1485"/>
         <source>Tile Size</source>
         <translation>Tamanho do Tile</translation>
     </message>
     <message>
+        <location filename="../../screens/main_window.ui" line="1506"/>
         <location filename="../../screens/main_window.ui" line="1509"/>
-        <location filename="../../screens/main_window.ui" line="1512"/>
         <source>Show Pixel Grid</source>
         <translation>Mostrar Grade de Pixels</translation>
     </message>
     <message>
+        <location filename="../../screens/main_window.ui" line="1530"/>
         <location filename="../../screens/main_window.ui" line="1533"/>
-        <location filename="../../screens/main_window.ui" line="1536"/>
         <source>Show Grid</source>
         <translation>Mostrar Grade</translation>
     </message>
     <message>
         <source>Show Divisions</source>
-        <translation type="vanished">Mostrar Divisões</translation>
+        <translation type="obsolete">Mostrar Divisões</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1554"/>
+        <location filename="../../screens/main_window.ui" line="1551"/>
         <source>Image Size</source>
         <translation>Tamanho da Imagem</translation>
     </message>
@@ -480,133 +534,133 @@
         <translation type="obsolete">Limpar Tudo</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1575"/>
+        <location filename="../../screens/main_window.ui" line="1572"/>
         <source>Transparency</source>
         <translation>Transparência</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1593"/>
+        <location filename="../../screens/main_window.ui" line="1590"/>
         <source>Load Palette</source>
         <translation>Carregar Paleta</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1611"/>
+        <location filename="../../screens/main_window.ui" line="1608"/>
         <source>Save Palette</source>
         <translation>Salvar Paleta</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1625"/>
+        <location filename="../../screens/main_window.ui" line="1622"/>
         <source>Edit Palette</source>
         <translation>Editar Paleta</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1639"/>
+        <location filename="../../screens/main_window.ui" line="1636"/>
         <source>Clear Mask</source>
         <translation>Limpar Máscara</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1653"/>
+        <location filename="../../screens/main_window.ui" line="1650"/>
         <source>Invert Mask</source>
         <translation>Inverter Máscara</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1667"/>
+        <location filename="../../screens/main_window.ui" line="1664"/>
         <source>Auto Mask</source>
         <translation>Auto Máscara</translation>
     </message>
     <message>
         <source>PT_BR</source>
-        <translation type="vanished">Português</translation>
+        <translation type="obsolete">Português</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1718"/>
+        <location filename="../../screens/main_window.ui" line="1715"/>
         <source>About</source>
         <translation>Sobre</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1721"/>
+        <location filename="../../screens/main_window.ui" line="1718"/>
         <source>Information about the software.</source>
         <translation>Informação sobre o software.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1736"/>
+        <location filename="../../screens/main_window.ui" line="1733"/>
         <source>Instructions</source>
         <translation>Instruções</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1739"/>
+        <location filename="../../screens/main_window.ui" line="1736"/>
         <source>Show a table of content with the instructions of the software.</source>
         <translation>Mostra um índice com as instruções sobre o software.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1757"/>
+        <location filename="../../screens/main_window.ui" line="1754"/>
         <source>Selection Tool</source>
         <translation>Ferramenta de Seleção</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1760"/>
+        <location filename="../../screens/main_window.ui" line="1757"/>
         <source>Selects an area that can be moved, copied and deleted.</source>
         <translation>Seleciona uma área que pode ser movida, copiada e deletada.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1778"/>
+        <location filename="../../screens/main_window.ui" line="1775"/>
         <source>Zoom Tool</source>
         <translation>Ferramenta de Zoom</translation>
     </message>
     <message>
+        <location filename="../../screens/main_window.ui" line="1796"/>
         <location filename="../../screens/main_window.ui" line="1799"/>
-        <location filename="../../screens/main_window.ui" line="1802"/>
         <source>Flood Fill</source>
         <translation>Preencher</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1805"/>
+        <location filename="../../screens/main_window.ui" line="1802"/>
         <source>Fills an area of the same color with the selected color.</source>
         <translation>Preenche uma área contínua com a cor selecionada.</translation>
     </message>
     <message>
+        <location filename="../../screens/main_window.ui" line="1820"/>
         <location filename="../../screens/main_window.ui" line="1823"/>
-        <location filename="../../screens/main_window.ui" line="1826"/>
         <source>Pencil Tool</source>
         <translation>Lápis</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1829"/>
+        <location filename="../../screens/main_window.ui" line="1826"/>
         <source>The pencil tool draws freely while pressed.</source>
         <translation>O lápis desenha livremente enquanto pressionado.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1847"/>
+        <location filename="../../screens/main_window.ui" line="1844"/>
         <source>Line Tool</source>
         <translation>Linha</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1850"/>
+        <location filename="../../screens/main_window.ui" line="1847"/>
         <source>The line tool draws a straight line between two points.</source>
         <translation>A linha desenha uma reta entre dois pontos.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1868"/>
+        <location filename="../../screens/main_window.ui" line="1865"/>
         <source>Rectangle Tool</source>
         <translation>Retângulo</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1871"/>
+        <location filename="../../screens/main_window.ui" line="1868"/>
         <source>The rectangle tool draws a rectangle between two points.</source>
         <translation>Desenha um retângulo entre dois pontos.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1889"/>
+        <location filename="../../screens/main_window.ui" line="1886"/>
         <source>Ellipse Tool</source>
         <translation>Elipse</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1892"/>
+        <location filename="../../screens/main_window.ui" line="1889"/>
         <source>The ellipse tool draws an ellipse between two points.</source>
         <translation>Desenha uma elipse entre dois pontos.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1907"/>
+        <location filename="../../screens/main_window.ui" line="1904"/>
         <source>Cascade</source>
         <translation>Cascata</translation>
     </message>
@@ -635,7 +689,7 @@
     </message>
     <message>
         <source>custom</source>
-        <translation type="vanished">Personalizado</translation>
+        <translation type="obsolete">Personalizado</translation>
     </message>
     <message>
         <location filename="../../screens/new_image_file_dialog.ui" line="81"/>

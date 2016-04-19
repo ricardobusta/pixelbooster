@@ -131,6 +131,7 @@ void MainWindow::ConnectActions() {
 
   // Interface Actions
   QObject::connect(ui->actionAbout, SIGNAL(triggered(bool)), action_handler_, SLOT(About()));
+  QObject::connect(ui->actionHelp, SIGNAL(triggered(bool)), action_handler_, SLOT(Help()));
   QObject::connect(ui->actionTile_Size, SIGNAL(triggered(bool)), action_handler_, SLOT(TileSize()));
   QObject::connect(ui->actionCascade, SIGNAL(triggered(bool)), ui->image_mdi_area_, SLOT(cascadeSubWindows()));
   QObject::connect(ui->actionTile_Subwindows, SIGNAL(triggered(bool)), ui->image_mdi_area_, SLOT(tileSubWindows()));
@@ -182,7 +183,7 @@ void MainWindow::ConnectActions() {
   arrow_menu->addAction(ui->actionFlip_Horizontal);
   arrow_menu->addAction(ui->actionFlip_Vertical);
   arrow_menu->addAction(ui->actionScale_Selection);
-  QObject::connect(arrow_menu,SIGNAL(triggered(QAction*)),action_handler_,SLOT(ArrowPressed(QAction *)));
+  QObject::connect(arrow_menu, SIGNAL(triggered(QAction *)), action_handler_, SLOT(ArrowPressed(QAction *)));
 
   // Install event listeners
   ui->scrollArea->viewport()->installEventFilter(this);
@@ -308,6 +309,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
+  Q_UNUSED(event);
   if (windowState() != Qt::WindowMaximized) {
     window_geometry_aux_ = window_geometry_;
     window_geometry_ = geometry();

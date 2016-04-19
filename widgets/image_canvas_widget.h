@@ -29,7 +29,7 @@ class GlobalOptions;
  */
 class ImageCanvasWidget : public QWidget {
   Q_OBJECT
-public:
+ public:
   explicit ImageCanvasWidget(QWidget *parent = 0);
   virtual ~ImageCanvasWidget();
 
@@ -49,14 +49,14 @@ public:
 
   void set_image_path(const QString &path);
 
-protected:
+ protected:
   virtual void paintEvent(QPaintEvent *);
   virtual void mousePressEvent(QMouseEvent *event);
   virtual void mouseReleaseEvent(QMouseEvent *event);
   virtual void mouseMoveEvent(QMouseEvent *event);
   virtual void leaveEvent(QEvent *);
 
-private:
+ private:
   GlobalOptions *options_cache_;
 
   bool active_;
@@ -73,14 +73,14 @@ private:
 
   void SaveState();
 
-signals:
+ signals:
   void SendImage(QImage *);
   void RequestImage();
   void UnsavedChanges(bool);
   void PathChaged(QString);
 
-private slots:
+ private slots:
   void ReceiveImage(QImage *image);
 };
 
-#endif // IMAGE_CANVAS_WIDGET_H
+#endif  // IMAGE_CANVAS_WIDGET_H
