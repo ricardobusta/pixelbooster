@@ -17,7 +17,11 @@
 #---------------------------------------------------------------------------#
 
 lessThan(QT_MAJOR_VERSION,5){
-  error(Must have at least Qt 5)
+  error(Must have at least Qt 5.5)
+}
+
+lessThan(QT_MINOR_VERSION,5){
+  error(Must have at least Qt 5.5)
 }
 
 QT       += core gui widgets
