@@ -1,0 +1,113 @@
+#---------------------------------------------------------------------------#
+#  Pixel::Booster, a simple pixel art image editor.                         #
+#  Copyright (C) 2015  Ricardo Bustamante de Queiroz (ricardo@busta.com.br) #
+#                                                                           #
+#  This program is free software: you can redistribute it and/or modify     #
+#  it under the terms of the GNU General Public License as published by     #
+#  the Free Software Foundation, either version 3 of the License, or        #
+#  (at your option) any later version.                                      #
+#                                                                           #
+#  This program is distributed in the hope that it will be useful,          #
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of           #
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            #
+#  GNU General Public License for more details.                             #
+#                                                                           #
+#  You should have received a copy of the GNU General Public License        #
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.    #
+#---------------------------------------------------------------------------#
+
+lessThan(QT_MAJOR_VERSION,5){
+  error(Must have at least Qt 5.5)
+}
+
+lessThan(QT_MINOR_VERSION,5){
+  error(Must have at least Qt 5.5)
+}
+
+QT       += core gui widgets
+
+RC_ICONS = icon.ico
+
+TARGET = PixelBooster
+TEMPLATE = app
+CONFIG += c++11
+#QMAKE_CXXFLAGS += -Wall
+
+SOURCES += \
+    main.cpp \
+    widgets/image_edit_widget.cpp \
+    screens/new_image_file_dialog.cpp \
+    application/pixel_booster.cpp \
+    logic/action_handler.cpp \
+    widgets/image_canvas_container.cpp \
+    widgets/image_canvas_widget.cpp \
+    application/global_options.cpp \
+    screens/about_dialog.cpp \
+    screens/set_tile_size_dialog.cpp \
+    screens/main_window.cpp \
+    widgets/color_palette_widget.cpp \
+    logic/undo_redo.cpp \
+    logic/tool_algorithm.cpp \
+    utils/pb_math.cpp \
+    widgets/color_dialog.cpp \
+    logic/tool/pencil_tool.cpp \
+    logic/tool/flood_fill_tool.cpp \
+    logic/tool/line_tool.cpp \
+    logic/tool/rectangle_tool.cpp \
+    logic/tool/ellipse_tool.cpp \
+    logic/tool/selection_tool.cpp \
+    logic/tool/zoom_tool.cpp \
+    screens/resize_image_dialog.cpp \
+    screens/help_dialog.cpp
+
+HEADERS  += \
+    widgets/image_edit_widget.h \
+    screens/new_image_file_dialog.h \
+    application/pixel_booster.h \
+    logic/action_handler.h \
+    utils/debug.h \
+    resources/translations/international_text.h \
+    widgets/image_canvas_container.h \
+    widgets/image_canvas_widget.h \
+    application/global_options.h \
+    screens/about_dialog.h \
+    screens/set_tile_size_dialog.h \
+    screens/main_window.h \
+    widgets/color_palette_widget.h \
+    resources/version.h \
+    logic/undo_redo.h \
+    logic/tool_algorithm.h \
+    utils/pb_math.h \
+    widgets/color_dialog.h \
+    logic/tool/pencil_tool.h \
+    logic/tool/flood_fill_tool.h \
+    logic/tool/line_tool.h \
+    logic/tool/rectangle_tool.h \
+    logic/tool/ellipse_tool.h \
+    logic/tool/selection_tool.h \
+    logic/tool/zoom_tool.h \
+    screens/resize_image_dialog.h \
+    screens/help_dialog.h
+
+FORMS    += \
+    screens/new_image_file_dialog.ui \
+    widgets/image_canvas_container.ui \
+    screens/about_dialog.ui \
+    screens/set_tile_size_dialog.ui \
+    screens/main_window.ui \
+    widgets/color_dialog.ui \
+    screens/resize_image_dialog.ui \
+    screens/help_dialog.ui
+
+RESOURCES += \
+    resources/icons/icons.qrc \
+    resources/images/images.qrc \
+    resources/translations/translations.qrc \
+    resources/cursors/cursors.qrc \
+    resources/help/help.qrc
+
+# To update .ts files with the most recent translations run lupdate
+# To generate the .qm files that will be needed by the application run lrelease
+TRANSLATIONS += \
+    resources/translations/pixel_booster_pt_br.ts \
+    resources/translations/pixel_booster_en_us.ts \
