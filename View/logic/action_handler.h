@@ -59,6 +59,7 @@ public slots:
 
   // Interface Actions
   void About() const;
+  void Help() const;
   void TileSize() const;
   void ToggleTransparency(bool transparency) const;
   void Zoom(int zoom) const;

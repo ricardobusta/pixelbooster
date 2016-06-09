@@ -17,70 +17,38 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef IMAGE_CANVAS_WIDGET_H
-#define IMAGE_CANVAS_WIDGET_H
+#include "application/pixel_booster.h"
 
-#include <QWidget>
+#include <QTimer>
+#include <QTranslator>
 
-class GlobalOptions;
+#include "screens/main_window.h"
+#include "utils/debug.h"
 
-/*!
- * \brief The ImageCanvasWidget class
- */
-class ImageCanvasWidget : public QWidget {
-  Q_OBJECT
-public:
-  explicit ImageCanvasWidget(QWidget *parent = 0);
-  virtual ~ImageCanvasWidget();
+const QString kApplicationName = "Pixel::Booster";
+const QString kOrganizationName = "Busta Software";
+const QString kOrganizationDomain = "pixel.busta.com.br";
 
-  void SetImage(const QImage &image);
-  QImage image();
+PixelBooster::PixelBooster(int argc, char *argv[])
+    : QApplication(argc, argv),
+      options_(new GlobalOptions()),
+      main_window_(new MainWindow()) {
+  QCoreApplication::setApplicationName(kApplicationName);
+  QCoreApplication::setOrganizationName(kOrganizationName);
+  QCoreApplication::setOrganizationDomain(kOrganizationDomain);
+  main_window_->show();
+}
 
-  void set_active(bool active);
+MainWindow *PixelBooster::main_window() const {
+  return main_window_;
+}
 
-  static QVector<ImageCanvasWidget *> *open_canvas();
+GlobalOptions *PixelBooster::options() const {
+  return options_;
+}
 
-  bool saved_state() const;
-
-  void Save();
-  void SaveAs();
-
-  void UnsaveState();
-
-  void set_image_path(const QString &path);
-
-protected:
-  virtual void paintEvent(QPaintEvent *);
-  virtual void mousePressEvent(QMouseEvent *event);
-  virtual void mouseReleaseEvent(QMouseEvent *event);
-  virtual void mouseMoveEvent(QMouseEvent *event);
-  virtual void leaveEvent(QEvent *);
-
-private:
-  GlobalOptions *options_cache_;
-
-  bool active_;
-  bool anchor_down_;
-
-  QImage image_;
-  QString image_path_;
-  QRect anchor_;
-  //QRect cursor_;
-
-  bool saved_state_;
-
-  static QVector<ImageCanvasWidget *> open_canvas_;
-
-  void SaveState();
-
-signals:
-  void SendImage(QImage *);
-  void RequestImage();
-  void UnsavedChanges(bool);
-  void PathChaged(QString);
-
-private slots:
-  void ReceiveImage(QImage *image);
-};
-
-#endif // IMAGE_CANVAS_WIDGET_H
+void PixelBooster::Translate(QString language) {
+  QTranslator *translator = new QTranslator();
+  translator->load(":/translations/pixel_booster_" + language);
+  this->installTranslator(translator);
+}

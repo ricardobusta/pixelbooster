@@ -22,6 +22,7 @@
 #include "application/pixel_booster.h"
 #include "resources/version.h"
 #include "screens/about_dialog.h"
+#include "screens/help_dialog.h"
 #include "screens/main_window.h"
 #include "screens/new_image_file_dialog.h"
 #include "screens/resize_image_dialog.h"
@@ -199,6 +200,12 @@ void ActionHandler::About() const {
   AboutDialog *about_dialog = new AboutDialog(window_cache_);
   about_dialog->exec();
   delete about_dialog;
+}
+
+void ActionHandler::Help() const {
+    HelpDialog *help_dialog = new HelpDialog(window_cache_);
+    help_dialog->exec();
+    delete help_dialog;
 }
 
 void ActionHandler::TileSize() const {

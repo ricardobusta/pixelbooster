@@ -46,11 +46,11 @@ const QString kStateNewImageColor = "NewImageColor";
 const QColor kStateNewImageColorDefault = QColor(Qt::white).name();
 const QString kStateShowGrid = "ShowGrid";
 const bool kStateShowGridDefault = false;
-const QString kStateShowPixelGrid= "ShowPixelGrid";
+const QString kStateShowPixelGrid = "ShowPixelGrid";
 const bool kStateShowPixelGridDefault = false;
 
-GlobalOptions::GlobalOptions() : vertical_shift_(false),
-                                 horizontal_shift_(false),
+GlobalOptions::GlobalOptions() : horizontal_shift_(false),
+                                 vertical_shift_(false),
                                  zoom_(1) {
 }
 
@@ -202,22 +202,18 @@ QString GlobalOptions::language() const {
   return language_;
 }
 
-bool GlobalOptions::show_grid() const
-{
+bool GlobalOptions::show_grid() const {
   return show_grid_;
 }
 
-void GlobalOptions::set_show_grid(bool show)
-{
+void GlobalOptions::set_show_grid(bool show) {
   show_grid_ = show;
 }
 
-bool GlobalOptions::show_pixel_grid() const
-{
+bool GlobalOptions::show_pixel_grid() const {
   return show_pixel_grid_;
 }
 
-void GlobalOptions::set_show_pixel_grid(bool show)
-{
+void GlobalOptions::set_show_pixel_grid(bool show) {
   show_pixel_grid_ = show;
 }

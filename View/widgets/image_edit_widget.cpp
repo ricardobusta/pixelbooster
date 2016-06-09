@@ -22,7 +22,7 @@
 #include <QClipboard>
 #include <QMouseEvent>
 #include <QPainter>
-#include <QStatusbar>
+#include <QStatusBar>
 
 #include "application/pixel_booster.h"
 #include "logic/action_handler.h"
@@ -39,10 +39,10 @@
 
 ImageEditWidget::ImageEditWidget(QWidget *parent)
     : QWidget(parent),
-      left_button_down_(false),
-      right_button_down_(false),
       press_right_inside_(false),
       press_left_inside_(false),
+      left_button_down_(false),
+      right_button_down_(false),
       action_started_(false) {
   setMouseTracking(true);
   image_ = QImage(0, 0, QImage::Format_ARGB32_Premultiplied);
