@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>About</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:#fff;
+color: #666;</string>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>
@@ -75,7 +79,7 @@
           <string notr="true">font: 36pt &quot;Arial&quot;;</string>
          </property>
          <property name="text">
-          <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt; color:#149957;&quot;&gt;Pixel&lt;/span&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;::&lt;/span&gt;&lt;span style=&quot; font-size:36pt; color:#155899;&quot;&gt;Booster&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt; color:#000;&quot;&gt;Pixel&lt;/span&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;::&lt;/span&gt;&lt;span style=&quot; font-size:36pt; color:#000;&quot;&gt;Booster&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>
