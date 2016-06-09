@@ -9,7 +9,7 @@
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../../screens/about_dialog.ui" line="102"/>
+        <location filename="../../screens/about_dialog.ui" line="106"/>
         <source>Contributors</source>
         <translation>Contributors</translation>
     </message>
@@ -17,7 +17,7 @@
 <context>
     <name>ActionHandler</name>
     <message>
-        <location filename="../../logic/action_handler.cpp" line="295"/>
+        <location filename="../../logic/action_handler.cpp" line="302"/>
         <source>Save palette image file as...</source>
         <translation>Save palette image file as...</translation>
     </message>
@@ -48,6 +48,14 @@
         <location filename="../../widgets/color_dialog.ui" line="172"/>
         <source>Color Pick</source>
         <translation>Color Pick</translation>
+    </message>
+</context>
+<context>
+    <name>HelpDialog</name>
+    <message>
+        <location filename="../../screens/help_dialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -113,6 +121,7 @@
     </message>
     <message>
         <location filename="../../screens/main_window.ui" line="140"/>
+        <location filename="../../screens/main_window.ui" line="1733"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
@@ -314,6 +323,11 @@
         <location filename="../../screens/main_window.ui" line="1653"/>
         <source>Soon!</source>
         <translation>Soon!</translation>
+    </message>
+    <message>
+        <location filename="../../screens/main_window.ui" line="1739"/>
+        <source>F1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../screens/main_window.ui" line="1988"/>
@@ -582,9 +596,8 @@
         <translation>Information about the software.</translation>
     </message>
     <message>
-        <location filename="../../screens/main_window.ui" line="1733"/>
         <source>Instructions</source>
-        <translation>Instructions</translation>
+        <translation type="vanished">Instructions</translation>
     </message>
     <message>
         <location filename="../../screens/main_window.ui" line="1736"/>
