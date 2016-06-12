@@ -31,7 +31,7 @@ RC_ICONS = icon.ico
 TARGET = PixelBooster
 TEMPLATE = app
 CONFIG += c++11
-QMAKE_CXXFLAGS += -std=c++11
+#QMAKE_CXXFLAGS += -std=c++11
 #QMAKE_CXXFLAGS += -Wall
 
 SOURCES += \
