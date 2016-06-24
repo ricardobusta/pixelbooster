@@ -22,7 +22,7 @@
 #include <QSettings>
 
 #include "utils/debug.h"
-#include "utils/pb_math.h"
+#include "pb_math.h"
 
 const QString kStateCursorSize = "CursorSize";
 const QSize kStateCursorSizeDefault = QSize(32, 32);

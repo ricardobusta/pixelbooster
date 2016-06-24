@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     View \ 
-    UtilsLib
+    UtilsLib \
+    UnitTests

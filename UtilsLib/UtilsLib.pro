@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 #QT       -= gui
+QT += gui
 
 TARGET = UtilsLib
 TEMPLATE = lib
