@@ -1,0 +1,12 @@
+version: 1.0.{build}
+platform:
+  - x64
+
+build_script:
+  - cmd: mkdir build
+  - cmd: cd build
+  - cmd: C:\Qt\5.5\msvc2013_64\qmake.exe -r ../PixelBooster.pro
+  - cmd: nmake
+  - cmd: cd UnitTests
+  - cmd: ./tst_colorlerp.exe
+
