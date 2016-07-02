@@ -1,12 +1,23 @@
 version: 1.0.{build}
-platform:
-  - x64
-
 build_script:
-  - cmd: mkdir build
-  - cmd: cd build
-  - cmd: C:\Qt\5.5\msvc2013_64\qmake.exe -r ../PixelBooster.pro
-  - cmd: nmake
-  - cmd: cd UnitTests
-  - cmd: ./tst_colorlerp.exe
+- cmd: >-
+    mkdir build
 
+    cd build
+
+    "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" amd64
+
+    C:\Qt\5.5\msvc2013_64\bin\qmake.exe -r ../PixelBooster.pro
+
+    nmake
+test_script:
+- cmd: >-
+    cd UnitTests\release
+
+### GAMBIARRA ALERT!! ###
+# Yeah, we're still figuring out how to avoid copying the image to Qt's DLL directory
+    copy tst_clamptest.exe C:\Qt\5.5\msvc2013_64\bin\tst_clamptest.exe
+
+    cd C:\Qt\5.5\msvc2013_64\bin\
+
+    tst_clamptest.exe
