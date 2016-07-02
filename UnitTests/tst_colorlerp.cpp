@@ -8,10 +8,11 @@ class ColorLerpTest : public QObject
     Q_OBJECT
 
 public:
-
+    ColorLerpTest()
+        : blackColor(0, 0, 0, 255), whiteColor(255, 255, 255, 255) {}
 private:
-    QColor blackColor = QColor::fromRgba(qRgba(0, 0, 0, 255));
-    QColor whiteColor = QColor::fromRgba(qRgba(255, 255, 255, 255));
+    QColor blackColor;
+    QColor whiteColor;
 
 private Q_SLOTS:
     void test_lerp_to_same_color_should_return_same_color();
