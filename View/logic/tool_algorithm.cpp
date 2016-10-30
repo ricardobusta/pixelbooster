@@ -23,6 +23,7 @@
 #include "widgets/image_edit_widget.h"
 
 #include <QPainter>
+#include <cstdlib>
 
 void ToolAlgorithm::FloodFill(QImage *image, const QPoint &seed, const QColor &color) {
   QRgb new_color = color.rgba();
