@@ -28,7 +28,7 @@
 #include "screens/resize_image_dialog.h"
 #include "screens/set_tile_size_dialog.h"
 #include "utils/debug.h"
-#include "utils/pb_math.h"
+#include "pb_math.h"
 #include "widgets/color_dialog.h"
 #include "widgets/color_palette_widget.h"
 #include "widgets/image_canvas_container.h"

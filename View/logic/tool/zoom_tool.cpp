@@ -20,7 +20,7 @@
 #include "zoom_tool.h"
 
 #include "utils/debug.h"
-#include "utils/pb_math.h"
+#include "pb_math.h"
 
 #include <QScrollArea>
 

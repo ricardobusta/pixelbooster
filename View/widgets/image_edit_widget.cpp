@@ -35,7 +35,7 @@
 #include "logic/tool/zoom_tool.h"
 #include "screens/main_window.h"
 #include "utils/debug.h"
-#include "utils/pb_math.h"
+#include "pb_math.h"
 
 ImageEditWidget::ImageEditWidget(QWidget *parent)
     : QWidget(parent),
