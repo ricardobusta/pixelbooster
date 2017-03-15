@@ -58,7 +58,8 @@ SOURCES += \
     logic/tool/selection_tool.cpp \
     logic/tool/zoom_tool.cpp \
     screens/resize_image_dialog.cpp \
-    screens/help_dialog.cpp
+    screens/help_dialog.cpp \
+    mainwindow.cpp
 
 HEADERS  += \
     widgets/image_edit_widget.h \
@@ -87,7 +88,8 @@ HEADERS  += \
     logic/tool/selection_tool.h \
     logic/tool/zoom_tool.h \
     screens/resize_image_dialog.h \
-    screens/help_dialog.h
+    screens/help_dialog.h \
+    mainwindow.h
 
 FORMS    += \
     screens/new_image_file_dialog.ui \
@@ -97,7 +99,8 @@ FORMS    += \
     screens/main_window.ui \
     widgets/color_dialog.ui \
     screens/resize_image_dialog.ui \
-    screens/help_dialog.ui
+    screens/help_dialog.ui \
+    mainwindow.ui
 
 RESOURCES += \
     resources/icons/icons.qrc \
