@@ -17,23 +17,25 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#ifndef ABOUTDIALOG_H
+#define ABOUTDIALOG_H
 
-#include <QApplication>
+#include <QDialog>
 
-class MainWindow;
+namespace Ui {
+class AboutDialog;
+}
 
-#define pbApp qobject_cast<Application*>(qApp)
+class AboutDialog : public QDialog {
+  Q_OBJECT
 
-class Application : public QApplication
-{
 public:
-  Application(int argc, char **argv);
+  explicit AboutDialog(QWidget *parent = 0);
+  ~AboutDialog();
 
-  MainWindow *mainWindow();
 private:
-  MainWindow *mainWindow_;
+  Ui::AboutDialog *ui;
+
 };
 
-#endif // APPLICATION_H
+#endif // ABOUTDIALOG_H

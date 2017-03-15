@@ -17,23 +17,22 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#include "aboutdialog.h"
+#include "ui_aboutdialog.h"
 
-#include <QApplication>
+#include "resources/constants.h"
 
-class MainWindow;
+AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent),
+                                            ui(new Ui::AboutDialog) {
+  ui->setupUi(this);
 
-#define pbApp qobject_cast<Application*>(qApp)
+  ui->version_label->setText(kVersionString);
+  ui->website_label->setTextFormat(Qt::RichText);
+  ui->website_label->setTextInteractionFlags(Qt::TextBrowserInteraction);
+  ui->website_label->setOpenExternalLinks(true);
+  ui->website_label->setText("<a href=\"http://pixel.busta.com.br\">pixel.busta.com.br</a>");
+}
 
-class Application : public QApplication
-{
-public:
-  Application(int argc, char **argv);
-
-  MainWindow *mainWindow();
-private:
-  MainWindow *mainWindow_;
-};
-
-#endif // APPLICATION_H
+AboutDialog::~AboutDialog() {
+  delete ui;
+}

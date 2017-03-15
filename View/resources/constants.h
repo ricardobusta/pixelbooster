@@ -17,23 +17,11 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
-#include <QApplication>
+#include <QString>
 
-class MainWindow;
+const QString kVersionString = "2.0";
 
-#define pbApp qobject_cast<Application*>(qApp)
-
-class Application : public QApplication
-{
-public:
-  Application(int argc, char **argv);
-
-  MainWindow *mainWindow();
-private:
-  MainWindow *mainWindow_;
-};
-
-#endif // APPLICATION_H
+#endif // CONSTANTS_H
