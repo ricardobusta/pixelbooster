@@ -21,6 +21,8 @@
 
 #include "mainwindow.h"
 
+#include "logic/imageproject.h"
+
 Application::Application(int argc, char **argv)
   :QApplication(argc,argv)
 {
@@ -31,4 +33,16 @@ Application::Application(int argc, char **argv)
 MainWindow *Application::mainWindow()
 {
   return mainWindow_;
+}
+
+void Application::CreateImage(const QString &name, int w, int h, const QColor &bg)
+{
+  QImage image = QImage(w,h,QImage::Format_ARGB32);
+  image.fill(bg);
+
+  ImageProject pro = ImageProject();
+  pro.image = image;
+  pro.name = name;
+
+  mainWindow()->AddProjectTab(pro);
 }

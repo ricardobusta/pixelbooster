@@ -24,7 +24,7 @@
 
 class MainWindow;
 
-#define pbApp qobject_cast<Application*>(qApp)
+#define pbApp dynamic_cast<Application*>(qApp)
 
 class Application : public QApplication
 {
@@ -32,6 +32,8 @@ public:
   Application(int argc, char **argv);
 
   MainWindow *mainWindow();
+
+  void CreateImage(const QString &name, int w, int h, const QColor &bg);
 private:
   MainWindow *mainWindow_;
 };

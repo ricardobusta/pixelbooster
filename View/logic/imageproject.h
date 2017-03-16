@@ -9,6 +9,7 @@ public:
   ImageProject();
 
   QImage image;
+  QString name;
 };
 
 #endif // IMAGEPROJECT_H

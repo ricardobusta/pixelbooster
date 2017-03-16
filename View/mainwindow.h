@@ -26,6 +26,8 @@ namespace Ui {
 class MainWindow;
 }
 
+class ImageProject;
+
 class MainWindow : public QMainWindow
 {
   Q_OBJECT
@@ -34,6 +36,7 @@ public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
+  void AddProjectTab(const ImageProject &p);
 private:
   Ui::MainWindow *ui;
 
@@ -41,6 +44,7 @@ private:
 private slots:
 
   void ShowAboutDialog();
+  void ShowNewImageDialog();
 };
 
 #endif // MAINWINDOW_H

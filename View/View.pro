@@ -38,7 +38,9 @@ SOURCES += main.cpp\
     widgets/aboutdialog.cpp \
     widgets/editcanvaswidget.cpp \
     widgets/imagewidget.cpp \
-    logic/imageproject.cpp
+    logic/imageproject.cpp \
+    widgets/newimagedialog.cpp \
+    widgets/imagewidgetcontainer.cpp
 
 HEADERS  += mainwindow.h \
     application.h \
@@ -46,10 +48,14 @@ HEADERS  += mainwindow.h \
     resources/constants.h \
     widgets/editcanvaswidget.h \
     widgets/imagewidget.h \
-    logic/imageproject.h
+    logic/imageproject.h \
+    widgets/newimagedialog.h \
+    widgets/imagewidgetcontainer.h
 
 FORMS    += mainwindow.ui \
-    widgets/aboutdialog.ui
+    widgets/aboutdialog.ui \
+    widgets/newimagedialog.ui \
+    widgets/imagewidgetcontainer.ui
 
 # To update .ts files with the most recent translations run lupdate
 # To generate the .qm files that will be needed by the application run lrelease

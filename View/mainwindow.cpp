@@ -21,6 +21,8 @@
 #include "ui_mainwindow.h"
 
 #include "widgets/aboutdialog.h"
+#include "widgets/newimagedialog.h"
+#include "widgets/imagewidgetcontainer.h"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -39,13 +41,30 @@ MainWindow::~MainWindow()
 void MainWindow::ConnectActions()
 {
   QObject::connect(ui->actionABOUT,SIGNAL(triggered(bool)),this,SLOT(ShowAboutDialog()));
+  QObject::connect(ui->actionNEW_FILE,SIGNAL(triggered(bool)),this,SLOT(ShowNewImageDialog()));
 }
 
 void MainWindow::ShowAboutDialog()
 {
-  AboutDialog *d = new AboutDialog;
+  AboutDialog *d = new AboutDialog(this);
 
   d->exec();
 
   delete d;
+}
+
+void MainWindow::ShowNewImageDialog()
+{
+  NewImageDialog *d = new NewImageDialog(this);
+
+  if(d->exec() == QDialog::Accepted){
+    d->CreateImage();
+  }
+
+  delete d;
+}
+
+void MainWindow::AddProjectTab(const ImageProject &p)
+{
+  ui->image_tabWidget->addTab(new ImageWidgetContainer(),"New");
 }
