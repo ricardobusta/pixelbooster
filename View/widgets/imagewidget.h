@@ -11,10 +11,10 @@ class ImageWidget : public QWidget
 public:
   explicit ImageWidget(QWidget *parent = 0);
 
+    ImageProject project;
 private:
   void paintEvent(QPaintEvent *event);
 
-  ImageProject image;
 signals:
 
 public slots:

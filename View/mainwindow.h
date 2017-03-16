@@ -41,10 +41,21 @@ private:
   Ui::MainWindow *ui;
 
   void ConnectActions();
-private slots:
 
+  void LoadSettings();
+  void SaveSettings();
+
+  bool HandleCloseWindow();
+
+  void closeEvent(QCloseEvent *event);
+  void resizeEvent(QResizeEvent *event);
+
+  QRect window_geometry_;
+  QRect window_geometry_aux_;
+private slots:
   void ShowAboutDialog();
   void ShowNewImageDialog();
+  void PostLoadInit();
 };
 
 #endif // MAINWINDOW_H

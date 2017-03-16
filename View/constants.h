@@ -21,7 +21,17 @@
 #define CONSTANTS_H
 
 #include <QString>
+#include <QRect>
 
 const QString kVersionString = "2.0";
+
+const QString kConfigFileName = "config.ini";
+const QString kConfigGroupWindow = "window";
+const QString kConfigWindowGeometry = "geometry";
+const QRect kConfigWindowGeometryDefault = QRect(50, 50, 800, 600);
+const QString kConfigGroupState = "state";
+const QString kConfigWindowMaximized = "maximized";
+const bool kConfigWindowMaximizedDefault = false;
+const QString kConfigWindowState = "window state";
 
 #endif // CONSTANTS_H

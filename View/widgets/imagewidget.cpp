@@ -11,6 +11,6 @@ void ImageWidget::paintEvent(QPaintEvent *event)
 {
   QPainter painter(this);
 
-  painter.drawImage(rect(),image.image);
+  painter.drawImage(rect(),project.image);
 }
 

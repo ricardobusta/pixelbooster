@@ -45,7 +45,7 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     application.h \
     widgets/aboutdialog.h \
-    resources/constants.h \
+    constants.h \
     widgets/editcanvaswidget.h \
     widgets/imagewidget.h \
     logic/imageproject.h \

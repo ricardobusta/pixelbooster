@@ -53,7 +53,7 @@
      </spacer>
     </item>
     <item row="1" column="1">
-     <widget class="ImageWidget" name="widget" native="true"/>
+     <widget class="ImageWidget" name="image_widget" native="true"/>
     </item>
     <item row="1" column="2">
      <spacer name="horizontalSpacer_2">
