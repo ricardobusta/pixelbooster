@@ -17,35 +17,26 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef IMAGEWIDGET_H
-#define IMAGEWIDGET_H
+#ifndef NEWIMAGEDIALOG_H
+#define NEWIMAGEDIALOG_H
 
-#include <QWidget>
+#include <QDialog>
 
-#include "logic/imageproject.h"
+namespace Ui {
+class NewImageDialog;
+}
 
-class ImageWidget : public QWidget
+class NewImageDialog : public QDialog
 {
   Q_OBJECT
+
 public:
-  explicit ImageWidget(QWidget *parent = 0);
+  explicit NewImageDialog(QWidget *parent = 0);
+  ~NewImageDialog();
 
-  ImageProject project;
+  void CreateImage();
 private:
-  void paintEvent(QPaintEvent *event);
-
-  void mousePressEvent(QMouseEvent *e);
-  void mouseReleaseEvent(QMouseEvent *e);
-  void mouseMoveEvent(QMouseEvent *e);
-
-  QRect selection_;
-  bool mouseDown_;
-  QPoint anchor_;
-  QPoint currentCursorPos_;
-  QRect outerSelection_[4];
-signals:
-
-public slots:
+  Ui::NewImageDialog *ui;
 };
 
-#endif // IMAGEWIDGET_H
+#endif // NEWIMAGEDIALOG_H

@@ -17,35 +17,26 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef IMAGEWIDGET_H
-#define IMAGEWIDGET_H
+#ifndef PROJECTMANAGER_H
+#define PROJECTMANAGER_H
 
-#include <QWidget>
+#include <QObject>
 
-#include "logic/imageproject.h"
+class MainWindow;
 
-class ImageWidget : public QWidget
+class ProjectManager : public QObject
 {
   Q_OBJECT
 public:
-  explicit ImageWidget(QWidget *parent = 0);
+  explicit ProjectManager(QObject *parent = 0);
 
-  ImageProject project;
-private:
-  void paintEvent(QPaintEvent *event);
+  MainWindow *windowRef;
 
-  void mousePressEvent(QMouseEvent *e);
-  void mouseReleaseEvent(QMouseEvent *e);
-  void mouseMoveEvent(QMouseEvent *e);
-
-  QRect selection_;
-  bool mouseDown_;
-  QPoint anchor_;
-  QPoint currentCursorPos_;
-  QRect outerSelection_[4];
+  void CreateImage(const QString &name, int w, int h, const QColor &bg);
 signals:
 
 public slots:
+  void OpenFile();
 };
 
-#endif // IMAGEWIDGET_H
+#endif // PROJECTMANAGER_H

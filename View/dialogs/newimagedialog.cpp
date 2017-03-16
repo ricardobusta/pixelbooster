@@ -17,35 +17,28 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
 \***************************************************************************/
 
-#ifndef IMAGEWIDGET_H
-#define IMAGEWIDGET_H
+#include "newimagedialog.h"
+#include "ui_newimagedialog.h"
 
-#include <QWidget>
+#include "application.h"
+#include "logic/projectmanager.h"
 
-#include "logic/imageproject.h"
-
-class ImageWidget : public QWidget
+NewImageDialog::NewImageDialog(QWidget *parent) :
+  QDialog(parent),
+  ui(new Ui::NewImageDialog)
 {
-  Q_OBJECT
-public:
-  explicit ImageWidget(QWidget *parent = 0);
+  ui->setupUi(this);
+}
 
-  ImageProject project;
-private:
-  void paintEvent(QPaintEvent *event);
+NewImageDialog::~NewImageDialog()
+{
+  delete ui;
+}
 
-  void mousePressEvent(QMouseEvent *e);
-  void mouseReleaseEvent(QMouseEvent *e);
-  void mouseMoveEvent(QMouseEvent *e);
-
-  QRect selection_;
-  bool mouseDown_;
-  QPoint anchor_;
-  QPoint currentCursorPos_;
-  QRect outerSelection_[4];
-signals:
-
-public slots:
-};
-
-#endif // IMAGEWIDGET_H
+void NewImageDialog::CreateImage()
+{
+  QString name = ui->name->text();
+  int w = ui->width->value();
+  int h = ui->height->value();
+  pbApp->projectManager()->CreateImage(name,w,h,0xffffffff);
+}

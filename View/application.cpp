@@ -21,28 +21,23 @@
 
 #include "mainwindow.h"
 
-#include "logic/imageproject.h"
+#include "logic/projectmanager.h"
 
 Application::Application(int argc, char **argv)
   :QApplication(argc,argv)
 {
+  projectManager_ = new ProjectManager(this);
   mainWindow_ = new MainWindow();
+  projectManager_->windowRef = mainWindow_;
   mainWindow_->show();
 }
 
-MainWindow *Application::mainWindow()
+MainWindow *Application::mainWindow() const
 {
   return mainWindow_;
 }
 
-void Application::CreateImage(const QString &name, int w, int h, const QColor &bg)
+ProjectManager *Application::projectManager() const
 {
-  QImage image = QImage(w,h,QImage::Format_ARGB32);
-  image.fill(bg);
-
-  ImageProject pro = ImageProject();
-  pro.image = image;
-  pro.name = name;
-
-  mainWindow()->AddProjectTab(pro);
+ return projectManager_;
 }

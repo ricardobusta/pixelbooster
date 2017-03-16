@@ -23,6 +23,7 @@
 #include <QApplication>
 
 class MainWindow;
+class ProjectManager;
 
 #define pbApp dynamic_cast<Application*>(qApp)
 
@@ -31,11 +32,12 @@ class Application : public QApplication
 public:
   Application(int argc, char **argv);
 
-  MainWindow *mainWindow();
+  MainWindow *mainWindow() const;
+  ProjectManager *projectManager() const;
 
-  void CreateImage(const QString &name, int w, int h, const QColor &bg);
 private:
   MainWindow *mainWindow_;
+  ProjectManager *projectManager_;
 };
 
 #endif // APPLICATION_H

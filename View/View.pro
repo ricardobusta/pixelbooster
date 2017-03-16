@@ -1,6 +1,6 @@
 #***************************************************************************#
 #  Pixel::Booster, a simple pixel art image editor.                         #
-#  Copyright (C) 2017  Ricardo Bustamante de Queiroz (ricardo@busta.com.br) #
+#  Copyright (C) 2015-2017  Ricardo Bustamante (ricardo@busta.com.br)       #
 #  Visit the Official Homepage: pixel.busta.com.br                          #
 #                                                                           #
 #  This program is free software: you can redistribute it and/or modify     #
@@ -35,26 +35,28 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     application.cpp \
-    widgets/aboutdialog.cpp \
+    dialogs/aboutdialog.cpp \
     widgets/editcanvaswidget.cpp \
     widgets/imagewidget.cpp \
     logic/imageproject.cpp \
-    widgets/newimagedialog.cpp \
-    widgets/imagewidgetcontainer.cpp
+    dialogs/newimagedialog.cpp \
+    widgets/imagewidgetcontainer.cpp \
+    logic/projectmanager.cpp
 
 HEADERS  += mainwindow.h \
     application.h \
-    widgets/aboutdialog.h \
+    dialogs/aboutdialog.h \
     constants.h \
     widgets/editcanvaswidget.h \
     widgets/imagewidget.h \
     logic/imageproject.h \
-    widgets/newimagedialog.h \
-    widgets/imagewidgetcontainer.h
+    dialogs/newimagedialog.h \
+    widgets/imagewidgetcontainer.h \
+    logic/projectmanager.h
 
 FORMS    += mainwindow.ui \
-    widgets/aboutdialog.ui \
-    widgets/newimagedialog.ui \
+    dialogs/aboutdialog.ui \
+    dialogs/newimagedialog.ui \
     widgets/imagewidgetcontainer.ui
 
 # To update .ts files with the most recent translations run lupdate

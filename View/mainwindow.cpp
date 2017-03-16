@@ -25,10 +25,12 @@
 #include <QSettings>
 
 #include "constants.h"
-#include "widgets/aboutdialog.h"
-#include "widgets/newimagedialog.h"
+#include "dialogs/aboutdialog.h"
+#include "dialogs/newimagedialog.h"
 #include "widgets/imagewidgetcontainer.h"
 #include "logic/imageproject.h"
+#include "application.h"
+#include "logic/projectmanager.h"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -50,8 +52,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::ConnectActions()
 {
+  ProjectManager * pm = pbApp->projectManager();
   QObject::connect(ui->actionABOUT,SIGNAL(triggered(bool)),this,SLOT(ShowAboutDialog()));
   QObject::connect(ui->actionNEW_FILE,SIGNAL(triggered(bool)),this,SLOT(ShowNewImageDialog()));
+  QObject::connect(ui->actionOPEN_FILE,SIGNAL(triggered(bool)),pm,SLOT(OpenFile()));
 }
 
 #define SETTINGS_VALUE(var) (settings.value(var, var##Default))
