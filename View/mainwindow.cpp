@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
-  LoadSettings();
+  //LoadSettings();
 
   ConnectActions();
 

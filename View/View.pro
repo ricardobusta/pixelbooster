@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     logic/imageproject.cpp \
     dialogs/newimagedialog.cpp \
     widgets/imagewidgetcontainer.cpp \
-    logic/projectmanager.cpp
+    logic/projectmanager.cpp \
+    widgets/colorpickwidget.cpp
 
 HEADERS  += mainwindow.h \
     application.h \
@@ -52,12 +53,14 @@ HEADERS  += mainwindow.h \
     logic/imageproject.h \
     dialogs/newimagedialog.h \
     widgets/imagewidgetcontainer.h \
-    logic/projectmanager.h
+    logic/projectmanager.h \
+    widgets/colorpickwidget.h
 
 FORMS    += mainwindow.ui \
     dialogs/aboutdialog.ui \
     dialogs/newimagedialog.ui \
-    widgets/imagewidgetcontainer.ui
+    widgets/imagewidgetcontainer.ui \
+    widgets/colorpickwidget.ui
 
 # To update .ts files with the most recent translations run lupdate
 # To generate the .qm files that will be needed by the application run lrelease
